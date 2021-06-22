@@ -29,6 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="C:\Users\DUY DAI\source\repos\webtruyentranh\WebTruyenTranhDataAccess\WebTruyenTranhDataAccess.csproj" />
+    <ProjectReference Include="..\WebTruyenTranhDataAccess\WebTruyenTranhDataAccess.csproj" />
   </ItemGroup>
 </Project>
