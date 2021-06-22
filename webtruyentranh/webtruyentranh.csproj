@@ -18,7 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Authentication\" />
+    <Folder Include="Views\Dashboard\" />
+    <Folder Include="Views\Episode\" />
     <Folder Include="Views\Novel\" />
+    <Folder Include="Views\Profile\" />
   </ItemGroup>
 
 </Project>
