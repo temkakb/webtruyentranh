@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebTruyenTranhDataAccess.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebTruyenTranhDataAccess.Context
 {
-    public class ComicContext : DbContext
+    public class ComicContext : IdentityDbContext<Account, IdentityRole<long>, long>
     {
         public ComicContext(DbContextOptions<ComicContext> options) : base(options)
         {
@@ -140,11 +142,15 @@ namespace WebTruyenTranhDataAccess.Context
         }
 
         public DbSet<Profile> Profiles { get; set; }
-        public DbSet<Account> Accounts { get; set; }
+
+        //public DbSet<Account> Accounts { get; set; }
         public DbSet<Genre> Genres { get; set; }
+
         public DbSet<Novel> Novels { get; set; }
-        public DbSet<Role> Roles { get; set; }
+
+        // public DbSet<Role> Roles { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
+
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<ChildComment> ChildComments { get; set; }
