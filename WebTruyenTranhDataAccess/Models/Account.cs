@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,25 +8,29 @@ using System.Threading.Tasks;
 
 namespace WebTruyenTranhDataAccess.Models
 {
-    public class Account
+    public class Account : IdentityUser<long>
     {
-        public long Id { get; set; }
+        public override long Id { get; set; }
+
+        public string Password { get; set; }
 
         [Required(ErrorMessage = "Please enter your username")]
         [MaxLength(24, ErrorMessage = "Username is up to 24 charaters")]
         [MinLength(8, ErrorMessage = "Username is as least 8 charaters")]
-        public string UserName { get; set; }
+        public override string UserName { get => base.UserName; set => base.UserName = value; }
+
+        public override string Email { get => base.Email; set => base.Email = value; }
+        public override bool EmailConfirmed { get => base.EmailConfirmed; set => base.EmailConfirmed = value; }
 
         [Required(ErrorMessage = "Please enter your password")]
         [MaxLength(24, ErrorMessage = "Password is up to 24 charaters")]
         [MinLength(8, ErrorMessage = "Password is as least 8 charaters")]
-        public string Password { get; set; }
+        public override string PasswordHash { get => base.PasswordHash; set => base.PasswordHash = value; }
 
-        public int AccessFailedCount { get; set; }
+        public override string PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
+        public override bool PhoneNumberConfirmed { get => base.PhoneNumberConfirmed; set => base.PhoneNumberConfirmed = value; }
 
-        public bool TwoFactorEnabled { get; set; }
-
-        public Role Role { get; set; }
+        // public Role Role { get; set; }
 
         public List<Subscription> Subscriptions { get; set; }
 
@@ -44,15 +49,5 @@ namespace WebTruyenTranhDataAccess.Models
         public List<Message> MessagesReceived { get; set; }
 
         public List<ChildMessage> ChildMessages { get; set; }
-
-        public Account(long id, string userName, string password,
-                        int accessFailedCount = 0, bool twoFactorEnabled = false)
-        {
-            Id = id;
-            UserName = userName;
-            Password = password;
-            AccessFailedCount = accessFailedCount;
-            TwoFactorEnabled = twoFactorEnabled;
-        }
     }
 }
