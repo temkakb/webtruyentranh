@@ -3,14 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebTruyenTranhDataAccess.Context;
 
-namespace webtruyentranh.Controllers
-{
     public class AuthenticationController : Controller
     {
-        public IActionResult Index()
+        private ComicContext db;
+
+
+        [HttpGet]
+        public IActionResult Login()
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult Register()
+        {
+
+            return View();
+            
+            
+        }
     }
-}
+
