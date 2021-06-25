@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebTruyenTranhDataAccess.Context;
+using WebTruyenTranhDataAccess.Models;
 
 namespace webtruyentranh
 {
@@ -24,6 +28,14 @@ namespace webtruyentranh
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<ComicContext>(opt =>
+            opt.UseSqlServer(Configuration.GetConnectionString("Default"))
+           .EnableSensitiveDataLogging()
+           .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+
+            services.AddIdentity<Account, IdentityRole<long>>(options =>
+                        options.SignIn.RequireConfirmedAccount = true)
+            .AddEntityFrameworkStores<ComicContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
