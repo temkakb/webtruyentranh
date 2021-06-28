@@ -1,0 +1,40 @@
+﻿@model Register_viewmodel;
+ 
+@{
+}
+
+<form class="signup" method="post" asp-controller="Authentication" asp-action="Register">
+    @if (!(bool)ViewData["Islogin"])
+    {
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    }
+    <div class="field">
+
+        <input type="text" placeholder="User name" asp-for="R_UserName">
+
+    </div>
+    <span class="text-danger" asp-validation-for="R_UserName"></span>
+
+    <div class="field">
+
+        <input type="text" placeholder="Email Address" asp-for="R_Email">
+    </div>
+    <span class="text-danger" asp-validation-for="R_Email"></span>
+
+    <div class="field">
+
+        <input type="password" placeholder="Password" asp-for="R_Password">
+    </div>
+    <span class="text-danger" asp-validation-for="R_Password"></span>
+
+    <div class="field">
+
+        <input type="password" placeholder="Confirm password" asp-for="R_Password2">
+    </div>
+    <span class="text-danger" asp-validation-for="R_Password2"></span>
+
+    <div class="field btn">
+        <div class="btn-layer"></div>
+        <input type="submit" value="Signup">
+    </div>
+</form>

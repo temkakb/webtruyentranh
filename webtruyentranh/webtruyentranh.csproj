@@ -29,7 +29,6 @@
     <Folder Include="Views\Dashboard\" />
     <Folder Include="Views\Episode\" />
     <Folder Include="Views\Novel\" />
-    <Folder Include="Views\Profile\" />
   </ItemGroup>
 
   <ItemGroup>
