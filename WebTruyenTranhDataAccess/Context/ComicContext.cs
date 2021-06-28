@@ -13,6 +13,7 @@ namespace WebTruyenTranhDataAccess.Context
 {
     public class ComicContext : IdentityDbContext<Account, IdentityRole<long>, long>
     {
+
         public ComicContext(DbContextOptions<ComicContext> options) : base(options)
         {
         }
