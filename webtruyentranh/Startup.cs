@@ -37,8 +37,8 @@ namespace webtruyentranh
 
             services.AddIdentity<Account, IdentityRole<long>>(options =>
                         options.SignIn.RequireConfirmedAccount = true
-                       
-                        )
+
+                        ).AddTokenProvider<DataProtectorTokenProvider<Account>>(TokenOptions.DefaultProvider)
 
             .AddEntityFrameworkStores<ComicContext>();
             services.ConfigureApplicationCookie(config => config.LoginPath = "/Authentication/index");
