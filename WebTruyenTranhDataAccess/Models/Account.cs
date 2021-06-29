@@ -12,7 +12,7 @@ namespace WebTruyenTranhDataAccess.Models
     {
         public override long Id { get; set; }
 
-        public string Password { get; set; }
+ 
 
         [Required(ErrorMessage = "Please enter your username")]
         [MaxLength(24, ErrorMessage = "Username is up to 24 charaters")]
