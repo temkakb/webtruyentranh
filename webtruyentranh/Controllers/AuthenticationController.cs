@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using WebTruyenTranhDataAccess.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using webtruyentranh.Utility;
 
 public class AuthenticationController : Controller
     {
@@ -47,38 +48,76 @@ public class AuthenticationController : Controller
         }
         [HttpPost]
         public async Task< IActionResult> Register(Register_viewmodel register){
+        try
+        {
+            var account_db = await userManager.FindByEmailAsync(register.R_Email);
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError("", "Email was registered");
+            ViewData["Islogin"] = false;
+            return View("Index");
+        }
+      
 
         if (ModelState.IsValid)
             {
-            var account = new Account() { UserName=register.R_UserName, Email=register.R_Email,EmailConfirmed=true };
+            var account = new Account() { UserName=register.R_UserName, Email=register.R_Email };
             var result = await userManager.CreateAsync(account, register.R_Password);
           
             if (result.Succeeded)
                 {
-                signInManager.SignInAsync(account, isPersistent: false);
-                return RedirectToAction("index", "Home");
+                var token = await userManager.GenerateEmailConfirmationTokenAsync(account);
+                var confirmlink = Url.Action("Confirm_email", "authentication", new { token, email = register.R_Email },Request.Scheme);
+                bool Issendedemail = Email_Utility.send_emailconfirm(register.R_Email, confirmlink);
+                if (Issendedemail)
+                    return View("email_sent");
+                else
+                    ModelState.AddModelError("", "Cannot send email, pls register again");
+                await userManager.DeleteAsync(account);
+               
                 }
+           
             foreach (var errror in result.Errors)
                 {
                 ModelState.AddModelError("", errror.Description);
                 }
+            
 
             }
      
         ViewData["Islogin"] = false;
         return View("Index");  
         }
+    public async Task<IActionResult> Confirm_email(String token,String email)
+    {
+        var account = await userManager.FindByEmailAsync(email);
 
-    
+        if (account==null)
+        {
+            ViewData["tittle"] = "Error";
+            ViewData["message"] = "An error occurred while processing your request. Please try again later.";
+            return View();
+            
+        }
+        var result = await userManager.ConfirmEmailAsync(account, token);
+        if (result.Succeeded)
+        {
+            ViewData["Title"] = "Succeeded (￣ω￣)";
+            ViewData["message"] = "email has been verified. Login now! ";
+        }
+        return View();
+    }
+    public String html_email()
+    {
+        return PartialView("_htmlmailparticalview").ToString();
+    }
+
     public async Task<IActionResult> Logout(){
        await signInManager.SignOutAsync();
         return RedirectToAction("index", "Home");
 
     }
-
-
-
-
 
     }
 
