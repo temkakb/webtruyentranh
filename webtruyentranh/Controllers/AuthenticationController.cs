@@ -26,12 +26,16 @@ public class AuthenticationController : Controller
   
     public IActionResult Index()
     {
+        if (signInManager.IsSignedIn(User))
+        {
+            return RedirectToAction("index", "Home");
+        }
         ViewData["Islogin"] = true;
         return View();
     }
         [HttpPost]
         public async Task< IActionResult> Login( Login_viewmodel login){
-    
+       
         if (ModelState.IsValid)
             {
             var result = await signInManager.PasswordSignInAsync(userName: login.UserName, password: login.Password, isPersistent:false,false) ;
@@ -50,6 +54,7 @@ public class AuthenticationController : Controller
         public async Task< IActionResult> Register(Register_viewmodel register){
         try
         {
+           
             var account_db = await userManager.FindByEmailAsync(register.R_Email);
         }
         catch (Exception ex)
