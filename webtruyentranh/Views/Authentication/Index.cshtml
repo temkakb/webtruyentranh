@@ -34,9 +34,9 @@
                 <div class="title login >
                     Login
                 </div>
-            }
-            else
-            {
+                }
+                else
+                {
                 <div class="title login" style="@customstyle">
                     Login
                 </div>
@@ -47,15 +47,15 @@
         </div>
         <div class="form-container">
             <div class="slide-controls">
-                
-                <input type="radio" name="slide" id="login" @if ( (bool)ViewData["Islogin"]) { @check} {} >
-                <input type="radio" name="slide" id="signup"  @if (! (bool)ViewData["Islogin"]) { @check} {}>
+
+                <input type="radio" name="slide" id="login" @if ((bool)ViewData["Islogin"]) { @check } {}>
+                <input type="radio" name="slide" id="signup" @if (!(bool)ViewData["Islogin"]) { @check } {}>
                 <label for="login" class="slide login">Login</label>
                 <label for="signup" class="slide signup">Sign up</label>
                 <div class="slider-tab"></div>
             </div>
             <div class="form-inner">
-              
+
                 @Html.Partial("_Loginparticalview")
                 @Html.Partial("_Registerparticalview")
 
@@ -85,5 +85,8 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous">
     </script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 </body>
 </html>

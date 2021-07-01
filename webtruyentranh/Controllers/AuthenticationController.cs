@@ -16,11 +16,11 @@ public class AuthenticationController : Controller
     private ComicContext db;
     private readonly UserManager<Account> userManager;
     private readonly SignInManager<Account> signInManager;  
-    public AuthenticationController(UserManager<Account>  userManager,SignInManager<Account> signInManager)
+    public AuthenticationController(UserManager<Account>  userManager,SignInManager<Account> signInManager, ComicContext db)
     {
         this.userManager = userManager;
         this.signInManager = signInManager;
-
+        this.db = db;
     }
     [HttpGet]
   
@@ -52,18 +52,16 @@ public class AuthenticationController : Controller
         }
         [HttpPost]
         public async Task< IActionResult> Register(Register_viewmodel register){
-        try
+
+      
+            var user = await userManager.FindByEmailAsync(register.R_Email);
+        if (user != null)
         {
-           
-            var account_db = await userManager.FindByEmailAsync(register.R_Email);
-        }
-        catch (Exception ex)
-        {
-            ModelState.AddModelError("", "Email was registered");
+            ModelState.AddModelError("", $"Email {register.R_Email} is already in use");
             ViewData["Islogin"] = false;
             return View("Index");
         }
-      
+
 
         if (ModelState.IsValid)
             {
@@ -108,6 +106,17 @@ public class AuthenticationController : Controller
         var result = await userManager.ConfirmEmailAsync(account, token);
         if (result.Succeeded)
         {
+            db.Profiles.Add(new Profile
+            {
+                Account = account,
+                DateJoined = DateTime.Now,
+                DisplayName = account.UserName,
+                Description = "Tell your story !",
+                Avartar = null
+          
+            }) ;
+            db.SaveChanges();
+
             ViewData["Title"] = "Succeeded (￣ω￣)";
             ViewData["message"] = "email has been verified. Login now! ";
         }
@@ -117,6 +126,9 @@ public class AuthenticationController : Controller
     {
         return PartialView("_htmlmailparticalview").ToString();
     }
+
+
+   
 
     public async Task<IActionResult> Logout(){
        await signInManager.SignOutAsync();

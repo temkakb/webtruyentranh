@@ -10,6 +10,7 @@ namespace WebTruyenTranhDataAccess.Models
 {
     public class Profile
     {
+      
         public long Id { get; set; }
 
         [Required(ErrorMessage = "Display name cannot be blank")]

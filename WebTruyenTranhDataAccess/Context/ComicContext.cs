@@ -20,6 +20,8 @@ namespace WebTruyenTranhDataAccess.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+         
+           
             base.OnModelCreating(modelBuilder);
 
             // Entity Subscription
@@ -140,7 +142,16 @@ namespace WebTruyenTranhDataAccess.Context
             //    (sub => sub.HasOne<Novel>().WithMany(),
             //     sub => sub.HasOne<Account>().WithMany())
             //    .Property(sub => sub.ExpirationDate);
-        }
+            // apply role data
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                   Name="ADMIN",
+                   
+                   
+                }
+                ) ;      
+                }
 
         public DbSet<Profile> Profiles { get; set; }
 
@@ -159,5 +170,6 @@ namespace WebTruyenTranhDataAccess.Context
         public DbSet<Message> Messages { get; set; }
         public DbSet<ChildMessage> ChildMessages { get; set; }
         public DbSet<Episode> Episodes { get; set; }
+     
     }
 }
