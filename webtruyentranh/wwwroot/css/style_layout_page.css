@@ -7897,8 +7897,8 @@ h1, h2, h3, h4, h5,
     right: 0;
     bottom: 0;
     content: '';
-    -webkit-box-shadow: 20px 20px 0 0 #fce7f1;
-    box-shadow: 20px 20px 0 0 #fce7f1; }
+    -webkit-box-shadow: 2px 2px 0 0 #fce7f1;
+    box-shadow: 5px 5px 0 0 #fce7f1; }
   .block-3 .image.image-2:after {
     position: absolute;
     top: 0;
