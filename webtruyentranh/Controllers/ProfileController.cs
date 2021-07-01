@@ -14,7 +14,12 @@ namespace webtruyentranh.Controllers
         [Authorize]
         public IActionResult Getme()
         {
-            return View();
+            return View("Getprofile");
         }
+        public IActionResult Getprofile(long Id)
+        {
+            return null;
+        }
+       
     }
 }
