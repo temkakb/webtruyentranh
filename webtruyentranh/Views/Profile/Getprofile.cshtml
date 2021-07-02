@@ -2,27 +2,33 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+
     Layout = "_Layoutpage";
+  
+
 }
+
+
 <main role="main" class="pb-3" style="margin-top: 150px; width: 90vw; height:1200px;">
 
     <section class="ftco-section">
         <div class="row" style="width:100%">
             <div class="col-3 block-3  ftco-animate" style="height:300px; width:30%;" data-scrollax-parent="true">
                 <div class="row" style="width:100%;">
-                   
+
                     <div class="block">
-                        <a href="portfolio.html" class="image" style="background-image: url('images/work-1.jpg'); width: 100%;height: 120%; ">
+                        <a href="portfolio.html" class="image" style="background-image: url(@ViewBag.profile.Avartar); width: 100%;height: 120%; ">
                         </a>
-                        <h1 class="subheading" style="word-wrap: break-word; margin:30px 0px 0px 0px; font-size:36px; padding :0; width: 100%">Minh tân aaaaaaaaaaa</h1>
-                        <p class="subheading" style="word-wrap: break-word; margin: 15px 0px 0px 0px; padding: 0; width: 100%; font-style: italic; ">tu tiên không khẩu nghịp nghịp là tao quýnh chết </p>
+                        <h1 class="subheading" style="word-wrap: break-word; margin:30px 0px 0px 0px; font-size:36px; padding :0; width: 100%">@ViewBag.profile.DisplayName</h1>
+                        <p class="subheading" style="word-wrap: break-word; margin: 15px 0px 0px 0px; padding: 0; width: 100%; font-style: italic; ">date join: @ViewBag.profile.DateJoined</p>
+                        <p class="subheading" style="word-wrap: break-word; margin: 15px 0px 0px 0px; padding: 0; width: 100%; font-style: italic; ">@ViewBag.profile.Description</p>
 
                         <a type="button" class="button is-primary is-outlined is-fullwidth" style="margin-top:15px;">Edit profile</a>
-                      
+
                     </div>
 
                 </div>
-               
+
             </div>
             <div class="col-6 block-3  ftco-animate" style="height:1000px; width:60%; " data-scrollax-parent="true">
                 <div class="row" style="width:100%">
@@ -47,7 +53,7 @@
                                     <p>
                                         <strong>Minh Tân</strong>
                                         <br>
-                                      Phương ăn cứt
+                                        Phương ăn cứt
                                         <br>
                                         <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
                                     </p>
@@ -64,17 +70,17 @@
                                             <p>
                                                 <strong>Phương ăn cứt thật</strong>
                                                 <br>
-                                               tao không ăn cứt
+                                                tao không ăn cứt
                                                 <br>
                                                 <small><a>Like</a> · <a>Reply</a> · 2 hrs</small>
                                             </p>
                                         </div>
 
-                                       
+
                                     </div>
                                 </article>
 
-                               
+
                             </div>
                         </article>
                     </div>
@@ -82,20 +88,29 @@
             </div>
             <div class="col-3 block-3  ftco-animate" style="height: 500px; width: 30%;" data-scrollax-parent="true">
 
-                
-                    <h2 class="subtitle  is-2" style="text-align:center;">Mine novels</h2>
-                   
 
+                <h2 class="subtitle  is-2" style="text-align:center;">Mine novels</h2>
+                @if (!ViewBag.isany)
+                {
+                    <h6 class="subtitle  is-2" style="text-align:center; color:gray;">No novel </h6>
+                }
+                else
+                {
+
+                    foreach (var novel in ViewBag.novels)
+                    {
                         <div class="box row" style=" height:70px;">
-                            Tắt đèn
+                            novel.Title
                         </div>
-                        <div class="box row" style=" height:70px;">
-                            Làm đĩ
-                        
-                    </div>
-               
-                
+                    }
+
+
+                }
+
+
+
+
             </div>
         </div>
     </section>
-</main
+</main>
