@@ -30,6 +30,7 @@ namespace webtruyentranh
             services.AddControllersWithViews();
             services.AddDbContext<ComicContext>(opt =>
             opt.UseSqlServer(Configuration.GetConnectionString("Default"))
+            .LogTo(Console.WriteLine)
            .EnableSensitiveDataLogging()
            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
