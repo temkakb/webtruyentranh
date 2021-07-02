@@ -29,6 +29,7 @@ namespace WebTruyenTranhDataAccess.Models
         public int LikeCount { get; set; }
 
         public DateTime LastestUpdate { get; set; }
+        public String Slugify { get; set; }
 
         public Account Account { get; set; }
 
@@ -37,6 +38,7 @@ namespace WebTruyenTranhDataAccess.Models
         public List<Subscription> Subscriptions { get; set; }
 
         public List<Like> Likes { get; set; }
+    
 
         public List<Episode> Episodes { get; set; }
 

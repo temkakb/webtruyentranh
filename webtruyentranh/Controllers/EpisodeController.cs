@@ -8,9 +8,11 @@ namespace webtruyentranh.Controllers
 {
     public class EpisodeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult getlistepisode()
         {
+            
             return View();
         }
+
     }
 }

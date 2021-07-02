@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -35,8 +37,17 @@ namespace webtruyentranh
            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
             services.AddIdentity<Account, IdentityRole<long>>(options =>
-                        options.SignIn.RequireConfirmedAccount = true)
+                        options.SignIn.RequireConfirmedAccount = true
+
+                        ).AddTokenProvider<DataProtectorTokenProvider<Account>>(TokenOptions.DefaultProvider)
+
             .AddEntityFrameworkStores<ComicContext>();
+            services.ConfigureApplicationCookie(config => config.LoginPath = "/Authentication/index");
+
+          
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,14 +68,23 @@ namespace webtruyentranh
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "authentication",
+                    pattern: "{controller=Authentication}/{action=index}"
+                    );
+                endpoints.MapControllerRoute(
+                  name: "profile",
+                  pattern: "{controller=Profile}/{action=Getme}"
+                  );
             });
+        
         }
     }
 }

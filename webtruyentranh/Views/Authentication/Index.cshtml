@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+    var customstyle = "";
+    var check="checked";
+
+    if (!ViewBag.Islogin)
+    {
+        customstyle = "margin-left: -50%;";
+    }
+
+
+}
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Login and Registration Form in HTML | CodingNepal</title>
+    <link rel="stylesheet" href="~/css/login_register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="title-text">
+            @if ((bool)ViewData["Islogin"])
+            {
+                <div class="title login >
+                    Login
+                </div>
+                }
+                else
+                {
+                <div class="title login" style="@customstyle">
+                    Login
+                </div>
+            }
+            <div class="title signup">
+                Sign up
+            </div>
+        </div>
+        <div class="form-container">
+            <div class="slide-controls">
+
+                <input type="radio" name="slide" id="login" @if ((bool)ViewData["Islogin"]) { @check } {}>
+                <input type="radio" name="slide" id="signup" @if (!(bool)ViewData["Islogin"]) { @check } {}>
+                <label for="login" class="slide login">Login</label>
+                <label for="signup" class="slide signup">Sign up</label>
+                <div class="slider-tab"></div>
+            </div>
+            <div class="form-inner">
+
+                @Html.Partial("_Loginparticalview")
+                @Html.Partial("_Registerparticalview")
+
+            </div>
+        </div>
+    </div>
+    <script>
+        const loginText = document.querySelector(".title-text .login");
+        const loginForm = document.querySelector("form.login");
+        const loginBtn = document.querySelector("label.login");
+        const signupBtn = document.querySelector("label.signup");
+        const signupLink = document.querySelector("form .signup-link a");
+        signupBtn.onclick = (() => {
+            loginForm.style.marginLeft = "-50%";
+            loginText.style.marginLeft = "-50%";
+        });
+        loginBtn.onclick = (() => {
+            loginForm.style.marginLeft = "0%";
+            loginText.style.marginLeft = "0%";
+        });
+        signupLink.onclick = (() => {
+            signupBtn.click();
+            return false;
+        });
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous">
+    </script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+</body>
+</html>
