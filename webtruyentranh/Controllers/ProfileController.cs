@@ -29,20 +29,19 @@ namespace webtruyentranh.Controllers
         [Authorize]
         public async Task<IActionResult> Getme()
         {
-            IEnumerable<Novel> novels;
+           
             Account account = await userManager.GetUserAsync(User);
             Debug.WriteLine(account.Email);
             var profile = db.Profiles.Where(p => p.Account.Id == account.Id).SingleOrDefault();
-            try
-            {
-               novels = db.Novels.Where(n => n.Account.Id == account.Id);
-            }catch (Exception ex)
-            {
-                 novels= null;
-
-            }
-            ViewData["profile"] = profile;
-            ViewData["novels"] = novels;
+           
+           var novels = db.Novels.Where(n => n.Account.Id == account.Id).ToList();
+             
+       
+           
+            ViewBag.profile = profile;
+            ViewBag.novels= novels;
+            ViewBag.isany = novels.Any();
+           
 
          
 
@@ -55,6 +54,15 @@ namespace webtruyentranh.Controllers
         {
             return null;
         }
-       
+
+        public IActionResult Sendmessage ()
+        {
+            return null;
+        }
+        public IActionResult Reply()
+        {
+            return null;
+        }
+
     }
 }

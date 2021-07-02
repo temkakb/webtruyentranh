@@ -47,7 +47,7 @@ public class AuthenticationController : Controller
             ModelState.AddModelError("", "invalid login infomation");
             }
         ViewData["Islogin"] = true;
-        return View("Index");
+        return RedirectToAction("Getme", "Profile");
             
         }
         [HttpPost]
@@ -112,13 +112,13 @@ public class AuthenticationController : Controller
                 DateJoined = DateTime.Now,
                 DisplayName = account.UserName,
                 Description = "Tell your story !",
-                Avartar = null
-          
+                Avartar = "images/avartar.jpg"
+
             }) ;
             db.SaveChanges();
 
             ViewData["Title"] = "Succeeded (￣ω￣)";
-            ViewData["message"] = "email has been verified. Login now! ";
+            ViewData["message"] = "email has been verified. Login now!";
         }
         return View();
     }
