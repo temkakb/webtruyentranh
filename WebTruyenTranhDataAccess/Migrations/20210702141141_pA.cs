@@ -2,22 +2,9 @@
 
 namespace WebTruyenTranhDataAccess.Migrations
 {
-    public partial class testautokey : Migration
+    public partial class pA : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DeleteData(
-                table: "IdentityRole",
-                keyColumn: "Id",
-                keyValue: "ae973978-cc30-41ec-aa05-624efc60785f");
-
-            migrationBuilder.InsertData(
-                table: "IdentityRole",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b3c95e22-44d7-40d2-9b8a-1cda3bea5e05", "163952c7-c65d-434d-8fbc-27dc06db11a2", "ADMIN", null });
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DeleteData(
                 table: "IdentityRole",
@@ -27,7 +14,20 @@ namespace WebTruyenTranhDataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "IdentityRole",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "ae973978-cc30-41ec-aa05-624efc60785f", "4ba0158e-c9ed-47ce-b250-02c152ef4486", "ADMIN", null });
+                values: new object[] { "1fa044d0-4b16-45b7-a497-e485e5075290", "ecfea90b-8987-42db-942e-ed6f2b2a95b8", "ADMIN", null });
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DeleteData(
+                table: "IdentityRole",
+                keyColumn: "Id",
+                keyValue: "1fa044d0-4b16-45b7-a497-e485e5075290");
+
+            migrationBuilder.InsertData(
+                table: "IdentityRole",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "b3c95e22-44d7-40d2-9b8a-1cda3bea5e05", "163952c7-c65d-434d-8fbc-27dc06db11a2", "ADMIN", null });
         }
     }
 }

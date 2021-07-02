@@ -55,8 +55,8 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b3c95e22-44d7-40d2-9b8a-1cda3bea5e05",
-                            ConcurrencyStamp = "163952c7-c65d-434d-8fbc-27dc06db11a2",
+                            Id = "1fa044d0-4b16-45b7-a497-e485e5075290",
+                            ConcurrencyStamp = "ecfea90b-8987-42db-942e-ed6f2b2a95b8",
                             Name = "ADMIN"
                         });
                 });
