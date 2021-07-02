@@ -112,7 +112,7 @@ public class AuthenticationController : Controller
                 DateJoined = DateTime.Now,
                 DisplayName = account.UserName,
                 Description = "Tell your story !",
-                Avartar = "images/avartar.jpg"
+                Avartar = "/images/avartar.jpg"
 
             }) ;
             db.SaveChanges();
