@@ -51,6 +51,7 @@ public class AuthenticationController : Controller
             
         }
         [HttpPost]
+        
         public async Task< IActionResult> Register(Register_viewmodel register){
 
       

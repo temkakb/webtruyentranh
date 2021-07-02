@@ -27,6 +27,7 @@ namespace WebTruyenTranhDataAccess.Models
 
         public override string PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
         public override bool PhoneNumberConfirmed { get => base.PhoneNumberConfirmed; set => base.PhoneNumberConfirmed = value; }
+        public Profile Profile { get; set; }
 
         // public Role Role { get; set; }
 

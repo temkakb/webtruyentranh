@@ -30,7 +30,7 @@ namespace WebTruyenTranhDataAccess.Models
 
         public DateTime DateJoined { get; set; }
 
-        public Account Account { get; set; }
+   
 
         public Profile()
         {

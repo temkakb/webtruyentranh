@@ -32,37 +32,60 @@ namespace webtruyentranh.Controllers
            
             Account account = await userManager.GetUserAsync(User);
             Debug.WriteLine(account.Email);
-            var profile = db.Profiles.Where(p => p.Account.Id == account.Id).SingleOrDefault();
-           
-           var novels = db.Novels.Where(n => n.Account.Id == account.Id).ToList();
-             
-       
-           
+            var profile = db.Profiles.Include(p => p.Account).Where(p => p.Account.Id == account.Id).SingleOrDefault();
+            var novels = db.Novels.Where(n => n.Account.Id == account.Id).ToList();
             ViewBag.profile = profile;
             ViewBag.novels= novels;
             ViewBag.isany = novels.Any();
-           
+            ViewBag.isMe = true;
 
-         
-
-           
             return View("Getprofile");
         }
         [HttpGet]
         [Authorize]
         public IActionResult Getprofile(long Id)
         {
-            return null;
+           
+            var profile = db.Profiles.Include(p=>p.Account).Where(p=> p.Id==Id ).SingleOrDefault();
+            var novels = db.Novels.Where(n => n.Account.Id == profile.Account.Id).ToList();
+            ViewBag.profile = profile;
+            ViewBag.novels = novels;
+            ViewBag.isany = novels.Any();
+            ViewBag.isMe = false;
+            return View("Getprofile");
         }
-
-        public IActionResult Sendmessage ()
+        [HttpGet]
+        public IActionResult Message ()
         {
-            return null;
+            return PartialView("_Messageparticalview");
+        }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Message(String Content , long Id)
+        {
+            var SenderAccount = await userManager.GetUserAsync(User);
+            var ReciveAccount = userManager.Users.FirstOrDefault(a => a.Id == Id);
+            Debug.WriteLine(Content);
+            Debug.WriteLine(SenderAccount.UserName);
+            Debug.WriteLine(ReciveAccount.UserName);
+            db.Messages.Attach(new Message()
+            {
+
+                Sender = SenderAccount,
+                Receiver = ReciveAccount,
+                Content = Content,
+                CreateDate=DateTime.Now
+
+            });
+            db.SaveChanges();
+            return RedirectToAction("Getme","Profile");
         }
         public IActionResult Reply()
         {
             return null;
         }
+
+       
 
     }
 }
