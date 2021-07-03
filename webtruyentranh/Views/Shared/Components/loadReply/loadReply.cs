@@ -14,7 +14,7 @@ namespace webtruyentranh.Views.Shared.Components.loadReply
     {
         public IViewComponentResult Invoke (Profile profile,long Id)
           {
-            return View("_replyformpaticalview",profile);
+            return View("_ReplyFormViewComponent", profile);
 
     }
 }

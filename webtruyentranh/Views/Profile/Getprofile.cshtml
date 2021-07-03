@@ -39,7 +39,7 @@
             <div class="col-6 block-3  ftco-animate" style="height:1000px; width:60%; " data-scrollax-parent="true">
                 <div class="row" style="width:100%">
 
-                    <form style=" width: 100%;" method="post" asp-action="Message" asp-controller="Profile">
+                    <form style=" width: 100%;" method="post" asp-action="Message" asp-controller="Profile"  asp-route-ReturnUrl="@Context.Request.Path">
                         <div class="control " style=" width: 100%;">
                             <input hidden value="@ViewBag.profile.Account.Id" name="Id" />
                             @*neu model valid *@
@@ -53,7 +53,7 @@
                                 </div>
                             }
 
-                            <textarea class="textarea is-medium " placeholder="Send your message" style="min-height:100px;" asp-for="Content"></textarea>
+                            <textarea class="textarea is-medium " placeholder="Send your message" style="min-height:100px;" asp-for="Content" required></textarea>
                             <button class="button is-primary is-inverted is-medium" style="margin: 5px; float:right;">Send</button>
 
                         </div>
@@ -62,8 +62,8 @@
                     <!--comment block-->
                     <div class="block" style="width: 100%; overflow: auto;">
 
-                        @await Component.InvokeAsync("Firstloadmessage", new { Id = @ViewBag.profile.Account.Id })
 
+                        @await Component.InvokeAsync("Firstloadmessage", new { Id = @ViewBag.profile.Account.Id })
 
 
                     </div>
