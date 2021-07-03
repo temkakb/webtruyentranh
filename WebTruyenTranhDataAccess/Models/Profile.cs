@@ -29,6 +29,9 @@ namespace WebTruyenTranhDataAccess.Models
 
         public DateTime DateJoined { get; set; }
 
+        public Account Account { get; set; }
+        public long AccountId { get; set; }
+
         public Profile()
         {
         }
