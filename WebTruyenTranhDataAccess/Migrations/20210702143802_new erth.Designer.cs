@@ -10,8 +10,8 @@ using WebTruyenTranhDataAccess.Context;
 namespace WebTruyenTranhDataAccess.Migrations
 {
     [DbContext(typeof(ComicContext))]
-    [Migration("20210702141141_pA")]
-    partial class pA
+    [Migration("20210702143802_new erth")]
+    partial class newerth
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,8 +57,8 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1fa044d0-4b16-45b7-a497-e485e5075290",
-                            ConcurrencyStamp = "ecfea90b-8987-42db-942e-ed6f2b2a95b8",
+                            Id = "470bd14c-3651-4693-9bfd-44442555a6a4",
+                            ConcurrencyStamp = "720ad763-cd4b-4cf4-aa69-6738defc451a",
                             Name = "ADMIN"
                         });
                 });
@@ -237,6 +237,9 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<long?>("ProfileId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -257,6 +260,8 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("ProfileId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -513,9 +518,6 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("AccountId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Avartar")
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)");
@@ -537,8 +539,6 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .HasColumnType("nvarchar(512)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
 
                     b.ToTable("Profiles");
                 });
@@ -632,6 +632,15 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("WebTruyenTranhDataAccess.Models.Account", b =>
+                {
+                    b.HasOne("WebTruyenTranhDataAccess.Models.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId");
+
+                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("WebTruyenTranhDataAccess.Models.ChildComment", b =>
@@ -761,15 +770,6 @@ namespace WebTruyenTranhDataAccess.Migrations
                 {
                     b.HasOne("WebTruyenTranhDataAccess.Models.Account", "Account")
                         .WithMany("Novels")
-                        .HasForeignKey("AccountId");
-
-                    b.Navigation("Account");
-                });
-
-            modelBuilder.Entity("WebTruyenTranhDataAccess.Models.Profile", b =>
-                {
-                    b.HasOne("WebTruyenTranhDataAccess.Models.Account", "Account")
-                        .WithMany()
                         .HasForeignKey("AccountId");
 
                     b.Navigation("Account");

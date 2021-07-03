@@ -10,7 +10,6 @@ namespace WebTruyenTranhDataAccess.Models
 {
     public class Profile
     {
-      
         public long Id { get; set; }
 
         [Required(ErrorMessage = "Display name cannot be blank")]
@@ -29,8 +28,6 @@ namespace WebTruyenTranhDataAccess.Models
         public string ExternalLink { get; set; }
 
         public DateTime DateJoined { get; set; }
-
-        public Account Account { get; set; }
 
         public Profile()
         {

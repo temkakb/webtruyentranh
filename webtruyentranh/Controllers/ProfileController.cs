@@ -13,49 +13,56 @@ using Microsoft.EntityFrameworkCore;
 
 namespace webtruyentranh.Controllers
 {
-
     public class ProfileController : Controller
     {
         private ComicContext db;
         private readonly UserManager<Account> userManager;
         private readonly SignInManager<Account> signInManager;
+
         public ProfileController(UserManager<Account> userManager, SignInManager<Account> signInManager, ComicContext db)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.db = db;
         }
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Getme()
         {
-           
-            Account account = await userManager.GetUserAsync(User);
-            Debug.WriteLine(account.Email);
-            var profile = db.Profiles.Include(p => p.Account).Where(p => p.Account.Id == account.Id).SingleOrDefault();
+            var account = db.Accounts.Include(A=>A.Profile).FirstOrDefault(a => a.UserName == User.Identity.Name);
+
+            
             var novels = db.Novels.Where(n => n.Account.Id == account.Id).ToList();
-            ViewBag.profile = profile;
+            ViewBag.profile = account.Profile;
             ViewBag.novels= novels;
             ViewBag.isany = novels.Any();
+            ViewBag.accountId = account.Id;
             ViewBag.isMe = true;
+
 
             return View("Getprofile");
         }
+
         [HttpGet]
         [Authorize]
         public IActionResult Getprofile(long Id)
         {
-           
-            var profile = db.Profiles.Include(p=>p.Account).Where(p=> p.Id==Id ).SingleOrDefault();
-            var novels = db.Novels.Where(n => n.Account.Id == profile.Account.Id).ToList();
+
+            var profile = db.Profiles.Find(Id);
+            var account = db.Accounts.FirstOrDefault(a => a.Profile.Id == Id);
+            var novels = db.Novels.Where(n => n.Account.Id == account.Id).ToList();
             ViewBag.profile = profile;
             ViewBag.novels = novels;
             ViewBag.isany = novels.Any();
             ViewBag.isMe = false;
+            ViewBag.accountId = account.Id;
             return View("Getprofile");
         }
+
         [HttpGet]
         public IActionResult Message ()
+
         {
             return PartialView("_Messageparticalview");
         }
@@ -80,12 +87,11 @@ namespace webtruyentranh.Controllers
             db.SaveChanges();
             return RedirectToAction("Getme","Profile");
         }
+
         public IActionResult Reply()
         {
             return null;
         }
-
-       
 
     }
 }
