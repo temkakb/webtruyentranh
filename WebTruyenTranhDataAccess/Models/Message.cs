@@ -10,6 +10,8 @@ namespace WebTruyenTranhDataAccess.Models
 {
     public class Message
     {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
         [MaxLength(1000, ErrorMessage = "Please use up to 1000 characters.")]
