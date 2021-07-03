@@ -15,7 +15,7 @@ namespace webtruyentranh.Controllers
 {
     public class ProfileController : Controller
     {
-        private ComicContext db;
+        private ComicContext _db;
         private readonly UserManager<Account> userManager;
         private readonly SignInManager<Account> signInManager;
 
@@ -23,21 +23,24 @@ namespace webtruyentranh.Controllers
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.db = db;
+            this._db = db;
         }
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Getme()
         {
-            var account = db.Accounts.Include(A=>A.Profile).FirstOrDefault(a => a.UserName == User.Identity.Name);
+            var account = await userManager.GetUserAsync(User);
+            Debug.WriteLine(account.Id);
+            var profile = _db.Profiles.Include(p=>p.Account).Where(p => p.AccountId == account.Id).FirstOrDefault();
+            Debug.WriteLine(profile.DisplayName);
+            Debug.WriteLine(profile.Avartar);
 
-            
-            var novels = db.Novels.Where(n => n.Account.Id == account.Id).ToList();
-            ViewBag.profile = account.Profile;
-            ViewBag.novels= novels;
+
+            var novels = _db.Novels.Where(n => n.Account.Id == account.Id).ToList();
+            ViewBag.profile = profile;
+            ViewBag.novels = novels;
             ViewBag.isany = novels.Any();
-            ViewBag.accountId = account.Id;
             ViewBag.isMe = true;
 
 
@@ -49,43 +52,42 @@ namespace webtruyentranh.Controllers
         public IActionResult Getprofile(long Id)
         {
 
-            var profile = db.Profiles.Find(Id);
-            var account = db.Accounts.FirstOrDefault(a => a.Profile.Id == Id);
-            var novels = db.Novels.Where(n => n.Account.Id == account.Id).ToList();
+            var profile = _db.Profiles.Include(p => p.Account).FirstOrDefault(p => p.Id == Id);
+            var novels = _db.Novels.Where(n => n.Account.Id == profile.Account.Id).ToList();
             ViewBag.profile = profile;
             ViewBag.novels = novels;
             ViewBag.isany = novels.Any();
             ViewBag.isMe = false;
-            ViewBag.accountId = account.Id;
+
             return View("Getprofile");
         }
 
         [HttpGet]
-        public IActionResult Message ()
+        public IActionResult Message()
 
         {
             return PartialView("_Messageparticalview");
         }
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Message(String Content , long Id)
+        public async Task<IActionResult> Message(String Content, long Id)
         {
             var SenderAccount = await userManager.GetUserAsync(User);
             var ReciveAccount = userManager.Users.FirstOrDefault(a => a.Id == Id);
             Debug.WriteLine(Content);
             Debug.WriteLine(SenderAccount.UserName);
             Debug.WriteLine(ReciveAccount.UserName);
-            db.Messages.Attach(new Message()
+            _db.Messages.Attach(new Message()
             {
 
                 Sender = SenderAccount,
                 Receiver = ReciveAccount,
                 Content = Content,
-                CreateDate=DateTime.Now
+                CreateDate = DateTime.Now
 
             });
-            db.SaveChanges();
-            return RedirectToAction("Getme","Profile");
+            _db.SaveChanges();
+            return RedirectToAction("Getme", "Profile");
         }
 
         public IActionResult Reply()

@@ -43,15 +43,16 @@ public class AuthenticationController : Controller
             var result = await signInManager.PasswordSignInAsync(userName: login.UserName, password: login.Password, isPersistent: false, false);
             if (result.Succeeded)
             {
-                return RedirectToAction("index", "Home");
+                return RedirectToAction("Getme", "Profile");
+        
             }
             ModelState.AddModelError("", "invalid login infomation");
         }
         ViewData["Islogin"] = true;
-        return RedirectToAction("Getme", "Profile");
+        return View("Index");
 
-            
-        }
+
+    }
     [HttpPost]
 
   
@@ -101,31 +102,36 @@ public class AuthenticationController : Controller
 
             if (account == null)
             {
-                ViewData["tittle"] = "Error";
+                ViewData["Title"] = "Error";
                 ViewData["message"] = "An error occurred while processing your request. Please try again later.";
                 return View();
             }
             var result = await userManager.ConfirmEmailAsync(account, token);
             if (result.Succeeded)
             {
-                db.Profiles.Add(new Profile
-                {
-                    //  Account = account,
-                    DateJoined = DateTime.Now,
-                    DisplayName = account.UserName,
-                    Description = "Tell your story !",
+            db.Profiles.Add(new Profile
+            {
+                //  Account = account,
+                DateJoined = DateTime.Now,
+                DisplayName = account.UserName,
+                Description = "Tell your story !",
+                Account = account,
+                   Avartar = "/images/avartar.jpg"
 
-                    Avartar = "/images/avartar.jpg"
-
-                });
+            }); ;
 
                 db.SaveChanges();
 
                 ViewData["Title"] = "Succeeded (￣ω￣)";
                 ViewData["message"] = "email has been verified. Login now!";
-            }
             return View();
         }
+        ViewData["Title"] = "Error";
+        ViewData["message"] = "Link was expired";
+        return View();
+
+
+    }
 
         public String html_email()
         {

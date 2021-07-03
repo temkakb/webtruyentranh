@@ -41,7 +41,7 @@
 
                     <form style=" width: 100%;" method="post" asp-action="Message" asp-controller="Profile">
                         <div class="control " style=" width: 100%;">
-                            <input hidden value="@ViewBag.accountId" name="ReciveAccounn" />
+                            <input hidden value="@ViewBag.profile.Account.Id" name="Id" />
                             @*neu model valid *@
 
                             @if (!ViewData.ModelState.IsValid)
