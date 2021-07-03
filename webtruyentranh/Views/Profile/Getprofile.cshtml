@@ -62,7 +62,8 @@
                     <!--comment block-->
                     <div class="block" style="width: 100%; overflow: auto;">
 
-                        @*@await Component.InvokeAsync("Firstloadprofile")*@
+                        @await Component.InvokeAsync("Firstloadmessage", new { Id = @ViewBag.profile.Account.Id })
+
 
 
                     </div>

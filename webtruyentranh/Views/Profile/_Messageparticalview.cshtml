@@ -1,62 +1,90 @@
-﻿<article class="media">
-    <figure class="media-left">
-        <p class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/128x128.png">
-        </p>
-    </figure>
-    <div class="media-content">
-        <div class="content">
-            <p>
-                <strong>Minh Tân</strong>
-                <br>
-                Phương ăn cứt
-                <br>
-                <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
+﻿@using WebTruyenTranhDataAccess.Models;
+@model IQueryable<Message>;
+@{
+  
+
+}
+<!--load data-->
+@foreach (var mss in Model)
+{
+    <article class="media" style="margin :10px;">
+        <figure class="media-left">
+            <p class="image is-48x48">
+                <img src="@mss.Sender.Profile.Avartar">
             </p>
+        </figure>
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <strong>@mss.Sender.Profile.DisplayName</strong>
+                    <br>
+                    @mss.Content
+                    <br>
+                    @* dat id cua tung mss vao day de truyen vao js*@
+                    <small>@mss.CreateDate <a id="@mss.Id" onclick="btnloadformreply(this.id)" style="color:blue">Reply</a></small>
+
+                </p>
+            </div>
+            @* check co child messs*@
+            @if (mss.ChildMessages.Any())
+            {
+                @*  show child mss*@ 
+                foreach (var child in mss.ChildMessages)
+                {
+
+                    <article class="media">
+                        <figure class="media-left">
+                            <p class="image is-48x48">
+                                <img src="@child.Account.Profile.Avartar">
+                            </p>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong>@child.Account.Profile.DisplayName</strong>
+                                    <br>
+                                    @child.Content
+                                    <br>
+                                 
+                                </p>
+                            </div>      
+                        </div>
+                    </article>
+                }
+            }
         </div>
+    </article>
 
-        <article class="media">
-            <figure class="media-left">
-                <p class="image is-48x48">
-                    <img src="https://bulma.io/images/placeholders/96x96.png">
-                </p>
-            </figure>
-            <div class="media-content">
-                <div class="content">
-                    <p>
-                        <strong>Phương ăn cứt thậaaaat</strong>
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed
-                        <br>
-                        <small><a>Like</a> · <a>Reply</a> · 2 hrs</small>
-                    </p>
-                </div>
-
-
-            </div>
-        </article>
-        <article class="media">
-            <figure class="media-left">
-                <p class="image is-48x48">
-                    <img src="https://bulma.io/images/placeholders/96x96.png">
-                </p>
-            </figure>
-            <div class="media-content">
-                <div class="content">
-                    <p>
-                        <strong>Phương ăn cứt thật</strong>
-                        <br>
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed
-                        <br>
-                        <small><a>Like</a> · <a>Reply</a> · 2 hrs</small>
-                    </p>
-                </div>
-
-
-            </div>
-        </article>
+    @* load form theo id*@
+    <form class="reply-form" method="post" asp-controller="profile" asp-action="postreply" asp-route-Id="@mss.Id" asp-route-ReturnUrl="@Context.Request.Path"  id="replyform-@mss.Id">
+       
+    </form>
 
 
 
-    </div>
-</article>
+}
+
+<script>
+    function btnloadformreply(id) {
+        @* rm cai form partical view *@
+        $('.replyform-particalview').remove();
+        var id = id;
+        $.get( '@Url.Action("reply","profile" )', function(data) {
+            $('#' +'replyform-' + id).html(data);
+});
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
