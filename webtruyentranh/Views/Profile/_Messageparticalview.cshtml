@@ -7,7 +7,7 @@
 <!--load data-->
 @foreach (var mss in Model)
 {
-    <article class="media" style="margin :10px;">
+    <article class="media" style="margin :15px;">
         <figure class="media-left">
             <p class="image is-48x48">
                 <img src="@mss.Sender.Profile.Avartar">
@@ -26,7 +26,7 @@
                     @mss.Content
                     <br>
                     @* dat id cua tung mss vao day de truyen vao js*@
-                    <small>@mss.CreateDate <a id="@mss.Id" onclick="btnloadformreply(this.id)" style="color:blue">Reply</a></small>
+                    <small>@mss.CreateDate  <a id="@mss.Id" onclick="btnloadformreply(this.id)" style="color:blue">Reply</a></small>
 
                 </p>
             </div>
@@ -37,7 +37,7 @@
                 foreach (var child in mss.ChildMessages)
                 {
 
-                    <article class="media">
+                    <article class="media" style="margin :10px;">
                         <figure class="media-left">
                             <p class="image is-48x48">
                                 <img src="@child.Account.Profile.Avartar">
@@ -47,7 +47,7 @@
                             <div class="content">
                                 <p>
                                     <strong>@child.Account.Profile.DisplayName</strong>
-                                    @if (mss.Sender.Profile.Id == @ViewBag.profileId)
+                                    @if (child.Account.Profile.Id == @ViewBag.profileId)
                                     {
                                         <span class="tag is-rounded" style="background-color: #f6b606 ">Author</span>
                                     }

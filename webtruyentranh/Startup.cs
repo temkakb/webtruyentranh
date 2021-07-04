@@ -51,7 +51,7 @@ namespace webtruyentranh
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -63,6 +63,7 @@ namespace webtruyentranh
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -70,6 +71,7 @@ namespace webtruyentranh
 
             app.UseAuthentication();
             app.UseAuthorization();
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -84,7 +86,49 @@ namespace webtruyentranh
                   pattern: "{controller=Profile}/{action=Getme}"
                   );
             });
-        
+            CreateUserRoles(serviceProvider).Wait();
+
+             async Task CreateUserRoles(IServiceProvider serviceProvider)
+            {
+                //initializing custom roles 
+                var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<long>>>();
+                var UserManager = serviceProvider.GetRequiredService<UserManager<Account>>();
+                string[] roleNames = { "Admin","Member" };
+                IdentityResult roleResult;
+
+                foreach (var roleName in roleNames)
+                {
+                    var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                    if (!roleExist)
+                    {
+                        //create the roles and seed them to the database: Question 1
+                        roleResult = await RoleManager.CreateAsync(new IdentityRole<long>(roleName));
+                    }
+                }
+
+                //Here you could create a super user who will maintain the web app
+                var poweruser = new Account
+                {
+
+                    UserName = "admin",
+                    Email = "admin@hemail.com",
+                };
+                //Ensure you have these values in your appsettings.json file
+                string userPWD = "admin";
+                var _user = await UserManager.FindByEmailAsync(poweruser.Email);
+
+                if (_user == null)
+                {
+                    var createPowerUser = await UserManager.CreateAsync(poweruser, userPWD);
+                    if (createPowerUser.Succeeded)
+                    {
+                        //here we tie the new user to the role
+                        await UserManager.AddToRoleAsync(poweruser, "Admin");
+
+                    }
+                }
+            }
         }
+      
     }
 }
