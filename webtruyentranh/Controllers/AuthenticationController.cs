@@ -112,7 +112,7 @@ public class AuthenticationController : Controller
             var result = await userManager.ConfirmEmailAsync(account, token);
             if (result.Succeeded)
             {
-            await userManager.AddToRoleAsync(account, "USER");
+            await userManager.AddToRoleAsync(account, "Member");
             db.Profiles.Add(new Profile
             {
                 //  Account = account,
