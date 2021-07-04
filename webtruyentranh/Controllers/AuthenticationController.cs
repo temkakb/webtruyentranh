@@ -16,12 +16,15 @@ public class AuthenticationController : Controller
     private ComicContext db;
     private readonly UserManager<Account> userManager;
     private readonly SignInManager<Account> signInManager;
+    private readonly RoleManager<IdentityRole<long>> roleManager;
 
-    public AuthenticationController(UserManager<Account> userManager, SignInManager<Account> signInManager, ComicContext db)
+    public AuthenticationController(UserManager<Account> userManager, SignInManager<Account> signInManager, RoleManager<IdentityRole<long>> roleManager, ComicContext db)
     {
         this.userManager = userManager;
         this.signInManager = signInManager;
+        this.roleManager = roleManager;
         this.db = db;
+        
     }
 
     [HttpGet]
@@ -109,6 +112,7 @@ public class AuthenticationController : Controller
             var result = await userManager.ConfirmEmailAsync(account, token);
             if (result.Succeeded)
             {
+            await userManager.AddToRoleAsync(account, "USER");
             db.Profiles.Add(new Profile
             {
                 //  Account = account,
@@ -119,6 +123,8 @@ public class AuthenticationController : Controller
                    Avartar = "/images/avartar.jpg"
 
             }); ;
+
+           
 
                 db.SaveChanges();
 

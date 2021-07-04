@@ -140,12 +140,20 @@ namespace WebTruyenTranhDataAccess.Context
             //     sub => sub.HasOne<Account>().WithMany())
             //    .Property(sub => sub.ExpirationDate);
             // apply role data
-            modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole
-                {
-                    Name = "ADMIN",
-                }
-                );
+            //modelBuilder.Entity<IdentityRole<long>>().HasData(
+            //    new IdentityRole<long>
+            //    {
+            //        Id=1,
+            //        Name = "ADMIN",
+            //        NormalizedName = "ADMIN"
+            //    },
+            //    new IdentityRole<long>
+            //    {
+            //       Id=2,
+            //        Name="USER",
+            //        NormalizedName="USER"
+            //    }
+            //    ) ;
         }
 
         public DbSet<Profile> Profiles { get; set; }
