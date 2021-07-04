@@ -1,0 +1,95 @@
+﻿@using webtruyentranh.Viewmodels;
+@model EditProfile_Viewmodel;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_Layoutpage";
+}
+<link href="~/css/backgroundeditprofile.css" rel="stylesheet" />
+
+<main role="main" class="pb-3" style="margin-top: 150px;  height:1200px; ">
+    <section class="ftco-section" style="height: 900px;">
+        <div class="columns is-mobile" style="background-color: white; border-radius:5px; height:900px;  ">
+            <div class="column is-5 " style="border-right: solid 5px rgba(226, 106, 106, 1); justify-content: center; ">
+                <figure class="image is-square	" >
+                    <img class="is-rounded" id="avatar-recent" style=" box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); " src="@ViewBag.recentavt">
+                </figure>
+                <div class="block " style="margin-top: 50px; justify-items: center;  ">
+                  
+                    <p class="subtitle is-3">@Model.DisplayName</p>
+                    <p class="subtitle is-5">@Model.Description</p>
+                    <p class="subtitle is-5">Date join: @Model.Datejoined</p>
+
+
+
+
+                </div>
+                </div>
+            <div class="column">
+                <form method="post" asp-action="editprofile" asp-controller="profile" asp-route-Id="@Model.Id" enctype="multipart/form-data">
+                    <div class="field">
+                        <label class="label">Name</label>
+                        <div class="control">
+                            <input class="input is-danger is-medium" type="text" asp-for="DisplayName" placeholder="@Model.DisplayName">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">External Link</label>
+                        <div class="control">
+                            <input class="input is-danger is-medium" asp-for="ExternalLink" type="text" placeholder="Enter your External Link such as: facebook,google..." value="@Model.ExternalLink">
+                        </div>
+                    </div>
+                    <div class="field ">
+                        <label class="label">Description</label>
+                        <div class="control">
+                            <textarea class="textarea is-danger" asp-for="Description" placeholder="@Model.Description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field ">
+                        <label class="label">@Model.Email</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="temkakb@gmail.com" disabled>
+                        </div>
+                    </div>
+                    <div class="file">
+                        <label class="file-label" style="width:100%; text-align:center;">
+                            <input class="file-input" asp-for="Avartar"  onchange="loadFile(event)" >
+                            <span class="file-cta" style="width: 100%; background-color: rgba(241, 130, 141,1) ;">
+                                <span class="file-icon">
+                                    <i class="fas fa-upload"></i>
+                                </span>
+                                <span class="file-label" style="width: 100%; justify-items: center; ">
+                                    Upload Avartar
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="field " style="margin: 50px;">
+
+                        <div class="control">
+                            <button class="button is-danger is-rounded" style="width:100%; height:40px; font-size:20px;">SAVE</button>
+
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+
+            </div>
+        </section>
+</main>
+
+<script>
+    var loadFile = function (event) {
+        var output = document.getElementById('avatar-recent');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src) 
+        }
+    };
+</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" integrity="sha256-qM7QTJSlvtPSxVRjVWNM2OfTAz/3k5ovHOKmKXuYMO4=" crossorigin="anonymous"></script>

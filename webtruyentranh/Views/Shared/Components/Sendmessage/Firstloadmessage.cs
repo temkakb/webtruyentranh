@@ -17,12 +17,14 @@ namespace webtruyentranh.Views.Shared.Components.Sendmessage
             this.db = db;
 
         }
-        public IViewComponentResult Invoke (long Id)
+        public IViewComponentResult Invoke (long Id, long profileId)
         {
             Debug.WriteLine(Id);
             var listms = db.Messages.Include(m => m.ChildMessages).ThenInclude(child=>child.Account.Profile).Include(m => m.Sender.Profile).Where(m => m.ReceiverAccountId == Id)
                 .OrderByDescending(d=>d.CreateDate).Skip(0).Take(10);
-            
+
+            ViewBag.profileId = profileId;
+            Debug.WriteLine(profileId);
             return View("_messageparticalview.cshtml", listms);
         }
     }
