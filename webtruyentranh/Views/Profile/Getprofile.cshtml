@@ -27,7 +27,7 @@
                         {
                         }
                         else
-                        {<a type="button" class="button is-primary is-outlined is-fullwidth" style="margin-top:15px;">Edit profile</a>
+                        {<a href='@Url.Action("EditProfile")' type="button" class="button is-primary is-outlined is-fullwidth" style="margin-top:15px;">Edit profile</a>
                         }
 
 
@@ -63,7 +63,7 @@
                     <div class="block" style="width: 100%; overflow: auto;">
 
 
-                        @await Component.InvokeAsync("Firstloadmessage", new { Id = @ViewBag.profile.Account.Id })
+                        @await Component.InvokeAsync("Firstloadmessage", new { Id = @ViewBag.profile.Account.Id ,profileId= @ViewBag.profile.Id })
 
 
                     </div>

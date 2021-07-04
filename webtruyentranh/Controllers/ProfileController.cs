@@ -2,16 +2,18 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WebTruyenTranhDataAccess.Context;
 using WebTruyenTranhDataAccess.Models;
 using Microsoft.EntityFrameworkCore;
+using webtruyentranh.Viewmodels;
+using webtruyentranh.Utility;
+using Microsoft.AspNetCore.Http;
 
 namespace webtruyentranh.Controllers
+
 {
     public class ProfileController : Controller
     {
@@ -33,7 +35,7 @@ namespace webtruyentranh.Controllers
         {
             var account = await userManager.GetUserAsync(User);
             Debug.WriteLine(account.Id);
-            var profile = _db.Profiles.Include(p=>p.Account).Where(p => p.AccountId == account.Id).FirstOrDefault();
+            var profile = _db.Profiles.Include(p => p.Account).Where(p => p.AccountId == account.Id).FirstOrDefault();
             Debug.WriteLine(profile.DisplayName);
             Debug.WriteLine(profile.Avartar);
             var novels = _db.Novels.Where(n => n.Account.Id == account.Id).ToList();
@@ -65,14 +67,84 @@ namespace webtruyentranh.Controllers
             {
                 return PartialView("~/Views/Shared/_notfound.cshtml");
             }
-    
-           
+
+
         }
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> EditProfile()
+        {
+            try
+            {
+
+                var profile = _db.Profiles.Include(p => p.Account).FirstOrDefault(p => p.Account.UserName == User.Identity.Name);
+                var EditProfileView = new EditProfile_Viewmodel()
+                {
+                    Id = profile.Id,
+                    DisplayName = profile.DisplayName,
+                    Description = profile.Description,
+                    ExternalLink = profile.ExternalLink,
+                    Email = profile.Account.Email,
+                    Datejoined = profile.DateJoined
+
+
+                };
+                ViewBag.recentavt = profile.Avartar;
+                profile = null;
+
+                return View(EditProfileView);
+            }
+            catch (Exception ex)
+            {
+                return PartialView("~/Views/Shared/_notfound.cshtml");
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(EditProfile_Viewmodel editprofile, long Id)
+        {
+            Debug.WriteLine(editprofile.DisplayName);
+            try
+            {
+                var profile = _db.Profiles.SingleOrDefault(p => p.Id == Id);
+                if (ModelState.IsValid)
+                {
+                    
+                    profile.DisplayName = editprofile.DisplayName;
+                    profile.Description = editprofile.Description;
+                    profile.ExternalLink = editprofile.ExternalLink;
+                    if (editprofile.Avartar != null)
+                    {
+                        profile.Avartar = await Cloudinary_Utility.uploadavartar(editprofile.Avartar);
+                    }
+                    _db.Update(profile);
+                    _db.SaveChanges();
+                    ViewBag.recentavt = profile.Avartar;
+                    return View(editprofile);
+
+                }
+                ModelState.AddModelError("", "can't change infomation, try again");
+                ViewBag.recentavt = profile.Avartar;
+                return View(editprofile);
+
+
+            }
+            catch (Exception ex)
+            {
+                // loi j cung tra ve 404;
+                return PartialView("~/Views/Shared/_notfound.cshtml");
+
+            }
+
+        }
+
+        /*---------------------------------------------------------------------------------------------------*/
 
         // Message area
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Message(String Content, long Id ,String ReturnUrl)
+        public async Task<IActionResult> Message(String Content, long Id, String ReturnUrl)
         {
             try
             {
@@ -102,32 +174,34 @@ namespace webtruyentranh.Controllers
             return Redirect(ReturnUrl);
         }
 
+
+
+        /*---------------------------------------------------------------------------------------------------*/
+
         //reply area
 
         [Authorize]
         [HttpGet]
-        public async Task< IActionResult> Reply(long Id) //get reply form
+        public async Task<IActionResult> Reply(long Id) //get reply form
 
         { //get form reply for the mss
             Debug.WriteLine(Id);
             var account = await userManager.GetUserAsync(User);
             var profile = _db.Profiles.Include(p => p.Account).Where(p => p.AccountId == account.Id).FirstOrDefault();
 
-            return ViewComponent("loadReply",new { profile = profile, Id = Id });
+            return ViewComponent("loadReply", new { profile = profile, Id = Id });
         }
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> postreply (long Id, String Content, String ReturnUrl) //post reply and return
+        public async Task<IActionResult> postreply(long Id, String Content, String ReturnUrl) //post reply and return
 
         { //get form reply for the mss
-         
+
             Message ms = _db.Messages.Where(ms => ms.Id == Id).FirstOrDefault();
             var account = await userManager.GetUserAsync(User);
             _db.ChildMessages.Attach(new ChildMessage { Account = account, Content = Content, CommentDate = DateTime.Now, Message = ms });
             _db.SaveChanges();
-
             return Redirect(ReturnUrl);
-
         }
 
 
