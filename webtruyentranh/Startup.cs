@@ -109,12 +109,12 @@ namespace webtruyentranh
                 //Here you could create a super user who will maintain the web app
                 var poweruser = new Account
                 {
-
-                    UserName = "admin",
+                    
+                    UserName = "admin1234",
                     Email = "admin@hemail.com",
                 };
                 //Ensure you have these values in your appsettings.json file
-                string userPWD = "admin";
+                string userPWD = "Admin@123456";
                 var _user = await UserManager.FindByEmailAsync(poweruser.Email);
 
                 if (_user == null)

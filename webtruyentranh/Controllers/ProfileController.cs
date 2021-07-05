@@ -114,6 +114,7 @@ namespace webtruyentranh.Controllers
                     profile.DisplayName = editprofile.DisplayName;
                     profile.Description = editprofile.Description;
                     profile.ExternalLink = editprofile.ExternalLink;
+                    editprofile.Datejoined = profile.DateJoined;
                     if (editprofile.Avartar != null)
                     {
                         profile.Avartar = await Cloudinary_Utility.uploadavartar(editprofile.Avartar);
@@ -125,8 +126,7 @@ namespace webtruyentranh.Controllers
 
                 }
                 ModelState.AddModelError("", "can't change infomation, try again");
-                ViewBag.recentavt = profile.Avartar;
-                return View(editprofile);
+                return RedirectToAction("EditProfile");
 
 
             }
