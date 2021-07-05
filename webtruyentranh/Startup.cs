@@ -1,17 +1,13 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using WebTruyenTranhDataAccess.Context;
 using WebTruyenTranhDataAccess.Models;
@@ -48,6 +44,7 @@ namespace webtruyentranh
             {
                 option.ClientSecret = "5ecQw-i5kAVUHw6hQl2xnkxm";
                 option.ClientId = "243247622743-ilkhev1tqbd4pt8qq720fvmla1abdu53.apps.googleusercontent.com";
+                option.Scope.Add("profile");
 
             });
 

@@ -123,7 +123,7 @@ public class AuthenticationController : Controller
                         DisplayName = account.UserName,
                         Description = "Tell your story !",
                         Account = account,
-                        Avartar = "/images/avartar.jpg"
+                      
                     });
                   
                        
