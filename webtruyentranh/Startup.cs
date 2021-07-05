@@ -43,6 +43,12 @@ namespace webtruyentranh
 
             .AddEntityFrameworkStores<ComicContext>();
             services.ConfigureApplicationCookie(config => config.LoginPath = "/Authentication/index");
+            services.AddAuthentication().AddGoogle(option =>
+            {
+                option.ClientSecret = "5ecQw-i5kAVUHw6hQl2xnkxm";
+                option.ClientId = "243247622743-ilkhev1tqbd4pt8qq720fvmla1abdu53.apps.googleusercontent.com";
+
+            });
 
           
 

@@ -34,10 +34,9 @@ namespace webtruyentranh.Controllers
         public async Task<IActionResult> Getme()
         {
             var account = await userManager.GetUserAsync(User);
-            Debug.WriteLine(account.Id);
+       
             var profile = _db.Profiles.Include(p => p.Account).Where(p => p.AccountId == account.Id).FirstOrDefault();
-            Debug.WriteLine(profile.DisplayName);
-            Debug.WriteLine(profile.Avartar);
+            
             var novels = _db.Novels.Where(n => n.Account.Id == account.Id).ToList();
             ViewBag.profile = profile;
             ViewBag.novels = novels;
