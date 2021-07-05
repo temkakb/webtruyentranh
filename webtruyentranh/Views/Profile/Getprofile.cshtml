@@ -17,9 +17,10 @@
             <div class="column is-3   block-3  "  data-scrollax-parent="true" style="margin-right:25px; margin-left:20px;">
                 
 
-                  
-                        <a  class="image" style="background-image: url(@ViewBag.profile.Avartar); width: 80%;height: 40%; border-radius:10px; ">
-                        </a>
+                <div  style="height:60%; width:100%;">
+                    <img class="is-rounded" src="@ViewBag.profile.Avartar" style="height:100%; width:100%; border-radius:50%;" />
+                </div>
+                      
                         <h1 class="subheading" style="word-wrap: break-word; margin:30px 0px 0px 0px; font-size:36px; width: 100%;">@ViewBag.profile.DisplayName</h1>
                         <p class="subheading" style="word-wrap: break-word; margin: 15px 0px 0px 0px; padding: 0; width: 100%; font-style: italic; ">date join: @ViewBag.profile.DateJoined</p>
                         <p class="subheading" style="word-wrap: break-word; margin: 15px 0px 0px 0px; padding: 0; width: 100%; font-style: italic; ">@ViewBag.profile.Description</p>
