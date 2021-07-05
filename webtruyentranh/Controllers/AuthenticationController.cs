@@ -110,30 +110,40 @@ public class AuthenticationController : Controller
                 return View();
             }
             var result = await userManager.ConfirmEmailAsync(account, token);
-            if (result.Succeeded)
-            {
-            await userManager.AddToRoleAsync(account, "Member");
-            db.Profiles.Add(new Profile
-            {
-                //  Account = account,
-                DateJoined = DateTime.Now,
-                DisplayName = account.UserName,
-                Description = "Tell your story !",
-                Account = account,
-                   Avartar = "/images/avartar.jpg"
 
-            }); ;
+        if (result.Succeeded)
+        {
+            try {
+                await userManager.AddToRoleAsync(account, "Member");
+                db.Profiles.Add(new Profile
+                {
 
-           
+                    //  Account = account,
+                    DateJoined = DateTime.Now,
+                    DisplayName = account.UserName,
+                    Description = "Tell your story !",
+                    Account = account,
+                    Avartar = "/images/avartar.jpg"
+
+                }); ;
 
                 db.SaveChanges();
 
-                ViewData["Title"] = "Succeeded (￣ω￣)";
+                ViewData["Title"] = "Succeeded ٩(◕‿◕｡)۶";
                 ViewData["message"] = "email has been verified. Login now!";
-            return View();
+                return View();
+
+            }
+      
+            catch (Exception ex)
+            {
+                ViewData["Title"] = "Error";
+                ViewData["message"] = "Account confirmed";
+                return View();
+            }
         }
         ViewData["Title"] = "Error";
-        ViewData["message"] = "Link was expired";
+        ViewData["message"] = "Token expired";
         return View();
 
 
