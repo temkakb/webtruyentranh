@@ -124,7 +124,8 @@ public class AuthenticationController : Controller
                         Description = "Tell your story !",
                         Account = account,
                         Avartar = "/images/avartar.jpg"
-                    });
+
+                    }); ;
                   
                        
                     await userManager.CreateAsync(account);
