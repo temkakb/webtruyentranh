@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WebTruyenTranhDataAccess.Context;
@@ -115,12 +116,15 @@ namespace webtruyentranh
                 //Here you could create a super user who will maintain the web app
                 var poweruser = new Account
                 {
-                    
-                    UserName = "admin1234",
+
+                    UserName = "admin12345",
                     Email = "admin@hemail.com",
+                    EmailConfirmed = true,
+                    
+                
                 };
                 //Ensure you have these values in your appsettings.json file
-                string userPWD = "Admin@123456";
+                string userPWD = "Admin@123456789";
                 var _user = await UserManager.FindByEmailAsync(poweruser.Email);
 
                 if (_user == null)
@@ -128,10 +132,13 @@ namespace webtruyentranh
                     var createPowerUser = await UserManager.CreateAsync(poweruser, userPWD);
                     if (createPowerUser.Succeeded)
                     {
+                        Debug.WriteLine("create admin sucessed");
+                       
                         //here we tie the new user to the role
                         await UserManager.AddToRoleAsync(poweruser, "Admin");
 
                     }
+                    Debug.WriteLine("create admin no suc");
                 }
             }
         }

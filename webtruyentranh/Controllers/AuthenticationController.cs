@@ -113,7 +113,7 @@ public class AuthenticationController : Controller
                 {
                     account = new Account()
                     {
-                        UserName = infomation.Principal.FindFirstValue(ClaimTypes.Email),
+                        UserName = infomation.Principal.FindFirstValue(ClaimTypes.Email).Split('@')[0],
                         Email = infomation.Principal.FindFirstValue(ClaimTypes.Email),
                        EmailConfirmed=true,
                     };
@@ -125,9 +125,11 @@ public class AuthenticationController : Controller
                         Account = account,
                         Avartar = "/images/avartar.jpg"
                     });
-                    db.SaveChanges();
+                  
                        
                     await userManager.CreateAsync(account);
+                    await userManager.AddToRoleAsync(account, "Member");
+                    db.SaveChanges();
                 }    
                 await userManager.AddLoginAsync(account, infomation);
                 await signInManager.SignInAsync(account, false);
