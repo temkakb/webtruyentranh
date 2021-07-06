@@ -13,7 +13,7 @@
 
     <section class="ftco-section">
         <div class="columns  is-desktop" >
-            <div class="column is-3 "  data-scrollax-parent="true" style="margin-right:25px; ">
+            <div class="column is-3 "   style="margin-right:25px; ">
                 <figure style="height:300px; width:100%;">
                     <img class="is-rounded" src="@ViewBag.profile.Avartar" style="height:100%; width:100%; border-radius:50%;" />
                 </figure>          
@@ -27,7 +27,7 @@
                         {<a href='@Url.Action("EditProfile")' type="button" class=" button profile-button-edit"  style="margin-top:15px;">Edit profile</a>
                         }
             </div>
-            <div class="column is-6 " >
+            <div class="column is-6 "  >
                     <form style=" width: 100%;" method="post" asp-action="Message" asp-controller="Profile"  asp-route-ReturnUrl="@Context.Request.Path">
                         <div class="control " style=" width: 100%;">
                             <input hidden value="@ViewBag.profile.Account.Id" name="Id" />
@@ -41,7 +41,7 @@
                                 </div>
                             }
                             <textarea class="textarea is-medium has-fixed-size " placeholder="Share something..." style="min-height:100px;" asp-for="Content" required></textarea>
-                            <button class="button profile-button-ms  " style="margin: 5px; float:right;">Share</button>
+                            <button class="button profile-button-ms" style="margin-top: 5px; float:right;">Share</button>
 
                         </div>
                     </form>
@@ -51,7 +51,7 @@
                     </div>
             
             </div>
-            <div class="column is-3" >
+            <div class="column is-3"  >
                 <h2 class="subtitle  is-2" style="text-align:center;">Mine novels</h2>
 
                 @if (!ViewBag.isany)

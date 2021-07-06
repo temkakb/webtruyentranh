@@ -8,8 +8,8 @@
 }
 <link href="~/css/backgroundeditprofile.css" rel="stylesheet" />
 <link href="~/css/profile.css" rel="stylesheet" />
-<main role="main" class="pb-3" style="margin-top: 50px;" >
-    <section class="ftco-section" >
+<main role="main" class="pb-3" style="margin-top: 50px; padding-bottom:100px;" >
+    <section class="ftco-section">
         <form method="post" asp-action="editprofile" asp-controller="profile" asp-route-Id="@Model.Id" enctype="multipart/form-data">
             <div class="columns is-desktop" style="background-color: white; border-radius:30px; height:900px;  ">
                 <div class="column is-5 ">
@@ -63,8 +63,11 @@
                 </div>
             </div>
 
-</form> 
-</section>
+        </form>
+        @*<div class="block banner">
+            dấdsadasdasda
+        </div>*@
+    </section>
 </main>
 
 <script>
