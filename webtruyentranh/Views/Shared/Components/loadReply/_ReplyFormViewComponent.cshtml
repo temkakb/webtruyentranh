@@ -4,15 +4,15 @@
         <article class="media">
             <figure class="media-left">
            
-                <p class="image is-64x64">
-                    <img src="@Model.Avartar">
+                <p class="image is-64x64" >
+                    <img src="@Model.Avartar"  style="height:100%; width:100%; border-radius:50%">
                 </p>
             </figure>
             <div class="media-content">
                 <strong>@Model.DisplayName </strong>
                 <div class="field">
                     <p class="control">
-                        <textarea class="textarea" name="Content" maxlength="1000" required></textarea>
+                        <textarea class="textarea has-fixed-size" name="Content" maxlength="1000" required></textarea>
                     </p>
                 </div>
                 <div class="field">
