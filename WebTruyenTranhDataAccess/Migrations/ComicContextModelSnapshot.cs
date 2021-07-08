@@ -34,6 +34,33 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.ToTable("GenreNovel");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IdentityRole");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8449f0ff-4a50-4444-aeea-6c4541b518d3",
+                            ConcurrencyStamp = "a2563e77-737e-4fe7-ae1d-3de4e9028565",
+                            Name = "ADMIN"
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<long>", b =>
                 {
                     b.Property<long>("Id")
@@ -199,13 +226,8 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasMaxLength(24)
-                        .HasColumnType("nvarchar(24)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
@@ -340,6 +362,9 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.Property<long?>("NovelId")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("Views")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NovelId");
@@ -464,6 +489,9 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.Property<int>("LikeCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("Slugify")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Thumbnail")
                         .HasColumnType("nvarchar(max)");
 
@@ -486,7 +514,7 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("AccountId")
+                    b.Property<long>("AccountId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Avartar")
@@ -511,7 +539,8 @@ namespace WebTruyenTranhDataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AccountId")
+                        .IsUnique();
 
                     b.ToTable("Profiles");
                 });
@@ -742,8 +771,10 @@ namespace WebTruyenTranhDataAccess.Migrations
             modelBuilder.Entity("WebTruyenTranhDataAccess.Models.Profile", b =>
                 {
                     b.HasOne("WebTruyenTranhDataAccess.Models.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId");
+                        .WithOne("Profile")
+                        .HasForeignKey("WebTruyenTranhDataAccess.Models.Profile", "AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Account");
                 });
@@ -784,6 +815,8 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.Navigation("Notifications");
 
                     b.Navigation("Novels");
+
+                    b.Navigation("Profile");
 
                     b.Navigation("Subscriptions");
                 });

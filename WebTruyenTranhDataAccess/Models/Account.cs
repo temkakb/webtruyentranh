@@ -12,8 +12,6 @@ namespace WebTruyenTranhDataAccess.Models
     {
         public override long Id { get; set; }
 
-        public string Password { get; set; }
-
         [Required(ErrorMessage = "Please enter your username")]
         [MaxLength(24, ErrorMessage = "Username is up to 24 charaters")]
         [MinLength(8, ErrorMessage = "Username is as least 8 charaters")]
@@ -22,14 +20,12 @@ namespace WebTruyenTranhDataAccess.Models
         public override string Email { get => base.Email; set => base.Email = value; }
         public override bool EmailConfirmed { get => base.EmailConfirmed; set => base.EmailConfirmed = value; }
 
-        [Required(ErrorMessage = "Please enter your password")]
-        [MaxLength(24, ErrorMessage = "Password is up to 24 charaters")]
-        [MinLength(8, ErrorMessage = "Password is as least 8 charaters")]
         public override string PasswordHash { get => base.PasswordHash; set => base.PasswordHash = value; }
 
         public override string PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
         public override bool PhoneNumberConfirmed { get => base.PhoneNumberConfirmed; set => base.PhoneNumberConfirmed = value; }
 
+        public Profile Profile { get; set; }
         // public Role Role { get; set; }
 
         public List<Subscription> Subscriptions { get; set; }

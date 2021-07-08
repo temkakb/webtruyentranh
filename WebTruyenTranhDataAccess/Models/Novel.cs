@@ -26,13 +26,26 @@ namespace WebTruyenTranhDataAccess.Models
 
         public string Banner { get; set; }
 
-        public int LikeCount { get; set; }
+        private int likeCount;
+
+        public int LikeCount
+        {
+            get { return Likes.Count(); }
+            set { likeCount = value; }
+        }
 
         public DateTime LastestUpdate { get; set; }
+
+        public string Slugify { get; set; }
 
         public Account Account { get; set; }
 
         public List<Genre> Genres { get; set; }
+
+        public String getType()
+        {
+            return string.Join(", ", Genres.Select(g => g.GenreName).ToList());
+        }
 
         public List<Subscription> Subscriptions { get; set; }
 
@@ -51,6 +64,16 @@ namespace WebTruyenTranhDataAccess.Models
             Banner = banner;
             LikeCount = likeCount;
             LastestUpdate = lastestUpdate;
+        }
+
+        public int totalWordCount()
+        {
+            int total = 0;
+            if (Episodes.Count() != 0)
+            {
+                Episodes.ForEach(e => total += e.Content.Split(" ").Length);
+            }
+            return total;
         }
     }
 }

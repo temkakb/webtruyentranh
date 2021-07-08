@@ -139,11 +139,18 @@ namespace WebTruyenTranhDataAccess.Context
             //    (sub => sub.HasOne<Novel>().WithMany(),
             //     sub => sub.HasOne<Account>().WithMany())
             //    .Property(sub => sub.ExpirationDate);
+            // apply role data
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                    Name = "ADMIN",
+                }
+                );
         }
 
         public DbSet<Profile> Profiles { get; set; }
 
-        //public DbSet<Account> Accounts { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<Genre> Genres { get; set; }
 
         public DbSet<Novel> Novels { get; set; }
