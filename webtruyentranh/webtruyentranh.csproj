@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Templates\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Dashboard\" />
     <Folder Include="Views\Episode\" />
     <Folder Include="Views\Novel\" />

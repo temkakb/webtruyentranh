@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" rel="stylesheet" />
+
+<div id="result-container"></div>
+<script src="~/js/jquery.min.js"></script>
+
+
+
+<script type="text/javascript">
+ /* var searchRequest = null;*/
+
+$(function () {
+    var minlength = 3;
+
+    $("#sample_search").keyup(function () {
+     
+        value = $(this).val();
+
+        if (value.length >= minlength ) {
+          
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Finduser", "Admin")",
+                data: {
+                    'username' : value
+                },
+                dataType: "html",
+                success: function (data) {
+                    if (data) {
+                        $('#result-container').html(data);
+                    }
+                    
+                }
+            });
+        }
+    });
+});
+</script>

@@ -11,7 +11,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using WebTruyenTranhDataAccess.Context;
 using WebTruyenTranhDataAccess.Models;
-
+using Microsoft.AspNetCore.Http;
 namespace webtruyentranh
 {
     public class Startup
@@ -39,7 +39,10 @@ namespace webtruyentranh
                         ).AddTokenProvider<DataProtectorTokenProvider<Account>>(TokenOptions.DefaultProvider)
 
             .AddEntityFrameworkStores<ComicContext>();
-            services.ConfigureApplicationCookie(config => config.LoginPath = "/Authentication/index");
+            services.ConfigureApplicationCookie(config => {
+                config.LoginPath = "/Authentication/index";
+                config.AccessDeniedPath = new PathString("/profile/getme");
+               });
             services.AddAuthentication().AddGoogle(option =>
             {
                 option.ClientSecret = "5ecQw-i5kAVUHw6hQl2xnkxm";
@@ -89,6 +92,10 @@ namespace webtruyentranh
                   name: "profile",
                   pattern: "{controller=Profile}/{action=Getme}"
                   );
+                endpoints.MapControllerRoute(
+                    name: "admin",
+                    pattern: "{controller=Admin}/{action=Index}"
+                    );
             });
             CreateUserRoles(serviceProvider).Wait();
 

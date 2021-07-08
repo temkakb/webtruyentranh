@@ -1,0 +1,9 @@
+﻿@using WebTruyenTranhDataAccess.Models;
+@model IQueryable<Profile>;
+@{
+    Layout = null;
+}
+@foreach (var blabla in Model)
+{
+    <h1>@blabla.DisplayName</h1>
+}
