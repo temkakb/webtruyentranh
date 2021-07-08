@@ -3,55 +3,50 @@
 
     Layout = "_Layoutpage";
 
-
 }
-@using System.Web.Mvc.Html;
 
 <link href="~/css/profile.css" rel="stylesheet" />
 
 <main role="main" class="pb-3" style="margin-top: 50px; ">
 
     <section class="ftco-section">
-        <div class="columns  is-desktop" >
-            <div class="column is-3 "   style="margin-right:25px; ">
+        <div class="columns  is-desktop">
+            <div class="column is-3 " style="margin-right:25px; ">
                 <figure style="height:300px; width:100%;">
                     <img class="is-rounded" src="@ViewBag.profile.Avartar" style="height:100%; width:100%; border-radius:50%;" />
-                </figure>          
-                        <h1 class="subheading" style="word-wrap: break-word; margin:30px 0px 0px 0px; font-size:36px; width: 100%;">@ViewBag.profile.DisplayName</h1>
-                        <p class="subheading" style="word-wrap: break-word; margin: 15px 0px 0px 0px; padding: 0; width: 100%; font-style: italic; ">date join: @ViewBag.profile.DateJoined</p>
-                        <p class="subheading" style="word-wrap: break-word; margin: 15px 0px 0px 0px; padding: 0; width: 100%; font-style: italic; ">@ViewBag.profile.Description</p>
-                        @if (!ViewBag.isMe)
+                </figure>
+                <h1 class="subheading" style="word-wrap: break-word; margin:30px 0px 0px 0px; font-size:36px; width: 100%;">@ViewBag.profile.DisplayName</h1>
+                <p class="subheading" style="word-wrap: break-word; margin: 15px 0px 0px 0px; padding: 0; width: 100%; font-style: italic; ">date join: @ViewBag.profile.DateJoined</p>
+                <p class="subheading" style="word-wrap: break-word; margin: 15px 0px 0px 0px; padding: 0; width: 100%; font-style: italic; ">@ViewBag.profile.Description</p>
+                @if (!ViewBag.isMe)
+                {
+                }
+                else
+                {<a href='@Url.Action("EditProfile")' type="button" class=" button profile-button-edit" style="margin-top:15px;">Edit profile</a>
+                }
+            </div>
+            <div class="column is-6 ">
+                <form style=" width: 100%;" method="post" asp-action="Message" asp-controller="Profile" asp-route-ReturnUrl="@Context.Request.Path">
+                    <div class="control " style=" width: 100%;">
+                        <input hidden value="@ViewBag.profile.Account.Id" name="Id" />
+                        @*neu model valid *@
+                        @if (!ViewData.ModelState.IsValid)
                         {
+                            <div class="notification is-warning">
+                                <span asp-validation-for="Content">
+                                </span>
+                            </div>
                         }
-                        else
-                        {<a href='@Url.Action("EditProfile")' type="button" class=" button profile-button-edit"  style="margin-top:15px;">Edit profile</a>
-                        }
-            </div>
-            <div class="column is-6 "  >
-                    <form style=" width: 100%;" method="post" asp-action="Message" asp-controller="Profile"  asp-route-ReturnUrl="@Context.Request.Path">
-                        <div class="control " style=" width: 100%;">
-                            <input hidden value="@ViewBag.profile.Account.Id" name="Id" />
-                            @*neu model valid *@
-                            @if (!ViewData.ModelState.IsValid)
-                            {
-                                <div class="notification is-warning">
-                                    <span asp-validation-for="Content">
-
-                                    </span>
-                                </div>
-                            }
-                            <textarea class="textarea is-medium  " placeholder="Share something..." style="min-height:100px;" asp-for="Content" required></textarea>
-                            <button class="button profile-button-ms" style="margin-top: 5px; float:right;">Share</button>
-
-                        </div>
-                    </form>
-                    <!--comment block-->
-                    <div class="block" style="width: 100%; overflow: auto;">
-                        @await Component.InvokeAsync("Firstloadmessage", new { Id = @ViewBag.profile.Account.Id ,profileId= @ViewBag.profile.Id })
+                        <textarea class="textarea is-medium  " placeholder="Share something..." style="min-height:100px;" asp-for="Content" required></textarea>
+                        <button class="button profile-button-ms" style="margin-top: 5px; float:right;">Share</button>
                     </div>
-            
+                </form>
+                <!--comment block-->
+                <div class="block" style="width: 100%; overflow: auto;">
+                    @await Component.InvokeAsync("Firstloadmessage", new { Id = @ViewBag.profile.Account.Id, profileId = @ViewBag.profile.Id })
+                </div>
             </div>
-            <div class="column is-3"  >
+            <div class="column is-3">
                 <h2 class="subtitle  is-2" style="text-align:center;">Mine novels</h2>
 
                 @if (!ViewBag.isany)
@@ -70,7 +65,6 @@
                                 <img src="https://bulma.io/images/placeholders/128x128.png">
                             </figure>
                             <h1 class="title" style="float:left">Phương</h1>
-
                         </div>
                         <div class="box row" style=" height:100px;">
 
@@ -78,7 +72,6 @@
                                 <img src="https://bulma.io/images/placeholders/128x128.png">
                             </figure>
                             <h1 class="title" style="float:left">chơi đĩ</h1>
-
                         </div>
                     }
                 }
@@ -86,4 +79,3 @@
         </div>
     </section>
 </main>
-

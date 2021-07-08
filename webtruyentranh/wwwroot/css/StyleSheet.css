@@ -1,0 +1,181 @@
+﻿* {
+    box-sizing: border-box;
+    cursor: default;
+}
+
+.page-wrap {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+section {
+    position: relative;
+}
+
+.fixed {
+    position: fixed;
+    top: 120px;
+    left: 0;
+    width: 120px;
+    height: 240px;
+    border-right: 3px solid #464656;
+    border-top: 3px solid #464656;
+    border-bottom: 3px solid #464656;
+    border-radius: 0px 30px 30px 0px;
+    background: #464656;
+    z-index: 1;
+}
+
+    .fixed .buttons {
+        justify-content: center;
+        margin-bottom: 0px;
+    }
+
+#dashboardButton {
+    background: #f6b606;
+    color: white;
+    border: 0px;
+}
+
+#toEpisodeTitle {
+    color: white;
+}
+
+#toEpisodeButton {
+    background: #5e5e72;
+    border: 0px;
+    color: white;
+}
+
+.toEpisode:hover #toEpisodeButton {
+    background: #f6b606
+}
+
+.toEpisode:hover #toEpisodeTitle {
+    color: #f6b606
+}
+
+.sidebar-title {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+    text-align: start;
+    letter-spacing: normal;
+    color: #f6b606;
+    background: #464656;
+    margin: 0px;
+}
+
+.block:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+p {
+    margin: 0 0 10px;
+}
+
+.index-label {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 32px;
+    line-height: 43px;
+    text-align: start;
+    letter-spacing: normal;
+    color: #262636;
+    font-weight: 700 !important;
+}
+
+.Sumary {
+    background-color: #fedcf6;
+    border-radius: 6px;
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0px 0 1px rgb(10 10 10 / 2%);
+    color: #262636;
+    display: block;
+    padding: 1.25rem;
+}
+
+.thumb-overlay {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 4px;
+    top: 5px;
+    box-shadow: inset 0 0 0 1px rgb(6 6 22 / 10%);
+}
+
+.is-relative {
+    position: relative;
+}
+
+.btn-label {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+    letter-spacing: normal;
+    color: #ffffff !important;
+    background: #868696;
+}
+
+.is-white {
+    color: white;
+}
+
+.tag {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.index__title {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    line-height: 18px;
+    font-weight: bold;
+    text-align: left;
+    letter-spacing: normal;
+    color: #262636 !important;
+    background: #ffffff;
+}
+
+.columns:not(:last-child) {
+    margin-bottom: calc(1.5rem - 1.25rem);
+}
+
+index__body {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    text-align: left;
+    letter-spacing: normal;
+    line-height: normal;
+    color: #868696;
+    background: #ffffff;
+}
+
+.cell__key {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    text-align: left;
+    letter-spacing: normal;
+    color: #868696;
+    background: #ffffff;
+}
+
+.cell__value {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    text-align: left;
+    letter-spacing: normal;
+    color: #262636;
+    background: #ffffff;
+}
+
+#Information:hover {
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.container {
+    width: 100%;
+    height: auto;
+}

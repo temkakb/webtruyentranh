@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Novel>
+@{
+    ViewData["Title"] = "Sumary";
+    Layout = "~/Views/Shared/_Layoutpage.cshtml";
+}
+<link href="~/css/StyleSheet.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<div class="fixed is-flex is-flex-direction-column is-justify-content-center is-align-content-center is-align-items-center is-flex-wrap-wrap">
+    <nav class="level">
+        <div class="level-item has-text-centered">
+            <div>
+                <div class="buttons are-medium">
+                    <a class="button " id="dashboardButton">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </a>
+                </div>
+                <p class="sidebar-title">Dashboard</p>
+            </div>
+        </div>
+    </nav>
+    <nav class="level">
+        <div class="level-item has-text-centered ">
+            <div class="toEpisode">
+                <div class="buttons are-medium">
+                    <a class="button " id="toEpisodeButton">
+                        <i class="fas fa-bars is-white"></i>
+                    </a>
+                </div>
+                <p class="sidebar-title" id="toEpisodeTitle">Episodes</p>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container" style="margin-bottom:200px; margin-left:60px">
+    <section class="block" style="margin-top: 50px">
+        <h1 class="block index-label">
+            Sumary
+        </h1>
+        <nav class="level">
+            <div class="level-item has-text-centered Sumary " style="margin-right: 10px">
+                <div>
+                    <p class="heading">Total Likes</p>
+                    <p class="title">@ViewBag.TotalLikes</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered Sumary" style="margin-right: 10px">
+                <div>
+                    <p class="heading">Total Views</p>
+                    <p class="title">@ViewBag.TotalViews</p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered Sumary " style="margin-right: 10px">
+                <div>
+                    <p class="heading">Total Comments</p>
+                    <p class="title">@ViewBag.TotalTotalComments</p>
+                </div>
+            </div>
+        </nav>
+    </section>
+    <section class="block">
+
+        <div class="columns">
+            <h1 class=" column is-2 block index-label ">
+                Series(@Model.Count())
+            </h1>
+            <div class="column is-2 is-offset-4 is-narrow">
+                <a class="button is-primary btn-label ">
+                    <span class="icon">
+                        <i class="fa fa-book"></i>
+                    </span>
+                    <span>New series</span>
+                </a>
+            </div>
+        </div>
+        <div class="columns is-desktop">
+            <div class="column is-three-quarters-widescreen  is-full-tablet">
+                @foreach (var novel in Model)
+                {
+                    <partial name="_novel" model="novel" />
+                }
+            </div>
+        </div>
+    </section>
+</div>

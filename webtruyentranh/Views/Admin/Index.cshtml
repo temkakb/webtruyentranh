@@ -1,43 +1,86 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @{
-    Layout = null;
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layoutpage.cshtml";
 }
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" rel="stylesheet" />
+<link href="~/css/StyleSheet.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-<div id="result-container"></div>
-<script src="~/js/jquery.min.js"></script>
+<div class="container" style="margin-bottom:200px;  margin-top:50px;">
+
+    <h1 class="block index-label">
+        Dashboard
+    </h1>
+    <nav class="level">
+        <div class="level-item has-text-centered Sumary " style="margin-right: 10px">
+            <div>
+                <p class="heading">Total Creators</p>
+                <p class="title">@ViewData["CreatorsCount"]</p>
+            </div>
+        </div>
+        <div class="level-item has-text-centered Sumary" style="margin-right: 10px">
+            <div>
+                <p class="heading">Total Novels</p>
+                <p class="title">@ViewData["NovelCount"]</p>
+            </div>
+        </div>
+        <div class="level-item has-text-centered Sumary " style="margin-right: 10px">
+            <div>
+                <p class="heading">Total Comments</p>
+                <p class="title">@ViewData["NovelComment"]</p>
+            </div>
+        </div>
+    </nav>
+    <div class="columns">
+        <div class="column is-6">
+            <h5 class="subtitle is-5">Enter Display Name or Profile Id</h5>
+            <input id="search-user" class="input is-info" type="text">
+            <div class="block" id="result-container">
 
 
 
-<script type="text/javascript">
+
+            </div>
+        </div>
+
+        <div class="column is-6">
+            <h5 class="subtitle is-5">Enter Novel name</h5>
+            <input id="search-user" class="input is-info" type="text">
+            <div class="block" id="result-container">
+
+            </div>
+        </div>
+    </div>
+
+
+        <script src="~/js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript">
  /* var searchRequest = null;*/
 
 $(function () {
-    var minlength = 3;
 
-    $("#sample_search").keyup(function () {
-     
+
+    $("#search-user").keyup(function () {
+
         value = $(this).val();
 
-        if (value.length >= minlength ) {
-          
+
+
             $.ajax({
                 type: "GET",
                 url: "@Url.Action("Finduser", "Admin")",
                 data: {
-                    'username' : value
+                    'input_data' : value
                 },
                 dataType: "html",
                 success: function (data) {
                     if (data) {
                         $('#result-container').html(data);
                     }
-                    
+
                 }
             });
-        }
+
     });
 });
-</script>
+        </script>
