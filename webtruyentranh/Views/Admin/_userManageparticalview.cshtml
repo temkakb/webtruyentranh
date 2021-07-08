@@ -78,8 +78,18 @@ else
                             else
                             {
                                 <button class="button is-success" style="color:white;">Block user</button>
-                                @if(await userManager.IsInRoleAsync(profile.Account,"Admin"))
-                                <button class="button is-warning setadmin" style="color:white;">S</button>
+
+                                @if (await userManager.IsInRoleAsync(profile.Account, "Admin"))
+                                {
+
+
+                                    <button class="button is-warning setuser" id="@profile.Account.Id" style="color:white;">Set user role</button>
+                                }
+                                else
+                                {
+                                    <button class="button is-warning setadmin " id="@profile.Account.Id" style="color:white;">Set Admin role</button>
+                                }
+
                                 <button class="button is-danger " style="color:white;">Delete</button>
 
                             }
@@ -100,10 +110,29 @@ else
 $(function () {
 
     $(".setadmin").on('click', function () {
-        alert(this.id);
             $.ajax({
                 type: "GET",
                 url: "@Url.Action("Setadmin", "Admin")",
+                data: {
+                    'Id': this.id
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data) {
+                        alert(data.msg)
+                    }
+
+                }
+            });
+
+    });
+});
+    $(function () {
+
+    $(".setuser").on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Setuser", "Admin")",
                 data: {
                     'Id': this.id
                 },

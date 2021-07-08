@@ -74,8 +74,38 @@ namespace webtruyentranh.Controllers
             {
                 return Json(new { success = false,msg = "account not found" });
             }
-            await userManager.AddToRoleAsync(account, "Admin");
+            try
+            {
+                await userManager.RemoveFromRoleAsync(account, "Member");
+                await userManager.AddToRoleAsync(account, "Admin");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = $"account {account.UserName} is already admin " });
+            }
+           
             return Json(new { success = true, msg = $"account {account.UserName} is a admin right now!" });
+        }
+        [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
+        public async Task<JsonResult> Setuser(long Id)
+        {
+            var account = _db.Accounts.Find(Id);
+            if (account == null)
+            {
+                return Json(new { success = false, msg = "account not found" });
+            }
+            try
+            {
+                await userManager.RemoveFromRoleAsync(account, "Admin");
+                await userManager.AddToRoleAsync(account, "Member");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = $"account {account.UserName} is already member " });
+            }
+
+            return Json(new { success = true, msg = $"account {account.UserName} is a member right now!" });
         }
         [Authorize(Roles = "SuperAdmin")]
         public JsonResult Delete(long Id)
