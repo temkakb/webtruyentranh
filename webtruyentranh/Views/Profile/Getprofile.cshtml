@@ -1,95 +1,59 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model WebTruyenTranhDataAccess.Models.Message;
 @{
 
     Layout = "_Layoutpage";
-  
+
 
 }
+@using System.Web.Mvc.Html;
 
+<link href="~/css/profile.css" rel="stylesheet" />
 
-<main role="main" class="pb-3" style="margin-top: 150px; width: 90vw; height:1200px;">
+<main role="main" class="pb-3" style="margin-top: 50px; ">
 
     <section class="ftco-section">
-        <div class="row" style="width:100%">
-            <div class="col-3 block-3  ftco-animate" style="height:300px; width:30%;" data-scrollax-parent="true">
-                <div class="row" style="width:100%;">
-
-                    <div class="block">
-                        <a href="portfolio.html" class="image" style="background-image: url(@ViewBag.profile.Avartar); width: 100%;height: 120%; ">
-                        </a>
-                        <h1 class="subheading" style="word-wrap: break-word; margin:30px 0px 0px 0px; font-size:36px; padding :0; width: 100%">@ViewBag.profile.DisplayName</h1>
+        <div class="columns  is-desktop" >
+            <div class="column is-3 "   style="margin-right:25px; ">
+                <figure style="height:300px; width:100%;">
+                    <img class="is-rounded" src="@ViewBag.profile.Avartar" style="height:100%; width:100%; border-radius:50%;" />
+                </figure>          
+                        <h1 class="subheading" style="word-wrap: break-word; margin:30px 0px 0px 0px; font-size:36px; width: 100%;">@ViewBag.profile.DisplayName</h1>
                         <p class="subheading" style="word-wrap: break-word; margin: 15px 0px 0px 0px; padding: 0; width: 100%; font-style: italic; ">date join: @ViewBag.profile.DateJoined</p>
                         <p class="subheading" style="word-wrap: break-word; margin: 15px 0px 0px 0px; padding: 0; width: 100%; font-style: italic; ">@ViewBag.profile.Description</p>
-
-                        <a type="button" class="button is-primary is-outlined is-fullwidth" style="margin-top:15px;">Edit profile</a>
-
-                    </div>
-
-                </div>
-
+                        @if (!ViewBag.isMe)
+                        {
+                        }
+                        else
+                        {<a href='@Url.Action("EditProfile")' type="button" class=" button profile-button-edit"  style="margin-top:15px;">Edit profile</a>
+                        }
             </div>
-            <div class="col-6 block-3  ftco-animate" style="height:1000px; width:60%; " data-scrollax-parent="true">
-                <div class="row" style="width:100%">
-
-                    <form style=" width: 100%;">
+            <div class="column is-6 "  >
+                    <form style=" width: 100%;" method="post" asp-action="Message" asp-controller="Profile"  asp-route-ReturnUrl="@Context.Request.Path">
                         <div class="control " style=" width: 100%;">
-                            <textarea class="textarea is-medium " placeholder="Send your message" style="min-height:100px;"></textarea>
-                            <button class="button is-primary is-inverted is-medium" style="margin: 5px; float:right;">Send</button>
+                            <input hidden value="@ViewBag.profile.Account.Id" name="Id" />
+                            @*neu model valid *@
+                            @if (!ViewData.ModelState.IsValid)
+                            {
+                                <div class="notification is-warning">
+                                    <span asp-validation-for="Content">
+
+                                    </span>
+                                </div>
+                            }
+                            <textarea class="textarea is-medium  " placeholder="Share something..." style="min-height:100px;" asp-for="Content" required></textarea>
+                            <button class="button profile-button-ms" style="margin-top: 5px; float:right;">Share</button>
+
                         </div>
                     </form>
-
                     <!--comment block-->
-                    <div class="block" style="width: 100%;">
-                        <article class="media">
-                            <figure class="media-left">
-                                <p class="image is-64x64">
-                                    <img src="https://bulma.io/images/placeholders/128x128.png">
-                                </p>
-                            </figure>
-                            <div class="media-content">
-                                <div class="content">
-                                    <p>
-                                        <strong>Minh Tân</strong>
-                                        <br>
-                                        Phương ăn cứt
-                                        <br>
-                                        <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
-                                    </p>
-                                </div>
-
-                                <article class="media">
-                                    <figure class="media-left">
-                                        <p class="image is-48x48">
-                                            <img src="https://bulma.io/images/placeholders/96x96.png">
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <div class="content">
-                                            <p>
-                                                <strong>Phương ăn cứt thật</strong>
-                                                <br>
-                                                tao không ăn cứt
-                                                <br>
-                                                <small><a>Like</a> · <a>Reply</a> · 2 hrs</small>
-                                            </p>
-                                        </div>
-
-
-                                    </div>
-                                </article>
-
-
-                            </div>
-                        </article>
+                    <div class="block" style="width: 100%; overflow: auto;">
+                        @await Component.InvokeAsync("Firstloadmessage", new { Id = @ViewBag.profile.Account.Id ,profileId= @ViewBag.profile.Id })
                     </div>
-                </div>
+            
             </div>
-            <div class="col-3 block-3  ftco-animate" style="height: 500px; width: 30%;" data-scrollax-parent="true">
-
-
+            <div class="column is-3"  >
                 <h2 class="subtitle  is-2" style="text-align:center;">Mine novels</h2>
+
                 @if (!ViewBag.isany)
                 {
                     <h6 class="subtitle  is-2" style="text-align:center; color:gray;">No novel </h6>
@@ -99,18 +63,27 @@
 
                     foreach (var novel in ViewBag.novels)
                     {
-                        <div class="box row" style=" height:70px;">
-                            novel.Title
+
+                        <div class="box row" style=" height:100px;">
+
+                            <figure class="image is-64x64" style="float:left">
+                                <img src="https://bulma.io/images/placeholders/128x128.png">
+                            </figure>
+                            <h1 class="title" style="float:left">Phương</h1>
+
+                        </div>
+                        <div class="box row" style=" height:100px;">
+
+                            <figure class="image is-64x64" style="float:left">
+                                <img src="https://bulma.io/images/placeholders/128x128.png">
+                            </figure>
+                            <h1 class="title" style="float:left">chơi đĩ</h1>
+
                         </div>
                     }
-
-
                 }
-
-
-
-
             </div>
         </div>
     </section>
 </main>
+

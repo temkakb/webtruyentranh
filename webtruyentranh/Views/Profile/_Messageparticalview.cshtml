@@ -1,0 +1,100 @@
+﻿@using WebTruyenTranhDataAccess.Models;
+@model IQueryable<Message>;
+@{
+  
+
+}
+<!--load data-->
+@foreach (var mss in Model)
+{
+    <article class="media" style="margin :15px;">
+        <figure class="media-left">
+            <p class="image is-48x48">
+                <img src="@mss.Sender.Profile.Avartar" style="height:100%; width:100%; border-radius:50%">
+            </p>
+        </figure>
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <strong>@mss.Sender.Profile.DisplayName</strong>
+                    @if (mss.Sender.Profile.Id == @ViewBag.profileId)
+                    {
+                    <span class="tag is-rounded"  style="background-color: #f6b606 ">Author</span>
+                    }
+
+                    <br>
+                    @mss.Content
+                    <br>
+                    @* dat id cua tung mss vao day de truyen vao js*@
+                    <small>@mss.CreateDate  <a class="button profile-button-edit"   id="@mss.Id"  onclick="btnloadformreply(this.id)" style="width: 60px; height:26px; margin-left:5px; text-decoration:none; color:white;">Reply</a></small>
+
+                </p>
+            </div>
+            @* check co child messs*@
+            @if (mss.ChildMessages.Any())
+            {
+                @*  show child mss*@ 
+                foreach (var child in mss.ChildMessages)
+                {
+
+                    <article class="media" style="margin :10px;">
+                        <figure class="media-left">
+                            <p class="image is-48x48">
+                                <img src="@child.Account.Profile.Avartar" style="height:100%; width:100%; border-radius:50%">
+                            </p>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong>@child.Account.Profile.DisplayName</strong>
+                                    @if (child.Account.Profile.Id == @ViewBag.profileId)
+                                    {
+                                        <span class="tag is-rounded" style="background-color: #f6b606 ">Author</span>
+                                    }
+                                    <br>
+                                    @child.Content
+                                    <br>
+                                    <small>@child.CommentDate </small>
+
+                                </p>
+                            </div>      
+                        </div>
+                    </article>
+                }
+            }
+        </div>
+    </article>
+
+    @* load form theo id*@
+    <form class="reply-form" method="post" asp-controller="profile" asp-action="postreply" asp-route-Id="@mss.Id" asp-route-ReturnUrl="@Context.Request.Path"  id="replyform-@mss.Id">
+       
+    </form>
+
+
+
+}
+
+<script>
+    function btnloadformreply(id) {
+        @* rm cai form partical view *@
+        $('.replyform-particalview').remove();
+        var id = id;
+        $.get( '@Url.Action("reply","profile" )', function(data) {
+            $('#' +'replyform-' + id).html(data);
+});
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
