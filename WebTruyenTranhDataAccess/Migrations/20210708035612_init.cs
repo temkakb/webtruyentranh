@@ -62,20 +62,6 @@ namespace WebTruyenTranhDataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdentityRole",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdentityRole", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -293,7 +279,8 @@ namespace WebTruyenTranhDataAccess.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EpisodeNumber = table.Column<int>(type: "int", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(Max)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(Max)", nullable: false),
+                    Views = table.Column<int>(type: "int", nullable: false),
                     NovelId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
@@ -463,11 +450,6 @@ namespace WebTruyenTranhDataAccess.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.InsertData(
-                table: "IdentityRole",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b8e52e87-9ca3-4605-924e-399ab30eadc6", "95168ac3-77e4-4c23-9a19-1bd9d73af3b6", "ADMIN", null });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -619,9 +601,6 @@ namespace WebTruyenTranhDataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "GenreNovel");
-
-            migrationBuilder.DropTable(
-                name: "IdentityRole");
 
             migrationBuilder.DropTable(
                 name: "Likes");

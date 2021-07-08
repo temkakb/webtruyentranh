@@ -34,33 +34,6 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.ToTable("GenreNovel");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IdentityRole");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "8449f0ff-4a50-4444-aeea-6c4541b518d3",
-                            ConcurrencyStamp = "a2563e77-737e-4fe7-ae1d-3de4e9028565",
-                            Name = "ADMIN"
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<long>", b =>
                 {
                     b.Property<long>("Id")
@@ -354,6 +327,7 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("nvarchar(Max)");
 
                     b.Property<int>("EpisodeNumber")
