@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebTruyenTranhDataAccess.Context;
 
 namespace WebTruyenTranhDataAccess.Migrations
 {
     [DbContext(typeof(ComicContext))]
-    partial class ComicContextModelSnapshot : ModelSnapshot
+    [Migration("20210702145406_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,8 +57,8 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8449f0ff-4a50-4444-aeea-6c4541b518d3",
-                            ConcurrencyStamp = "a2563e77-737e-4fe7-ae1d-3de4e9028565",
+                            Id = "b8e52e87-9ca3-4605-924e-399ab30eadc6",
+                            ConcurrencyStamp = "95168ac3-77e4-4c23-9a19-1bd9d73af3b6",
                             Name = "ADMIN"
                         });
                 });
@@ -361,9 +363,6 @@ namespace WebTruyenTranhDataAccess.Migrations
 
                     b.Property<long?>("NovelId")
                         .HasColumnType("bigint");
-
-                    b.Property<int>("Views")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

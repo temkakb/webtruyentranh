@@ -10,8 +10,8 @@ using WebTruyenTranhDataAccess.Context;
 namespace WebTruyenTranhDataAccess.Migrations
 {
     [DbContext(typeof(ComicContext))]
-    [Migration("20210702141214_init")]
-    partial class init
+    [Migration("20210706004611_AddviewForEp")]
+    partial class AddviewForEp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,8 +57,8 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fdf8910b-45d4-4ec6-8b3c-cdefa8983e84",
-                            ConcurrencyStamp = "8274e42d-a531-432e-ba5b-817f5199f142",
+                            Id = "8449f0ff-4a50-4444-aeea-6c4541b518d3",
+                            ConcurrencyStamp = "a2563e77-737e-4fe7-ae1d-3de4e9028565",
                             Name = "ADMIN"
                         });
                 });
@@ -237,9 +237,6 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<long?>("ProfileId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -260,8 +257,6 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("ProfileId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -368,6 +363,9 @@ namespace WebTruyenTranhDataAccess.Migrations
 
                     b.Property<long?>("NovelId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("Views")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -518,6 +516,9 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long>("AccountId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Avartar")
                         .HasMaxLength(512)
                         .HasColumnType("nvarchar(512)");
@@ -539,6 +540,9 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .HasColumnType("nvarchar(512)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AccountId")
+                        .IsUnique();
 
                     b.ToTable("Profiles");
                 });
@@ -632,15 +636,6 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WebTruyenTranhDataAccess.Models.Account", b =>
-                {
-                    b.HasOne("WebTruyenTranhDataAccess.Models.Profile", "Profile")
-                        .WithMany()
-                        .HasForeignKey("ProfileId");
-
-                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("WebTruyenTranhDataAccess.Models.ChildComment", b =>
@@ -775,6 +770,17 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.Navigation("Account");
                 });
 
+            modelBuilder.Entity("WebTruyenTranhDataAccess.Models.Profile", b =>
+                {
+                    b.HasOne("WebTruyenTranhDataAccess.Models.Account", "Account")
+                        .WithOne("Profile")
+                        .HasForeignKey("WebTruyenTranhDataAccess.Models.Profile", "AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
             modelBuilder.Entity("WebTruyenTranhDataAccess.Models.Subscription", b =>
                 {
                     b.HasOne("WebTruyenTranhDataAccess.Models.Account", "Subscriber")
@@ -811,6 +817,8 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.Navigation("Notifications");
 
                     b.Navigation("Novels");
+
+                    b.Navigation("Profile");
 
                     b.Navigation("Subscriptions");
                 });
