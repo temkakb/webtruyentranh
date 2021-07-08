@@ -43,11 +43,6 @@ namespace webtruyentranh
 
             .AddEntityFrameworkStores<ComicContext>();
             services.ConfigureApplicationCookie(config => config.LoginPath = "/Authentication/index");
-
-          
-
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,8 +78,11 @@ namespace webtruyentranh
                   name: "profile",
                   pattern: "{controller=Profile}/{action=Getme}"
                   );
+                endpoints.MapControllerRoute(
+                 name: "profile",
+                 pattern: "{controller=Dashboard}/{action=Sumary}"
+                 );
             });
-        
         }
     }
 }
