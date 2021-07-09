@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Novel>;
+
+
+
+@{
+
+    Layout = null;
+}
+@if (!Model.Any())
+{
+
+    <div class="box" style="text-align:center;">
+        <h5 class="title is-5" style="color:red;">Novel Not Found</h5>
+
+    </div>
+
+}
+else
+{
+    foreach (var novel in Model)
+    {
+<div class="box">
+    <article class="media">
+        <div class="media-left">
+            <figure class="image is-64x64">
+                <img src="@novel.BookCover" style=" height:80px; width:60px;" alt="Image">
+            </figure>
+        </div>
+        <div class="media-content">
+            <div class="content">
+                <p>
+                    <strong>@novel.Title</strong>
+                    <br>
+                    <i class="far fa-id-card"> </i>
+                    Author:
+                    @novel.Account.UserName
+
+                    <br>
+                    <i class="far fa-id-badge"></i>
+                    Total episode:
+                    @novel.Episodes.Count
+
+                </p>
+            </div>
+
+        </div>
+        <button class="button is-danger removenovel" id="@novel.Id" style="color:white; float:right;"><span><i class="fas fa-minus-circle"></i></span></button>
+    </article>
+
+</div>
+
+    }
+
+}
+<script type="text/javascript">
+      $(function () {
+
+          $(".removenovel").on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Removenovel", "Admin")",
+                data: {
+                    'Id': this.id
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data) {
+                        alert(data.msg)
+                    }
+
+                }
+            });
+
+    });
+        });
+
+</script>
+    
+
+
+
+

@@ -41,6 +41,7 @@ namespace webtruyentranh.Controllers
         }
         [HttpGet]
         [Authorize(Roles = "Admin,SuperAdmin")]
+        /*------------------------------------------------------manage USER-------------------------------------------------------*/
         public  IActionResult Finduser (String input_data)
         {
             
@@ -107,16 +108,63 @@ namespace webtruyentranh.Controllers
 
             return Json(new { success = true, msg = $"account {account.UserName} is a member right now!" });
         }
-        [Authorize(Roles = "SuperAdmin")]
-        public JsonResult Delete(long Id)
+        [Authorize(Roles = "Admin,SuperAdmin")]
+        public async Task<JsonResult> Blockuser(long Id)
         {
-            return null;
+            var account = _db.Accounts.Find(Id);
+            if (account == null)
+            {
+                return Json(new { success = false, msg = "account not found" });
+            }
+            if (await userManager.IsLockedOutAsync(account))
+            {
+                return Json(new { success = false, msg = $"Account {account.UserName} account has been blocked for 200 years!! " });
+            }
+            await userManager.SetLockoutEndDateAsync(account, DateTime.Today.AddYears(200)); // set 200 nam mo khoa nhe cu
+            return Json(new { success = true, msg = $"Account {account.UserName} has been blocked" });
         }
         [Authorize(Roles = "Admin,SuperAdmin")]
-        public JsonResult block(long Id)
+        public async Task<JsonResult> Unblockuser(long Id)
         {
-            return null;
+            var account = _db.Accounts.Find(Id);
+            if (account == null)
+            {
+                return Json(new { success = false, msg = "account not found" });
+            }
+            await userManager.SetLockoutEndDateAsync(account, null); // set 200 nam mo khoa nhe cu
+            return Json(new { success = true, msg = $"Account {account.UserName} has been unblock" });
         }
 
+        /*------------------------------------------------------manage NOVEL-------------------------------------------------------*/
+        [Authorize(Roles = "Admin,SuperAdmin")]
+        public IActionResult Findnovel(String input_data)
+        {
+            var novel = _db.Novels.Include(n=>n.Account).Include(n=>n.Episodes).Where(n => n.Title.Contains(input_data)).Skip(0).Take(5).ToList();
+            return View("_novelsManageparticalview", novel);
+    
+        }
+        [Authorize(Roles = "Admin,SuperAdmin")]
+        public JsonResult Removenovel(long Id)
+        {
+
+            var novel = _db.Novels.Include(n => n.Episodes).ThenInclude(e => e.Comments).ThenInclude(cm => cm.ChildComments).Where(n => n.Id == Id)
+                   .FirstOrDefault();
+            if (novel != null)
+            {
+                _db.Remove(novel);
+                _db.SaveChanges();
+                return Json(new { success = true, msg = $"Novel {novel.Title} has been removed" });
+            }
+            else
+            {
+                return Json(new { success = true, msg = $"Novel {novel.Title} not found" });
+            }
+            return Json(new { success = false, msg = "Error while handling" });
+
+
+        }
     }
+   
+
 }
+

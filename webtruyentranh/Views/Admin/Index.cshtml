@@ -35,7 +35,7 @@
         <div class="column is-6">
             <h5 class="subtitle is-5">Enter Display Name or Profile Id</h5>
             <input id="search-user" class="input is-info" type="text">
-            <div class="block" id="result-container">
+            <div class="block" id="result-user-container">
 
 
 
@@ -45,8 +45,8 @@
 
         <div class="column is-6">
             <h5 class="subtitle is-5">Enter Novel name</h5>
-            <input id="search-user" class="input is-info" type="text">
-            <div class="block" id="result-container">
+            <input id="search-novel" class="input is-info" type="text">
+            <div class="block" id="result-novel-container">
 
             </div>
         </div>
@@ -75,7 +75,7 @@ $(function () {
                 dataType: "html",
                 success: function (data) {
                     if (data) {
-                        $('#result-container').html(data);
+                        $('#result-user-container').html(data);
                     }
 
                 }
@@ -83,4 +83,32 @@ $(function () {
 
     });
 });
+
+$(function () {
+
+
+    $("#search-novel").keyup(function () {
+
+        value = $(this).val();
+
+
+
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Findnovel", "Admin")",
+                data: {
+                    'input_data' : value
+                },
+                dataType: "html",
+                success: function (data) {
+                    if (data) {
+                        $('#result-novel-container').html(data);
+                    }
+
+                }
+            });
+
+    });
+});
+
         </script>

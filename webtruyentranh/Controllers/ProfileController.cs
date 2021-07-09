@@ -35,12 +35,9 @@ namespace webtruyentranh.Controllers
         {
             var account = await userManager.GetUserAsync(User);
        
-            var profile = _db.Profiles.Include(p => p.Account).Where(p => p.AccountId == account.Id).FirstOrDefault();
-            
-            var novels = _db.Novels.Where(n => n.Account.Id == account.Id).ToList();
+            var profile = _db.Profiles.Include(p => p.Account).ThenInclude(a=>a.Novels).Where(p => p.AccountId == account.Id).FirstOrDefault();
             ViewBag.profile = profile;
-            ViewBag.novels = novels;
-            ViewBag.isany = novels.Any();
+            ViewBag.isany = profile.Account.Novels.Any();
             ViewBag.isMe = true;
 
             return View("Getprofile");
@@ -53,13 +50,10 @@ namespace webtruyentranh.Controllers
             Profile profile;
             try
             {
-                profile = _db.Profiles.Include(p => p.Account).FirstOrDefault(p => p.Id == Id);
-                var novels = _db.Novels.Where(n => n.Account.Id == profile.Account.Id).ToList();
+                profile = _db.Profiles.Include(p => p.Account).ThenInclude(a=>a.Novels).FirstOrDefault(p => p.Id == Id);
                 ViewBag.profile = profile;
-                ViewBag.novels = novels;
-                ViewBag.isany = novels.Any();
+                ViewBag.isany = profile.Account.Novels.Any();
                 ViewBag.isMe = false;
-
                 return View("Getprofile");
             }
             catch (Exception ex)
@@ -188,7 +182,7 @@ namespace webtruyentranh.Controllers
             var account = await userManager.GetUserAsync(User);
             var profile = _db.Profiles.Include(p => p.Account).Where(p => p.AccountId == account.Id).FirstOrDefault();
 
-            return ViewComponent("loadReply", new { profile = profile, Id = Id });
+            return ViewComponent("loadReply", new { profile = profile });
         }
         [Authorize]
         [HttpPost]

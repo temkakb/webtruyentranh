@@ -1,7 +1,7 @@
-﻿@using WebTruyenTranhDataAccess.Models
-@using Microsoft.AspNetCore.Identity
-@model IEnumerable<Profile>
-@inject UserManager<Account> userManager
+﻿@model IEnumerable<Profile>;
+@using WebTruyenTranhDataAccess.Models;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<Account> userManager;
 
 
 @{
@@ -55,14 +55,14 @@ else
                             @profile.Account.Email
                             <br>
                             <i class="far fa-registered"></i>
-                            @{ 
+                            @{
                                 var roles = await userManager.GetRolesAsync(profile.Account);
                                 foreach (var role in roles)
-                    {
-                        @: @role
-                    }
+                                {
+                                    @: @role
+                                }
                             }
-                      
+
 
                         </p>
                     </div>
@@ -71,18 +71,30 @@ else
                         <div class="buttons">
                             @if (await userManager.IsInRoleAsync(await userManager.GetUserAsync(User), "Admin"))
                             {
-                                <button class="button is-success" style="color:white;">Block user</button>
+                                @if (await userManager.IsLockedOutAsync(profile.Account))
+                                {
+                                    <button class="button is-success unblock" id="@profile.Account.Id" style="color:white;">Unblock user</button>
+                                }
+                                else
+                                {
+                                    <button class="button is-success blockuser" id="@profile.Account.Id" style="color:white;">Block user</button>
+                                }
 
                             }
 
                             else
                             {
-                                <button class="button is-success" style="color:white;">Block user</button>
+                                @if (await userManager.IsLockedOutAsync(profile.Account))
+                                {
+                                    <button class="button is-success unblock" id="@profile.Account.Id" style="color:white;">Unblock user</button>
+                                }
+                                else
+                                {
+                                    <button class="button is-success blockuser" id="@profile.Account.Id" style="color:white;">Block user</button>
 
+                                }
                                 @if (await userManager.IsInRoleAsync(profile.Account, "Admin"))
                                 {
-
-
                                     <button class="button is-warning setuser" id="@profile.Account.Id" style="color:white;">Set user role</button>
                                 }
                                 else
@@ -90,11 +102,8 @@ else
                                     <button class="button is-warning setadmin " id="@profile.Account.Id" style="color:white;">Set Admin role</button>
                                 }
 
-                                <button class="button is-danger " style="color:white;">Delete</button>
 
                             }
-
-
                         </div>
                     </nav>
                 </div>
@@ -127,7 +136,7 @@ $(function () {
 
     });
 });
-    $(function () {
+$(function () {
 
     $(".setuser").on('click', function () {
             $.ajax({
@@ -147,5 +156,46 @@ $(function () {
 
     });
 });
+    $(function () {
+
+        $(".blockuser").on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Blockuser", "Admin")",
+                data: {
+                    'Id': this.id
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data) {
+                        alert(data.msg)
+                    }
+
+                }
+            });
+
+    });
+    });
+        $(function () {
+
+            $(".unblock").on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Unblockuser", "Admin")",
+                data: {
+                    'Id': this.id
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data) {
+                        alert(data.msg)
+                    }
+
+                }
+            });
+
+    });
+        });
+
 </script>
 

@@ -239,8 +239,6 @@ public class AuthenticationController : Controller
 
     }
 
-   
-
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();

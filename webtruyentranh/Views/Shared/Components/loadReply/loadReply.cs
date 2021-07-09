@@ -12,7 +12,7 @@ namespace webtruyentranh.Views.Shared.Components.loadReply
 {
     public class loadReply : ViewComponent
     {
-        public IViewComponentResult Invoke (Profile profile,long Id)
+        public IViewComponentResult Invoke (Profile profile)
           {
             return View("_ReplyFormViewComponent", profile);
 
