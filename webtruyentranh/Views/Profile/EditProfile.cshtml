@@ -13,8 +13,8 @@
         <form method="post" asp-action="editprofile" asp-controller="profile" asp-route-Id="@Model.Id" enctype="multipart/form-data">
             <div class="columns is-desktop" style="background-color: white; border-radius:30px;   ">
                 <div class="column is-5 ">
-                    <div class="block" style="text-align:center; width:100%; height:46%;">
-                        <img id="avatar-recent" style=" width: 45%; height: 90%; border-radius: 50%; border: 3px solid #888; " src="@ViewBag.recentavt ">
+                    <div class="block" style="text-align:center; width:100%; height:46%; margin-top:35px; margin-bottom:50px;">
+                        <img id="avatar-recent" style=" width: 300px; height: 300px; border-radius: 50%; border: 3px solid #888; " src="@ViewBag.recentavt ">
                         <div class="field" style="margin-top:20px;">
                             <div class="control">
                                 <button class="button profile-button-edit btn-upload-avatar ">
@@ -23,7 +23,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="block " style="margin-top:30px;">
+                    <div class="block " style="margin-top:30px; padding-bottom:50px;">
                         <p class="subtitle is-3">@Model.DisplayName</p>
                         <p class="subtitle is-5">@Model.Description</p>
                         <p class="subtitle is-5">Date join: @Model.Datejoined</p>

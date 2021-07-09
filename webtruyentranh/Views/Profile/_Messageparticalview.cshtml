@@ -19,21 +19,23 @@
                     <strong>@mss.Sender.Profile.DisplayName</strong>
                     @if (mss.Sender.Profile.Id == @ViewBag.profileId)
                     {
-                    <span class="tag is-rounded"  style="background-color: #f6b606 ">Author</span>
+                        <span class="tag is-rounded" style="background-color: #f6b606 ">Author</span>
                     }
 
                     <br>
                     @mss.Content
                     <br>
                     @* dat id cua tung mss vao day de truyen vao js*@
-                    <small>@mss.CreateDate  <a class="button profile-button-edit"   id="@mss.Id"  onclick="btnloadformreply(this.id)" style="width: 60px; height:26px; margin-left:5px; text-decoration:none; color:white;">Reply</a></small>
+                    <small>@mss.CreateDate  <a class="button profile-button-edit" id="@mss.Id" onclick="btnloadformreply(this.id)" style="width: 60px; height:26px; margin-left:5px; text-decoration:none; font-size:13px; color:white;">Reply</a></small>
 
                 </p>
             </div>
+            <form class="reply-form" method="post" asp-controller="profile" asp-action="postreply" asp-route-Id="@mss.Id" asp-route-ReturnUrl="@Context.Request.Path" id="replyform-@mss.Id">
+            </form>
             @* check co child messs*@
             @if (mss.ChildMessages.Any())
             {
-                @*  show child mss*@ 
+                @*  show child mss*@
                 foreach (var child in mss.ChildMessages)
                 {
 
@@ -57,7 +59,7 @@
                                     <small>@child.CommentDate </small>
 
                                 </p>
-                            </div>      
+                            </div>
                         </div>
                     </article>
                 }
@@ -66,9 +68,7 @@
     </article>
 
     @* load form theo id*@
-    <form class="reply-form" method="post" asp-controller="profile" asp-action="postreply" asp-route-Id="@mss.Id" asp-route-ReturnUrl="@Context.Request.Path"  id="replyform-@mss.Id">
-       
-    </form>
+  
 
 
 
