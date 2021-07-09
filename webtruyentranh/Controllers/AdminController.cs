@@ -111,10 +111,16 @@ namespace webtruyentranh.Controllers
         [Authorize(Roles = "Admin,SuperAdmin")]
         public async Task<JsonResult> Blockuser(long Id)
         {
+
             var account = _db.Accounts.Find(Id);
+            
             if (account == null)
             {
                 return Json(new { success = false, msg = "account not found" });
+            }
+            if (await userManager.IsInRoleAsync(account, "Admin"))
+            {
+                return Json(new { success = false, msg = "This user is admin, cannot block" });
             }
             if (await userManager.IsLockedOutAsync(account))
             {
