@@ -10,8 +10,8 @@ using WebTruyenTranhDataAccess.Context;
 namespace WebTruyenTranhDataAccess.Migrations
 {
     [DbContext(typeof(ComicContext))]
-    [Migration("20210629034033_remove-password")]
-    partial class removepassword
+    [Migration("20210708035612_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -329,6 +329,7 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("nvarchar(Max)");
 
                     b.Property<int>("EpisodeNumber")
@@ -336,6 +337,9 @@ namespace WebTruyenTranhDataAccess.Migrations
 
                     b.Property<long?>("NovelId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("Views")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -486,7 +490,7 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("AccountId")
+                    b.Property<long>("AccountId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Avartar")
@@ -511,7 +515,8 @@ namespace WebTruyenTranhDataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AccountId")
+                        .IsUnique();
 
                     b.ToTable("Profiles");
                 });
@@ -742,8 +747,10 @@ namespace WebTruyenTranhDataAccess.Migrations
             modelBuilder.Entity("WebTruyenTranhDataAccess.Models.Profile", b =>
                 {
                     b.HasOne("WebTruyenTranhDataAccess.Models.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId");
+                        .WithOne("Profile")
+                        .HasForeignKey("WebTruyenTranhDataAccess.Models.Profile", "AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Account");
                 });
@@ -784,6 +791,8 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.Navigation("Notifications");
 
                     b.Navigation("Novels");
+
+                    b.Navigation("Profile");
 
                     b.Navigation("Subscriptions");
                 });

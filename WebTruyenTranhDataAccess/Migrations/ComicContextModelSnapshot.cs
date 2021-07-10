@@ -34,33 +34,6 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.ToTable("GenreNovel");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IdentityRole");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "ae973978-cc30-41ec-aa05-624efc60785f",
-                            ConcurrencyStamp = "4ba0158e-c9ed-47ce-b250-02c152ef4486",
-                            Name = "ADMIN"
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<long>", b =>
                 {
                     b.Property<long>("Id")
@@ -354,6 +327,7 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("nvarchar(Max)");
 
                     b.Property<int>("EpisodeNumber")
@@ -361,6 +335,9 @@ namespace WebTruyenTranhDataAccess.Migrations
 
                     b.Property<long?>("NovelId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("Views")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -511,7 +488,7 @@ namespace WebTruyenTranhDataAccess.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("AccountId")
+                    b.Property<long>("AccountId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Avartar")
@@ -536,7 +513,8 @@ namespace WebTruyenTranhDataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AccountId")
+                        .IsUnique();
 
                     b.ToTable("Profiles");
                 });
@@ -767,8 +745,10 @@ namespace WebTruyenTranhDataAccess.Migrations
             modelBuilder.Entity("WebTruyenTranhDataAccess.Models.Profile", b =>
                 {
                     b.HasOne("WebTruyenTranhDataAccess.Models.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId");
+                        .WithOne("Profile")
+                        .HasForeignKey("WebTruyenTranhDataAccess.Models.Profile", "AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Account");
                 });
@@ -809,6 +789,8 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.Navigation("Notifications");
 
                     b.Navigation("Novels");
+
+                    b.Navigation("Profile");
 
                     b.Navigation("Subscriptions");
                 });

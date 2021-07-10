@@ -1,0 +1,201 @@
+﻿@model IEnumerable<Profile>;
+@using WebTruyenTranhDataAccess.Models;
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<Account> userManager;
+
+
+@{
+
+    Layout = null;
+}
+@if (!Model.Any())
+{
+
+    <div class="box" style="text-align:center;">
+        <h5 class="title is-5" style="color:red;">User Not Found</h5>
+
+    </div>
+
+}
+else
+{
+    foreach (var profile in Model)
+    {
+        <div class="box">
+            <article class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64">
+                        <img src="@profile.Avartar" alt="Image">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>@profile.DisplayName</strong>
+                            @if (await userManager.IsLockedOutAsync(profile.Account))
+                            {
+                                <small style="color:red;">Account is blocked</small>
+
+                            }
+                            else
+                            {
+                                <small style="color:blue;">Activity account</small>
+                            }
+                            <br>
+                            <i class="far fa-id-card"> </i>
+                            Account Id:
+                            @profile.Account.Id
+                            <br>
+                            <i class="far fa-id-badge"></i>
+                            User name:
+                            @profile.Account.UserName
+                            <br>
+                            <i class="fas fa-envelope-open-text"> </i>
+                            Email:
+                            @profile.Account.Email
+                            <br>
+                            <i class="far fa-registered"></i>
+                            @{
+                                var roles = await userManager.GetRolesAsync(profile.Account);
+                                foreach (var role in roles)
+                                {
+                                    @: @role
+                                }
+                            }
+
+
+                        </p>
+                    </div>
+                    <nav class="level is-mobile">
+
+                        <div class="buttons">
+                            @if (await userManager.IsInRoleAsync(await userManager.GetUserAsync(User), "Admin"))
+                            {
+                                @if (await userManager.IsLockedOutAsync(profile.Account))
+                                {
+                                    <button class="button is-success unblock" id="@profile.Account.Id" style="color:white;">Unblock user</button>
+                                }
+                                else
+                                {
+                                    <button class="button is-success blockuser" id="@profile.Account.Id" style="color:white;">Block user</button>
+                                }
+
+                            }
+
+                            else
+                            {
+                                @if (await userManager.IsLockedOutAsync(profile.Account))
+                                {
+                                    <button class="button is-success unblock" id="@profile.Account.Id" style="color:white;">Unblock user</button>
+                                }
+                                else
+                                {
+                                    <button class="button is-success blockuser" id="@profile.Account.Id" style="color:white;">Block user</button>
+
+                                }
+                                @if (await userManager.IsInRoleAsync(profile.Account, "Admin"))
+                                {
+                                    <button class="button is-warning setuser" id="@profile.Account.Id" style="color:white;">Set user role</button>
+                                }
+                                else
+                                {
+                                    <button class="button is-warning setadmin " id="@profile.Account.Id" style="color:white;">Set Admin role</button>
+                                }
+
+
+                            }
+                        </div>
+                    </nav>
+                </div>
+            </article>
+        </div>
+
+    }
+
+}
+<script type="text/javascript">
+
+
+$(function () {
+
+    $(".setadmin").on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Setadmin", "Admin")",
+                data: {
+                    'Id': this.id
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data) {
+                        alert(data.msg)
+                    }
+
+                }
+            });
+
+    });
+});
+$(function () {
+
+    $(".setuser").on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Setuser", "Admin")",
+                data: {
+                    'Id': this.id
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data) {
+                        alert(data.msg)
+                    }
+
+                }
+            });
+
+    });
+});
+    $(function () {
+
+        $(".blockuser").on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Blockuser", "Admin")",
+                data: {
+                    'Id': this.id
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data) {
+                        alert(data.msg)
+                    }
+
+                }
+            });
+
+    });
+    });
+        $(function () {
+
+            $(".unblock").on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Unblockuser", "Admin")",
+                data: {
+                    'Id': this.id
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data) {
+                        alert(data.msg)
+                    }
+
+                }
+            });
+
+    });
+        });
+
+</script>
+
