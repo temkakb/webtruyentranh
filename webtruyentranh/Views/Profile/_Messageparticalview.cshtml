@@ -1,5 +1,4 @@
-﻿@using WebTruyenTranhDataAccess.Models;
-@model IQueryable<Message>;
+﻿@model IQueryable<Message>;
 @{
   
 
@@ -10,13 +9,14 @@
     <article class="media" style="margin :15px;">
         <figure class="media-left">
             <p class="image is-48x48">
-                <img src="@mss.Sender.Profile.Avartar" style="height:100%; width:100%; border-radius:50%">
+                <a href="@Url.Action("Getprofile","Profile", new { Id = @mss.Sender.Profile.Id } )">  <img src="@mss.Sender.Profile.Avartar" style="height:100%; width:100%; border-radius:50%">  </a>
             </p>
         </figure>
         <div class="media-content">
             <div class="content">
                 <p>
-                    <strong>@mss.Sender.Profile.DisplayName</strong>
+                    <a href="@Url.Action("Getprofile","Profile", new { Id = @mss.Sender.Profile.Id } )">  <strong>@mss.Sender.Profile.DisplayName</strong> </a>
+                    
                     @if (mss.Sender.Profile.Id == @ViewBag.profileId)
                     {
                         <span class="tag is-rounded" style="background-color: #f6b606 ">Author</span>
@@ -42,13 +42,13 @@
                     <article class="media" style="margin :10px;">
                         <figure class="media-left">
                             <p class="image is-48x48">
-                                <img src="@child.Account.Profile.Avartar" style="height:100%; width:100%; border-radius:50%">
+                                <a href="@Url.Action("Getprofile","Profile", new { Id = @mss.Sender.Profile.Id } )"> <img src="@child.Account.Profile.Avartar" style="height:100%; width:100%; border-radius:50%">  </a>
                             </p>
                         </figure>
                         <div class="media-content">
                             <div class="content">
                                 <p>
-                                    <strong>@child.Account.Profile.DisplayName</strong>
+                                    <a  href="@Url.Action("Getprofile","Profile", new { Id = @mss.Sender.Profile.Id } )">  <strong>@child.Account.Profile.DisplayName</strong> </a>
                                     @if (child.Account.Profile.Id == @ViewBag.profileId)
                                     {
                                         <span class="tag is-rounded" style="background-color: #f6b606 ">Author</span>

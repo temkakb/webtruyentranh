@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using WebTruyenTranhDataAccess.Context;
+@inject SignInManager<Account> signinManager;
+@inject UserManager<Account> userManager;
+@inject ComicContext _db;
+@{
+    var profile = _db.Profiles.FirstOrDefault(p => p.Account.UserName == User.Identity.Name);
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>@ViewData["Title"] - webtruyentranh</title>
@@ -18,7 +25,7 @@
     <link rel="stylesheet" href="~/css/icomoon.css">
     <link rel="stylesheet" href="~/css/style_layout_page.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
@@ -60,115 +67,118 @@
                 </ul>
                 <!----------notification------------>
                 <div class="navbar_right">
-                    <div class="notifications">
-                        <div class="icon_wrap">
-                            <i class="icon-bell-o"></i>
-                            <span class="badge-danger badge-counter">5</span>
+                    @if (signinManager.IsSignedIn(User))
+                    {
+                        <div class="notifications">
+                            <div class="icon_wrap">
+                                <i class="icon-bell-o"></i>
+                                <span class="badge-danger badge-counter">5</span>
+                            </div>
+                            <div class="notification_dd">
+                                <ul class="notification_ul">
+                                    <!---------------------->
+                                    <li class="notify-read">
+                                        <div class="notify_icon">
+                                            <span class="icon">
+                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
+                                            </span>
+                                        </div>
+                                        <div class="notify_data">
+                                            <div class="title">
+                                                Goodmorning, Anna Has A New Episode. Do you want to read?
+                                            </div>
+                                            <div class="sub_title">
+                                                Anna
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!---------------------->
+                                    <li class="notify-unread">
+                                        <div class="notify_icon">
+                                            <span class="icon">
+                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
+                                            </span>
+                                        </div>
+                                        <div class="notify_data">
+                                            <div class="title">
+                                                Goodmorning, Anna Has A New Episode. Do you want to read?
+                                            </div>
+                                            <div class="sub_title">
+                                                Anna
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!---------------------->
+                                    <li class="notify-read">
+                                        <div class="notify_icon">
+                                            <span class="icon">
+                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
+                                            </span>
+                                        </div>
+                                        <div class="notify_data">
+                                            <div class="title">
+                                                Goodmorning, Anna Has A New Episode. Do you want to read?
+                                            </div>
+                                            <div class="sub_title">
+                                                Anna
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!---------------------->
+                                    <li class="notify-unread">
+                                        <div class="notify_icon">
+                                            <span class="icon">
+                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
+                                            </span>
+                                        </div>
+                                        <div class="notify_data">
+                                            <div class="title">
+                                                Goodmorning, Anna Has A New Episode. Do you want to read?
+                                            </div>
+                                            <div class="sub_title">
+                                                Anna
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!---------------------->
+                                    <li class="notify-read">
+                                        <div class="notify_icon">
+                                            <span class="icon">
+                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
+                                            </span>
+                                        </div>
+                                        <div class="notify_data">
+                                            <div class="title">
+                                                Goodmorning, Anna Has A New Episode. Do you want to read?
+                                            </div>
+                                            <div class="sub_title">
+                                                Anna
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!----------SHOW ALL------------>
+                                    <li class="show_all">
+                                        <p class="link">Show All Activities</p>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="notification_dd">
-                            <ul class="notification_ul">
-                                <!---------------------->
-                                <li class="notify-read">
-                                    <div class="notify_icon">
-                                        <span class="icon">
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                        </span>
-                                    </div>
-                                    <div class="notify_data">
-                                        <div class="title">
-                                            Goodmorning, Anna Has A New Episode. Do you want to read?
-                                        </div>
-                                        <div class="sub_title">
-                                            Anna
-                                        </div>
-                                    </div>
-                                </li>
-                                <!---------------------->
-                                <li class="notify-unread">
-                                    <div class="notify_icon">
-                                        <span class="icon">
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                        </span>
-                                    </div>
-                                    <div class="notify_data">
-                                        <div class="title">
-                                            Goodmorning, Anna Has A New Episode. Do you want to read?
-                                        </div>
-                                        <div class="sub_title">
-                                            Anna
-                                        </div>
-                                    </div>
-                                </li>
-                                <!---------------------->
-                                <li class="notify-read">
-                                    <div class="notify_icon">
-                                        <span class="icon">
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                        </span>
-                                    </div>
-                                    <div class="notify_data">
-                                        <div class="title">
-                                            Goodmorning, Anna Has A New Episode. Do you want to read?
-                                        </div>
-                                        <div class="sub_title">
-                                            Anna
-                                        </div>
-                                    </div>
-                                </li>
-                                <!---------------------->
-                                <li class="notify-unread">
-                                    <div class="notify_icon">
-                                        <span class="icon">
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                        </span>
-                                    </div>
-                                    <div class="notify_data">
-                                        <div class="title">
-                                            Goodmorning, Anna Has A New Episode. Do you want to read?
-                                        </div>
-                                        <div class="sub_title">
-                                            Anna
-                                        </div>
-                                    </div>
-                                </li>
-                                <!---------------------->
-                                <li class="notify-read">
-                                    <div class="notify_icon">
-                                        <span class="icon">
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                        </span>
-                                    </div>
-                                    <div class="notify_data">
-                                        <div class="title">
-                                            Goodmorning, Anna Has A New Episode. Do you want to read?
-                                        </div>
-                                        <div class="sub_title">
-                                            Anna
-                                        </div>
-                                    </div>
-                                </li>
-                                <!----------SHOW ALL------------>
-                                <li class="show_all">
-                                    <p class="link">Show All Activities</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!----------PRÒILE------------>
-                    <div class="profile">
-                        <div class="icon_wrap">
-                            <img src="https://pbs.twimg.com/profile_images/737359467742912512/t_pzvyZZ.jpg" alt="profile_pic">
-                            <span class="name">Name</span>
-                            <i class="icon-chevron-down"></i>
-                        </div>
+                        <!----------PRÒILE------------>
+                        <div class="profile">
+                            <div class="icon_wrap">
+                                <a href="@Url.Action("Getme","Profile")">  <img src="@profile.Avartar" alt="profile_pic"> </a>
+                                <span class="name">@profile.DisplayName</span>
+                                <i class="icon-chevron-down"></i>
+                            </div>
 
-                        <div class="profile_dd">
-                            <ul class="profile_ul">
-                                <li><a class="myprofile" href="#"><span class="picon"><i class="icon-user-o"></i></span> My profile</a></li>
-                                <li><a class="logout" href="#"><span class="picon"><i class="icon-sign-out"></i></span> Log out</a></li>
-                            </ul>
+                            <div class="profile_dd">
+                                <ul class="profile_ul">
+                                    <li><a class="myprofile" href="@Url.Action("Getme","Profile")"><span class="picon"><i class="icon-user-o"></i></span> My profile</a></li>
+                                    <li><a class="logout" href="@Url.Action("Logout","Authentication")"><span class="picon"><i class="icon-sign-out"></i></span> Log out</a></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
             <!----- end notification--------->
@@ -221,7 +231,6 @@
     </div>
 
     <!-- FOOTER -->
-
     <!--<footer class="ftco-footer ftco-bg-dark ftco-section">
         <div class="container">
             <div class="row mb-5">
@@ -275,7 +284,6 @@
             </div>
         </div>
     </footer>-->
-
     <!-- loader -->
     @*<div id="ftco-loader" class="show fullscreen">
             <svg class="circular" width="48px" height="48px">
@@ -336,7 +344,7 @@
                 $(this).parent().toggleClass(".navbar-collapse.collapse.show");
                 $(".navbar-toggler").removeClass(".navbar-collapse.collapse.show");
             });
-           
+
             $(document).ready(function () {
                 $('.modal').modal();
             });

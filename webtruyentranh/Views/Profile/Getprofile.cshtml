@@ -1,6 +1,4 @@
 ﻿@model WebTruyenTranhDataAccess.Models.Message;
-@using WebTruyenTranhDataAccess.Models;
-@using Microsoft.AspNetCore.Identity;
 @inject UserManager<Account> userManager;
 
 @{
@@ -18,7 +16,7 @@
 
 <link href="~/css/profile.css" rel="stylesheet" />
 
-<main role="main" class="pb-3" style="margin-top: 50px; ">
+<main role="main" class="pb-3" style="margin-top: 150px; ">
 
     <section class="ftco-section">
         <div class="columns  is-desktop">
@@ -26,6 +24,11 @@
                 <figure style="height:300px; width:100%;">
                     <img class="is-rounded" src="@ViewBag.profile.Avartar" style="height:100%; width:100%; border-radius:50%;" />
                 </figure>
+                @if (await userManager.IsInRoleAsync(await userManager.GetUserAsync(User), "Admin"))
+                {
+                    <div class="title" style="color: white; background-color: aqua; margin-top: 20px; text-align: center; -webkit-touch-callout: none; -webkit-user-select: none;  -khtml-user-select: none;  -moz-user-select: none; -ms-user-select: none;  user-select: none; ">Administrator</div>
+                }
+
                 <h1 class="subheading" style="word-wrap: break-word; margin:30px 0px 0px 0px; font-size:36px; width: 100%;">@ViewBag.profile.DisplayName</h1>
                 @if (!islocked)
                 {
@@ -44,7 +47,7 @@
                     <article class="message is-danger">
                         <div class="message-header">
                             <p>Account has been blocked</p>
-                           
+
                         </div>
                         <div class="message-body">
                             This account has been blocked because violating regulations
@@ -65,8 +68,15 @@
                                 </span>
                             </div>
                         }
-                        <textarea class="textarea is-medium"  placeholder="Share something..." @if (islocked) { @disable }  style="min-height:100px;" asp-for="Content"   required ></textarea>
-                        <button class="button profile-button-ms" style="margin-top: 5px; float:right;" @if (islocked) { @disable  }>Share</button>
+                        @if( islocked )
+                        {
+                        <textarea class="textarea is-medium" placeholder="Share something..." asp-for="Content" style="min-height:100px;" disabled></textarea>
+                        <button class="button profile-button-ms" style="margin-top: 5px; float:right;" disabled>Share</button>
+                        }
+                        else{
+                        <textarea class="textarea is-medium" placeholder="Share something..." asp-for="Content" style="min-height:100px;" required></textarea>
+                        <button class="button profile-button-ms" style="margin-top: 5px; float:right;">Share</button>
+                        }
                     </div>
                 </form>
                 <!--comment block-->
