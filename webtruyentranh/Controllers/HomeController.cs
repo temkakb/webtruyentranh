@@ -23,10 +23,18 @@ namespace webtruyentranh.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [Route("About")]
+        public IActionResult About()
         {
             return View();
         }
+
+        [Route("Contact")]
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
