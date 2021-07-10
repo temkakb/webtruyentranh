@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Account>
+@{
+    ViewData["Title"] = "Creator";
+    Layout = "~/Views/Shared/_Layoutpage.cshtml";
+    
+}
+
+ 
+    
+   <link rel="stylesheet" href="~/css/styleCreator.css"/>
+ 
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    
+    <main style="margin-bottom:260px;margin-top:10%">
+        <section style="margin-left:150px">
+            <a href="https://github.com/temkakb/webtruyentranh">
+            <div class="is-flex is-flex-direction-row is-flex-wrap-wrap is-justify-content-center ">
+                 @foreach (var item in Model)
+                        {
+
+        <div class="column ">
+            <div class="wrapper1">
+                <div class="container1">
+                    <img src="https://ttol.vietnamnetjsc.vn/images/2018/05/25/13/40/net-cuoi-be-gai-9-1527053440039156820618.jpg"
+                         alt=""
+                         class="profile-img" />
+
+                    <div class="content">
+                        <div class="sub-content " style="word-break: break-all;">
+
+                            <h1 style="font-size: 19px">@item.UserName</h1>
+                            <p class="text_content">
+                                <i style="font-size: 13px">Viết cái gì đó cho nó dài một xíu vào đâys s sssssssssssssssssssss</i>
+                            </p>
+
+                        </div>
+
+                        <p title="Series" style="margin-bottom: 0px">
+                            <i class="far fa-bookmark fa-2x" style="margin-left:45%;margin-top:16px"></i>
+                        </p>
+                        <p style="text-align: center">@item.Novels.Count</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    </div>
+   </a>
+            
+        </section>
+    </main>
+   
+       
+    
+
+ 
+
