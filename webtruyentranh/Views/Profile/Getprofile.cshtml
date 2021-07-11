@@ -24,7 +24,7 @@
                 <figure style="height:300px; width:100%;">
                     <img class="is-rounded" src="@ViewBag.profile.Avartar" style="height:100%; width:100%; border-radius:50%;" />
                 </figure>
-                @if (await userManager.IsInRoleAsync(await userManager.GetUserAsync(User), "Admin"))
+                @if (await userManager.IsInRoleAsync(@ViewBag.profile.Account, "Admin"))
                 {
                     <div class="title" style="color: white; background-color: aqua; margin-top: 20px; text-align: center; -webkit-touch-callout: none; -webkit-user-select: none;  -khtml-user-select: none;  -moz-user-select: none; -ms-user-select: none;  user-select: none; ">Administrator</div>
                 }
