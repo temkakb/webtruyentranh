@@ -104,6 +104,7 @@ namespace webtruyentranh
             
                 var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<long>>>();
                 var UserManager = serviceProvider.GetRequiredService<UserManager<Account>>();
+           
                 string[] roleNames = {"SuperAdmin", "Admin","Member" };
                 IdentityResult roleResult;
 
@@ -129,9 +130,7 @@ namespace webtruyentranh
                 var _user = await UserManager.FindByEmailAsync(poweruser.Email);
 
                 if (_user == null)
-                {
-                    
-                   
+                { 
                     var createPowerUser = await UserManager.CreateAsync(poweruser, userPWD);
                     if (createPowerUser.Succeeded)
                     {
@@ -139,6 +138,7 @@ namespace webtruyentranh
 
                         //here we tie the new user to the role
                         await UserManager.AddToRoleAsync(poweruser, "SuperAdmin");
+                       
                     }
                     Debug.WriteLine("create admin no suc");
                 }
