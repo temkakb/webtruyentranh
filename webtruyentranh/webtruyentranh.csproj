@@ -24,12 +24,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\" />
+    <Folder Include="Views\Episode\" />
     <Folder Include="wwwroot\Templates\" />
     <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Episode\" />
     <Folder Include="Views\Novel\" />
   </ItemGroup>
 

@@ -13,6 +13,19 @@ section {
     position: relative;
 }
 
+.center {
+    line-height: 200px;
+    height: 20px;
+    text-align: center;
+}
+
+    /* If the text has multiple lines, add the following: */
+    .center p {
+        line-height: 1.5;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
 .fixed {
     position: fixed;
     top: 120px;
