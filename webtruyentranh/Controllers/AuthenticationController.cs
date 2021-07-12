@@ -51,7 +51,7 @@ public class AuthenticationController : Controller
             var result = await signInManager.PasswordSignInAsync(userName: login.UserName, password: login.Password, isPersistent: false, false);
             if (result.Succeeded)
             {
-                return RedirectToAction("Getme", "Profile");
+                return RedirectToAction("index", "Home");
         
             }
             ModelState.AddModelError("", "invalid login infomation");
@@ -238,8 +238,6 @@ public class AuthenticationController : Controller
 
 
     }
-
-   
 
         public async Task<IActionResult> Logout()
         {

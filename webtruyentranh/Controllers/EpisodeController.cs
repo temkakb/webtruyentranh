@@ -14,5 +14,11 @@ namespace webtruyentranh.Controllers
             return View();
         }
 
+        public IActionResult Episode()
+        {
+
+            return View();
+        }
+
     }
 }

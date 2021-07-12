@@ -1,44 +1,43 @@
 ﻿@{
 
     Layout = null;
-
-
+ 
 
 }
-<!DOCTYPE html>
-<!-- Created By CodingNepal -->
-<html lang="en" dir="ltr">
-<head>
-    <meta charset="utf-8">
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/login_register.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <div class="wrapper" style="max-width: 600px; ">
-        <div class="title-text">
+    <!DOCTYPE html>
+    <!-- Created By CodingNepal -->
+    <html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>@ViewData["Title"]</title>
+        <link rel="stylesheet" href="~/css/login_register.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="wrapper" style="max-width: 600px; ">
+            <div class="title-text">
 
 
-            <div class="title login">
-                @ViewData["Title"]
+                <div class="title login">
+                    @ViewData["Title"]
+                </div>
+
+
             </div>
+            <div class="form-container" style="height: 100%">
 
+                <div class="form-inner" style="height: 100%; width:100%">
 
-        </div>
-        <div class="form-container" style="height: 100%">
-
-            <div class="form-inner" style="height: 100%; width:100%">
-
-                <div class="field">
-                 @ViewData["message"]
+                    <div class="field">
+                        @ViewData["message"]
+                    </div>
                 </div>
             </div>
-        </div>
 
-</body>
+    </body>
 </html>

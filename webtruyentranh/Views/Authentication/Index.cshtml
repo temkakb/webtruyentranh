@@ -48,8 +48,8 @@
         <div class="form-container">
             <div class="slide-controls">
 
-                <input type="radio" name="slide" id="login" @if ((bool)ViewData["Islogin"]) { @check } {}>
-                <input type="radio" name="slide" id="signup" @if (!(bool)ViewData["Islogin"]) { @check } {}>
+                <input type="radio" name="slide" id="login" @if ((bool)ViewData["Islogin"]) { @check }>
+                <input type="radio" name="slide" id="signup" @if (!(bool)ViewData["Islogin"]) { @check } >
                 <label for="login" class="slide login">Login</label>
                 <label for="signup" class="slide signup">Sign up</label>
                 <div class="slider-tab"></div>

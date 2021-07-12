@@ -31,7 +31,7 @@
     <Folder Include="Components\" />
     <Folder Include="Views\Episode\" />
     <Folder Include="wwwroot\Templates\" />
-    <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Dashboard\" />
     <Folder Include="Views\Novel\" />
   </ItemGroup>
 
