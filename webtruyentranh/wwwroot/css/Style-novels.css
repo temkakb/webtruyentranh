@@ -1,0 +1,118 @@
+﻿.ge-ul {
+    display: flex;
+    width: 100%;
+    font-size:15px;
+  
+}
+.ge-li{
+    display:inline-block;
+    cursor:pointer;
+    margin-right:25px;
+}
+.ge-li:hover{
+    color:#26b6b6;
+}
+.ge-li.ge-li-click {
+        
+        padding:2px 10px 2px 10px;
+        border-radius:20px;
+        background-color: #26b6b6;
+        color:white;
+    }
+
+
+
+.q-li {
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 25px;
+}
+.q-li:hover {
+    color: #26b6b6;
+}
+    .q-li.q-li-click {
+        padding: 2px 10px 2px 10px;
+        border-radius: 20px;
+        background-color: #26b6b6;
+        color: white;
+    }
+    .q-li:hover {
+        color: #26b6b6;
+    }
+hr {
+    border-top: 1px solid #eee;
+    border-top-color: #f6f6f6;
+    display: block;
+   
+    overflow: hidden;
+    box-sizing: content-box;
+    border: 0;
+
+ 
+}
+.item_wrap{
+    margin-bottom:10px;
+    height:220px;
+    width:150px;
+
+}
+.item_detail{
+   
+    text-align:center;
+}
+.item_title {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+}
+.item_info {
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #a6a6a6;
+}
+.G-item.cachder{
+    font-size:20px;
+}
+.ft-image{
+    height:120px;
+    width:100px;
+    float:left;
+}
+    .ft-image.img {
+        height:100%;
+    }
+    .image-flash figure {
+        position: relative;
+    }
+
+    .image-flash figure::before {
+        position: absolute;
+        top: 0;
+        left: -75%;
+        z-index: 2;
+        display: block;
+        content: '';
+        width: 50%;
+        height: 100%;
+        background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+        background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+        -webkit-transform: skewX(-25deg);
+        transform: skewX(-25deg);
+    }
+
+    .image-flash figure:hover::before {
+        -webkit-animation: shine .75s;
+        animation: shine .75s;
+    }
+
+@-webkit-keyframes shine {
+    100% {
+        left: 125%;
+    }
+}
+
+@keyframes shine {
+    100% {
+        left: 125%;
+    }
+}

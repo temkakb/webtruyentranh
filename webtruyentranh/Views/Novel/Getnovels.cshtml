@@ -1,0 +1,86 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_Layoutpage";
+}
+<link href="~/css/Style-novels.css" rel="stylesheet" />
+<main role="main" class="pb-3" style="margin-top: 50px; ">
+
+    <section class="ftco-section">
+
+        <!-- Main container -->
+        <nav class="level">
+
+            <div class="level-left">
+                <div class="level-item">
+                    <div> </div>
+                    <ul class="ge-ul">
+
+                        <li class="ge-li ge-li-click" id="abc">AVC</li>
+                        <li class="ge-li">AVC</li>
+                        <li class="ge-li">AVX </li>
+                        <li class="ge-li">AVC </li>
+                        <li class="ge-li">AVC</li>
+                        <li class="ge-li">all genrese</li>
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+        <hr />
+        <nav class="level">
+
+            <div class="level-left">
+                <div class="level-item">
+                    <div> </div>
+                    <ul class="ge-ul">
+                        <li class="q-li q-li-click" id="POPULAR">Popular</li>
+                        <li class="q-li" id="TRENDING">Trending</li>
+                        <li class="q-li" id="FRESH">Fresh</li>
+                        <li class="q-li" id="BINGE">Binge</li>
+                        <li class="q-li" id="ALL">ALL</li>
+                    
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <hr />
+        <div class="request-content"></div>
+        
+
+    </section>
+</main>
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<script>
+    $('.ge-li').click(function () {
+        $('.ge-li').removeClass('ge-li-click');
+
+        $(this).addClass('ge-li-click');
+    });
+    $('.q-li').click(function () {
+        $('.q-li').removeClass('q-li-click');
+
+        $(this).addClass('q-li-click');
+    });
+    var loadcontent = function () {
+        var elm = $('.ge-li-click').attr("id");
+        var q = $('q-li-click').attr("id");
+       $.ajax({
+                type: "GET",
+                url: "@Url.Action("RequestItems", "Novel")",
+                data: {
+                    'ge': elm,
+                    'q':q
+                },
+                dataType: "html",
+                success: function (data) {
+                   
+                        $('.request-content').html(data);
+                 
+
+                }
+            });
+    }
+    $(document).ready(loadcontent);
+</script>

@@ -65,6 +65,7 @@ namespace webtruyentranh.Controllers
         }
         [Authorize]
         [HttpGet]
+       
         public async Task<IActionResult> EditProfile()
         {
             try
@@ -95,6 +96,7 @@ namespace webtruyentranh.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProfile(EditProfile_Viewmodel editprofile, long Id)
         {
             Debug.WriteLine(editprofile.DisplayName);
@@ -137,6 +139,7 @@ namespace webtruyentranh.Controllers
         // Message area
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Message(String Content, long Id, String ReturnUrl)
         {
             try
@@ -186,6 +189,7 @@ namespace webtruyentranh.Controllers
         }
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> postreply(long Id, String Content, String ReturnUrl) //post reply and return
 
         { //get form reply for the mss

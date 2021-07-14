@@ -58,6 +58,7 @@
             </div>
             <div class="column is-6 ">
                 <form style=" width: 100%;" method="post" asp-action="Message" asp-controller="Profile" asp-route-ReturnUrl="@Context.Request.Path">
+                    @Html.AntiForgeryToken()
                     <div class="control " style=" width: 100%;">
                         <input hidden value="@ViewBag.profile.Account.Id" name="Id" />
                         @*neu model valid *@
@@ -68,14 +69,15 @@
                                 </span>
                             </div>
                         }
-                        @if( islocked )
+                        @if (islocked)
                         {
-                        <textarea class="textarea is-medium" placeholder="Share something..." asp-for="Content" style="min-height:100px;" disabled></textarea>
-                        <button class="button profile-button-ms" style="margin-top: 5px; float:right;" disabled>Share</button>
+                            <textarea class="textarea is-medium" placeholder="Share something..." asp-for="Content" style="min-height:100px;" disabled></textarea>
+                            <button class="button profile-button-ms" style="margin-top: 5px; float:right;" disabled>Share</button>
                         }
-                        else{
-                        <textarea class="textarea is-medium" placeholder="Share something..." asp-for="Content" style="min-height:100px;" required></textarea>
-                        <button class="button profile-button-ms" style="margin-top: 5px; float:right;">Share</button>
+                        else
+                        {
+                            <textarea class="textarea is-medium" placeholder="Share something..." asp-for="Content" style="min-height:100px;" required></textarea>
+                            <button class="button profile-button-ms" style="margin-top: 5px; float:right;">Share</button>
                         }
                     </div>
                 </form>
@@ -101,7 +103,7 @@
 
                 <div class="columns">
                     <div class="column is-4"> <img src="@novel.BookCover" style=" height:80px; width:60px;"></div>
-                    <div class="column ">   <h1 class="subtitle is-3">@novel.Title</h1></div>
+                    <div class="column ">   <h1 class="subtitle is-4">@novel.Title</h1></div>
     
                 </div>
             </div>
