@@ -31,6 +31,7 @@
                 </p>
             </div>
             <form class="reply-form" method="post" asp-controller="profile" asp-action="postreply" asp-route-Id="@mss.Id" asp-route-ReturnUrl="@Context.Request.Path" id="replyform-@mss.Id">
+               
             </form>
             @* check co child messs*@
             @if (mss.ChildMessages.Any())
