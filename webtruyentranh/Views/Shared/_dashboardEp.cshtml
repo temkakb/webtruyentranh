@@ -1,0 +1,114 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<Novel>
+<nav class="level" style="margin-top:100px">
+    <div class="level-left">
+        <div class="control has-icons-left">
+            <div class="select" id="mySelect">
+                <select>
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.Id">@item.Title</option>
+                    }
+                </select>
+            </div>
+            <span class="icon is-medium is-left">
+                <i class="fas fa-globe"></i>
+            </span>
+        </div>
+    </div>
+
+    <div class="level-right is-flex-direction-row">
+
+        <div class="level-item ">
+            <a class="button is-primary newSeriesbtn">
+                <span class="icon">
+                    <i class="fa fa-book" aria-hidden="true"></i>
+                </span>
+                <span>New series</span>
+            </a>
+            <a class="button is-primary  editSeriesbtn">
+                <span class="icon">
+                    <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                </span>
+                <span>Edit Series</span>
+            </a>
+            <a class="button is-primary addEpisodebtn">
+                <span class="icon">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                </span>
+                <span>Add Episode</span>
+            </a>
+        </div>
+    </div>
+</nav>
+<table class="table is-striped">
+    <thead>
+        <tr>
+            <th><abbr title="Episode">Episode</abbr></th>
+            <th><abbr title="info">Thumbnail / Episode info</abbr></th>
+            <th><abbr title="Status">Status</abbr></th>
+            <th><abbr title="Actions">Actions</abbr></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('select').trigger("change");
+    });
+    $('select').change(function () {
+
+            $.ajax({
+                url: '@Url.Action("GetEpisodes", "Episode")',
+                data: { 'id': $(this).val() },
+                dataType: "json",
+                method: 'post',
+                success: function (response) {
+
+                    var result = JSON.parse(response);
+                    var items = [];
+                    for (var i in result) {
+                        items.push(result[i])
+                    }
+                    var table = $("table tbody");
+                    table.empty();
+                    $(items[1]).each(function (idx, ep) {
+
+                        table.append('<tr>' +
+                            '<th style="width:50px"><p>' + ep.EpisodeNumber+ '</p></th>' +
+                            '<td>'
+                            + '<div class= "columns is-mobile .is-variable  is-4-tablet is-4-mobile ">' +
+                            '<div class="column is-one-fifth">'
+                            + '<div style = "width:50px;height:50px;margin-left: 30px">'
+                            + '<img src=' + ep.Novel.Thumbnail  + ' alt="testNovel">'
+                            + '</div>' +
+                                            '</div>'
+
+                                             +'<div class="column">'
+                                                + '<div >'
+                                                     + '<p>'+ep.Title+'</p>'
+                                                + '</div>'
+                                            + '</div>'
+                                            + '<div class="column"></div>' +
+                                        '</div>' +
+                                   '</td>'
+                            + '<td>' +'</td>' // status here
+                                 + '<td>'
+                                  + '<div class="buttons are-small">'
+                                             + '<a class="button is-primary actionBtn">Edit</a>'
+                                            + '<a class="button is-danger actionBtn"><i class="far fa-trash-alt fa-2x"></i></a>'
+                                     + '</div>'
+                                + '</td >'
+                            +'</tr>');
+                    });
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            });
+        });
+</script>

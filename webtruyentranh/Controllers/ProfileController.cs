@@ -34,7 +34,7 @@ namespace webtruyentranh.Controllers
         public async Task<IActionResult> Getme()
         {
             var account = await userManager.GetUserAsync(User);
-       
+
             var profile = _db.Profiles.Include(p => p.Account).ThenInclude(a=>a.Novels).Where(p => p.AccountId == account.Id).FirstOrDefault();
             ViewBag.profile = profile;
             ViewBag.isany = profile.Account.Novels.Any();
@@ -60,9 +60,8 @@ namespace webtruyentranh.Controllers
             {
                 return PartialView("~/Views/Shared/_notfound.cshtml");
             }
-
-
         }
+
         [Authorize]
         [HttpGet]
        
@@ -70,7 +69,6 @@ namespace webtruyentranh.Controllers
         {
             try
             {
-
                 var profile = _db.Profiles.Include(p => p.Account).FirstOrDefault(p => p.Account.UserName == User.Identity.Name);
                 var EditProfileView = new EditProfile_Viewmodel()
                 {
@@ -80,8 +78,6 @@ namespace webtruyentranh.Controllers
                     ExternalLink = profile.ExternalLink,
                     Email = profile.Account.Email,
                     Datejoined = profile.DateJoined
-
-
                 };
                 ViewBag.recentavt = profile.Avartar;
                 profile = null;
@@ -105,7 +101,6 @@ namespace webtruyentranh.Controllers
                 var profile = _db.Profiles.SingleOrDefault(p => p.Id == Id);
                 if (ModelState.IsValid)
                 {
-                    
                     profile.DisplayName = editprofile.DisplayName;
                     profile.Description = editprofile.Description;
                     profile.ExternalLink = editprofile.ExternalLink;
@@ -118,20 +113,15 @@ namespace webtruyentranh.Controllers
                     _db.SaveChanges();
                     ViewBag.recentavt = profile.Avartar;
                     return View(editprofile);
-
                 }
                 ModelState.AddModelError("", "can't change infomation, try again");
                 return RedirectToAction("EditProfile");
-
-
             }
             catch (Exception ex)
             {
                 // loi j cung tra ve 404;
                 return PartialView("~/Views/Shared/_notfound.cshtml");
-
             }
-
         }
 
         /*---------------------------------------------------------------------------------------------------*/
@@ -148,12 +138,10 @@ namespace webtruyentranh.Controllers
                 var ReciveAccount = userManager.Users.Include(a => a.Profile).FirstOrDefault(a => a.Id == Id);
                 _db.Messages.Attach(new Message()
                 {
-
                     Sender = SenderAccount,
                     Receiver = ReciveAccount,
                     Content = Content,
                     CreateDate = DateTime.Now
-
                 });
                 _db.SaveChanges();
             }
@@ -170,8 +158,6 @@ namespace webtruyentranh.Controllers
             return Redirect(ReturnUrl);
         }
 
-
-
         /*---------------------------------------------------------------------------------------------------*/
 
         //reply area
@@ -187,21 +173,18 @@ namespace webtruyentranh.Controllers
 
             return ViewComponent("loadReply", new { profile = profile });
         }
+
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> postreply(long Id, String Content, String ReturnUrl) //post reply and return
 
         { //get form reply for the mss
-
             Message ms = _db.Messages.Where(ms => ms.Id == Id).FirstOrDefault();
             var account = await userManager.GetUserAsync(User);
             _db.ChildMessages.Attach(new ChildMessage { Account = account, Content = Content, CommentDate = DateTime.Now, Message = ms });
             _db.SaveChanges();
             return Redirect(ReturnUrl);
         }
-
-
-
     }
 }
