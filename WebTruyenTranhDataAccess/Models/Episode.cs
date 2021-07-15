@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 
 namespace WebTruyenTranhDataAccess.Models
 {
+    [Serializable()]
     public class Episode
     {
         public long Id { get; set; }
         public int EpisodeNumber { get; set; }
+
+        [Required(ErrorMessage = "Title cannot be blank")]
+        [Column(TypeName = "nvarchar(255)")]
+        public string Title { get; set; }
 
         [Required(ErrorMessage = "Content cannot be blank")]
         [Column(TypeName = "nvarchar(Max)")]
@@ -30,6 +35,10 @@ namespace WebTruyenTranhDataAccess.Models
             Id = id;
             EpisodeNumber = episodeNumber;
             Content = content;
+        }
+
+        public Episode()
+        {
         }
 
         public int totalComment()

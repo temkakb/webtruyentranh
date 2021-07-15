@@ -12,10 +12,5 @@ namespace webtruyentranh.Controllers
         {
             return View();
         }
-
-        public IActionResult getAll()
-        {
-            return PartialView("_dashboardEp");
-        }
     }
 }
