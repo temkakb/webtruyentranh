@@ -1,4 +1,5 @@
-﻿@*
+﻿@model IEnumerable<Genre>;
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -16,13 +17,12 @@
                 <div class="level-item">
                     <div> </div>
                     <ul class="ge-ul">
+                        <li class="ge-li ge-li-click" id="0">All Genres</li>
+                        @foreach (var item in Model)
+                        {
+                            <li class="ge-li" id="@item.Id" >@item.GenreName</li>
 
-                        <li class="ge-li ge-li-click" id="abc">AVC</li>
-                        <li class="ge-li">AVC</li>
-                        <li class="ge-li">AVX </li>
-                        <li class="ge-li">AVC </li>
-                        <li class="ge-li">AVC</li>
-                        <li class="ge-li">all genrese</li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -36,9 +36,7 @@
                     <div> </div>
                     <ul class="ge-ul">
                         <li class="q-li q-li-click" id="POPULAR">Popular</li>
-                        <li class="q-li" id="TRENDING">Trending</li>
                         <li class="q-li" id="FRESH">Fresh</li>
-                        <li class="q-li" id="BINGE">Binge</li>
                         <li class="q-li" id="ALL">ALL</li>
                     
                     </ul>
@@ -46,41 +44,69 @@
             </div>
         </nav>
         <hr />
-        <div class="request-content"></div>
+        <div class="request-content" ></div>
         
 
     </section>
 </main>
 <script src="~/js/jquery-3.2.1.min.js"></script>
 <script>
+
     $('.ge-li').click(function () {
         $('.ge-li').removeClass('ge-li-click');
 
         $(this).addClass('ge-li-click');
-    });
+        loadcontent();
+                            });
     $('.q-li').click(function () {
         $('.q-li').removeClass('q-li-click');
 
         $(this).addClass('q-li-click');
-    });
+        loadcontent();
+                            });
     var loadcontent = function () {
+        
+        var pagination = 1;
         var elm = $('.ge-li-click').attr("id");
-        var q = $('q-li-click').attr("id");
+        var q = $('.q-li-click').attr("id");
+
        $.ajax({
-                type: "GET",
-                url: "@Url.Action("RequestItems", "Novel")",
-                data: {
-                    'ge': elm,
-                    'q':q
+             type: "GET",
+             url: "@Url.Action("RequestItems", "Novel")",
+             data: {
+               'ge': elm,
+                 'q': q,
+                 'pagination': pagination
                 },
                 dataType: "html",
                 success: function (data) {
-                   
                         $('.request-content').html(data);
-                 
+                                }
+       });
+
+            $(window).on("scroll", function() { // EVENT lang xuong bot
+                var docHeight = $(document).height();
+                var winScrolled = $(window).height() + $(window).scrollTop();
+                if ((docHeight - winScrolled) < 1) {
+                    var pagination = $('.now-pagination').attr('id');
+                    $('.request-containner').removeClass('now-pagination');
+                      $.ajax({
+             type: "GET",
+             url: "@Url.Action("RequestItems", "Novel")",
+             data: {
+               'ge': elm,
+                 'q': q,
+                 'pagination': pagination
+                },
+                dataType: "html",
+                success: function (data) {
+                        $('.request-content').html(data);
+                               }
+       });
 
                 }
             });
+
     }
     $(document).ready(loadcontent);
 </script>
