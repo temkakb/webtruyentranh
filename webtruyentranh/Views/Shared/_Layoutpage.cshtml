@@ -4,6 +4,9 @@
 @inject ComicContext _db;
 @{
     var profile = _db.Profiles.FirstOrDefault(p => p.Account.UserName == User.Identity.Name);
+    var user = await userManager.GetUserAsync(User);
+
+    var nofications = _db.Notifications.Where(n => n.Account.Id == user.Id).Where(n => n.IsRead == false).Skip(0).Take(5).ToList();
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -72,94 +75,41 @@
                         <div class="notifications">
                             <div class="icon_wrap">
                                 <i class="icon-bell-o"></i>
-                                <span class="badge-danger badge-counter">5</span>
+                                <span class="badge-danger badge-counter">@nofications.Count</span>
                             </div>
                             <div class="notification_dd">
                                 <ul class="notification_ul">
                                     <!---------------------->
-                                    <li class="notify-read">
-                                        <div class="notify_icon">
-                                            <span class="icon">
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                            </span>
-                                        </div>
-                                        <div class="notify_data">
-                                            <div class="title">
-                                                Goodmorning, Anna Has A New Episode. Do you want to read?
-                                            </div>
-                                            <div class="sub_title">
-                                                Anna
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!---------------------->
-                                    <li class="notify-unread">
-                                        <div class="notify_icon">
-                                            <span class="icon">
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                            </span>
-                                        </div>
-                                        <div class="notify_data">
-                                            <div class="title">
-                                                Goodmorning, Anna Has A New Episode. Do you want to read?
-                                            </div>
-                                            <div class="sub_title">
-                                                Anna
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!---------------------->
-                                    <li class="notify-read">
-                                        <div class="notify_icon">
-                                            <span class="icon">
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                            </span>
-                                        </div>
-                                        <div class="notify_data">
-                                            <div class="title">
-                                                Goodmorning, Anna Has A New Episode. Do you want to read?
-                                            </div>
-                                            <div class="sub_title">
-                                                Anna
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!---------------------->
-                                    <li class="notify-unread">
-                                        <div class="notify_icon">
-                                            <span class="icon">
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                            </span>
-                                        </div>
-                                        <div class="notify_data">
-                                            <div class="title">
-                                                Goodmorning, Anna Has A New Episode. Do you want to read?
-                                            </div>
-                                            <div class="sub_title">
-                                                Anna
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!---------------------->
-                                    <li class="notify-read">
-                                        <div class="notify_icon">
-                                            <span class="icon">
-                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                            </span>
-                                        </div>
-                                        <div class="notify_data">
-                                            <div class="title">
-                                                Goodmorning, Anna Has A New Episode. Do you want to read?
-                                            </div>
-                                            <div class="sub_title">
-                                                Anna
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!----------SHOW ALL------------>
-                                    <li class="show_all">
-                                        <p class="link">Show All Activities</p>
-                                    </li>
+                                    @if (nofications.Any())
+                                    {
+                                        foreach (var nofi in nofications)
+                                        {
+                                            <li class="notify-read">
+                                                <div class="notify_icon">
+                                                    <span class="icon">
+                                                        <img src="" alt="creators_pic" />
+                                                    </span>
+                                                </div>
+                                                <div class="notify_data">
+                                                    <div class="title">
+                                                        @nofi.Content
+                                                    </div>
+                                                    <div class="sub_title">
+                                                        @profile.DisplayName
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                        }
+
+
+                                    }
+                                    else
+                                    {
+                                        <li class="show_all">
+                                            <p class="link">No Activities</p>
+                                        </li>
+                                    }
                                 </ul>
                             </div>
                         </div>
