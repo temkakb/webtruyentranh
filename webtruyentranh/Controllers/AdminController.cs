@@ -169,8 +169,61 @@ namespace webtruyentranh.Controllers
 
 
         }
+        /*------------------------------------------------------manage Genre-------------------------------------------------------*/
+        [Authorize(Roles = "SuperAdmin")]
+        public IActionResult LoadGenrecontent()
+        {
+            var g = _db.Genres.ToList();
+            return PartialView("GenreManageparicalview",g);
+        }
+        [Authorize(Roles = "SuperAdmin")]
+        public IActionResult Loadform(long Id)
+        {
+       
+            ViewBag.Titlemodal = "Update Genre Name";
+            ViewBag.Id = Id;
+            return PartialView("LoadmodalUpdate");
+        }
+        [Authorize(Roles = "SuperAdmin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult updateGenre(long Id , String name)
+        {
+            try
+            {
+                var genre = _db.Genres.Find(Id);
+                genre.GenreName = name;
+                _db.Update(genre);
+                _db.SaveChanges();
+                return Json(new { success = true, msg = $"genre has been change to {name}" });
+            }
+            catch(Exception ex)
+            {
+                return Json(new { success = true, msg = "Some error while handling" });
+            }
+        }
+        [Authorize(Roles = "SuperAdmin")]
+        public IActionResult LoadformnewGenre()
+        {
+
+            ViewBag.Titlemodal = "Create new genre ";
+        
+            return PartialView("LoadmodalCreate");
+        }
+        [Authorize(Roles = "SuperAdmin")]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+
+        public JsonResult CreateGenre(String name)
+        {
+            
+            _db.Genres.Add(new Genre { GenreName = name });
+            _db.SaveChanges();
+
+            return Json(new { success = true, msg = "Successed" });
+        }
     }
-   
+
 
 }
 

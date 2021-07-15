@@ -215,7 +215,7 @@ public class AuthenticationController : Controller
                     Account = account,
                     Avartar = "/images/avartar.jpg"
 
-                }); ;
+                }); 
 
                 db.SaveChanges();
 

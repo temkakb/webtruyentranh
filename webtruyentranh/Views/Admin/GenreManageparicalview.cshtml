@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Genre>;
+@{
+    Layout = null;
+}
+
+
+<h2>Genre</h2>
+<button class="button is-primary" onclick="btnloadformCreate()" style="float:right;">New Genre</button>
+<table class="table is-hoverable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>GenreName</th>
+            <th>Update</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>@item.Id</th>
+                <td>@item.GenreName</td>
+                <td>
+                    <a class="button is-warning is-light" id="@item.Id" onclick="btnloadform(this.id)">Edit</a>
+                </td>
+            </tr>
+
+        }
+</table>
+
+<div class="md-content">
+
+</div>
+<script>
+    function btnloadform(id) {
+
+           $.ajax({
+                type: "GET",
+                url: "@Url.Action("Loadform", "Admin")",
+               data: {
+                   'Id':id
+                },
+                dataType: "html",
+                success: function (data) {
+
+                    $('.md-content').html(data);
+                }
+            });
+    }
+      function btnloadformCreate() {
+
+           $.ajax({
+                type: "GET",
+                url: "@Url.Action("LoadformnewGenre", "Admin")",
+               
+                dataType: "html",
+                success: function (data) {
+
+                    $('.md-content').html(data);
+                }
+            });
+    }
+
+
+</script>
+
+
+
+
+
