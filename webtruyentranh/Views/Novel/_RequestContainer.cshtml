@@ -1,62 +1,78 @@
-﻿@*
+﻿@model IEnumerable<Novel>;
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     Layout = null;
 }
-<div class="columns request-containner">
+<link href="~/css/Style-novels.css" rel="stylesheet" />
+<div class="columns request-containner now-pagination" id="@ViewBag.pagination">
     <div class="column is-6">
-        <p style="margin:15px 0 15px 0;">100 Result</p>
+        <p style="margin:15px 0 15px 0;">@ViewBag.count Result</p>
         <ul>
-            <li>
-                <a class="columns">
-                    <div class="column is-3 ">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a class="columns">
+                        <div class="column is-3 ">
 
-                        <div class="image-flash item_wrap">
-                            <figure><img style="border-radius:5px;" src="https://d30womf5coomej.cloudfront.net/sa/69/3b1124c5-f877-4e3b-9e24-0ad3932c7922_z.jpg" /></figure>
+                            <div class="image-flash item_wrap">
+                                <figure><img style="border-radius:5px;" src="@item.BookCover" /></figure>
+
+                            </div>
+                        </div>
+                        <div class="column is-6 item_detail">
+                            <p class="item_title">
+                                @item.Title
+                            </p>
+
+                            <p class="item_info">
+                                <span class="G-item">
+                                    @foreach (var g in item.Genres)
+                                    {
+                                        @g.GenreName
+                                    }
+                                </span>
+                                <span class="G-item cachder">|</span>
+                                @item.LikeCount Likes
+                            </p>
 
                         </div>
-                    </div>
-                    <div class="column is-6 item_detail">
-                        <p class="item_title">
-                            Trọng sinh làm đĩ
-                        </p>
+                    </a>
+                </li>
+            }
 
-                        <p class="item_info">
-                            <span class="G-item">fantasy</span>
-                            <span class="G-item cachder">|</span>
-                            100 likes
-                        </p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a class="columns">
-                    <div class="column is-6">
-                        <div class="image-flash item_wrap">
-                            <figure><img style="border-radius:5px;" src="https://d30womf5coomej.cloudfront.net/sa/69/3b1124c5-f877-4e3b-9e24-0ad3932c7922_z.jpg" /></figure>
-
-                        </div>
-                    </div>
-                    <div class="column">
-                        <p></p>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a class="columns">
-                    <div class="column is-3">
-                        <div class="image-flash item_wrap">
-                            <figure><img style="border-radius:5px;" src="https://d30womf5coomej.cloudfront.net/sa/69/3b1124c5-f877-4e3b-9e24-0ad3932c7922_z.jpg" /></figure>
-
-                        </div>
-                    </div>
-
-                </a>
-            </li>
 
         </ul>
+    </div>
+    <div class="column">
+
+        <div class="block" style="position:fixed;">
+            <p class="ft-title" style="font-size:26px;">Featured novels</p>
+            @foreach (var item in ViewBag.Featurednovel)
+            {
+                <a>
+                    <div class="item-contaniner" style="display:flex; margin : 10px 0px 10px 0px;">
+
+                        <div class="block" style="width:80px; height:120px;">
+                            <img style="width:100%;height:100%;" src="@item.BookCover" />
+                        </div>
+                        <div class="block" style="width:60%; margin-left:10px;">
+                            <p class="item_title"> @item.Title</p>
+                        </div>
+
+                    </div>
+                </a>
+            }
+
+
+
+        </div>
     </div>
 
 
 </div>
+
+
+
+
