@@ -48,12 +48,12 @@
                             <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Contact">CONTACT</a>
                         </div>
                     </li>
-                    @*<li class="nav-item">
+                    <li class="nav-item">
                     <a asp-area="" asp-controller="Authentication" asp-action="Index" class="nav-link">LOGIN <i class="icon icon-angle-double-down"></i></a>
                 </li>
                 <li class="nav-item cta">
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link"><span>PUBLISH</span></a>
-                </li>*@
+                    <a asp-area="" asp-controller="Dashboard" asp-action="Index" class="nav-link"><span>PUBLISH</span></a>
+                </li>
                 </ul>
                 <!---------notìication------------>
                 <div class="navbar_right">
@@ -350,6 +350,8 @@
                 $(".profile .icon_wrap").click(function () {
                     $(this).parent().toggleClass("active");
                     $(".notifications").removeClass("active");
+                    
+                    
                 });
 
                 $(".notifications .icon_wrap").click(function () {
@@ -366,12 +368,8 @@
                     $(".popup").hide();
                 });
 
-                $(".close").click(function () {
-                    $(".popup").hide();
-                });
-
-                $(".navbar-collapse.collapse.show").click(function () {
-                    $(this).parent().toggleClass(".navbar-collapse.collapse.show");
+                $(".navbar-toggler .navbar-collapse.collapse.show ").click(function () {
+                    $(this).parent().toggleClass("active");
                     $(".navbar-toggler").removeClass("active");
                 });
 

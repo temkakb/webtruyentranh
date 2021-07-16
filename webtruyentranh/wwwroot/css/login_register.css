@@ -213,3 +213,6 @@ form .btn {
         font-weight: 500;
         cursor: pointer;
     }
+.ignore-css {
+    all: unset;
+}

@@ -13,15 +13,16 @@ namespace WebTruyenTranhDataAccess.Context
 {
     public class ComicContext : IdentityDbContext<Account, IdentityRole<long>, long>
     {
-
         public ComicContext(DbContextOptions<ComicContext> options) : base(options)
+        {
+        }
+
+        public ComicContext()
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-         
-           
             base.OnModelCreating(modelBuilder);
 
             // Entity Subscription
@@ -143,19 +144,25 @@ namespace WebTruyenTranhDataAccess.Context
             //     sub => sub.HasOne<Account>().WithMany())
             //    .Property(sub => sub.ExpirationDate);
             // apply role data
-            modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole
-                {
-                   Name="ADMIN",
-                   
-                   
-                }
-                ) ;      
-                }
+            //modelBuilder.Entity<IdentityRole<long>>().HasData(
+            //    new IdentityRole<long>
+            //    {
+            //        Id=1,
+            //        Name = "ADMIN",
+            //        NormalizedName = "ADMIN"
+            //    },
+            //    new IdentityRole<long>
+            //    {
+            //       Id=2,
+            //        Name="USER",
+            //        NormalizedName="USER"
+            //    }
+            //    ) ;
+        }
 
         public DbSet<Profile> Profiles { get; set; }
 
-        //public DbSet<Account> Accounts { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<Genre> Genres { get; set; }
 
         public DbSet<Novel> Novels { get; set; }
@@ -170,6 +177,5 @@ namespace WebTruyenTranhDataAccess.Context
         public DbSet<Message> Messages { get; set; }
         public DbSet<ChildMessage> ChildMessages { get; set; }
         public DbSet<Episode> Episodes { get; set; }
-     
     }
 }

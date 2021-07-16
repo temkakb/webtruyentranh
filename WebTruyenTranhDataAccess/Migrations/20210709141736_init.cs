@@ -28,11 +28,10 @@ namespace WebTruyenTranhDataAccess.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(24)", maxLength: 24, nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -207,6 +206,7 @@ namespace WebTruyenTranhDataAccess.Migrations
                     Banner = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LikeCount = table.Column<int>(type: "int", nullable: false),
                     LastestUpdate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Slugify = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AccountId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
@@ -231,7 +231,7 @@ namespace WebTruyenTranhDataAccess.Migrations
                     Avartar = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
                     ExternalLink = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
                     DateJoined = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AccountId = table.Column<long>(type: "bigint", nullable: true)
+                    AccountId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -241,7 +241,7 @@ namespace WebTruyenTranhDataAccess.Migrations
                         column: x => x.AccountId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -279,7 +279,8 @@ namespace WebTruyenTranhDataAccess.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EpisodeNumber = table.Column<int>(type: "int", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(Max)", nullable: true),
+                    Content = table.Column<string>(type: "nvarchar(Max)", nullable: false),
+                    Views = table.Column<int>(type: "int", nullable: false),
                     NovelId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
@@ -561,7 +562,8 @@ namespace WebTruyenTranhDataAccess.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Profiles_AccountId",
                 table: "Profiles",
-                column: "AccountId");
+                column: "AccountId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subscriptions_AccountId",

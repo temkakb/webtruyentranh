@@ -1,0 +1,65 @@
+﻿@model Novel
+
+<section class="box columns " id="Information" style="margin-bottom: 1.5rem">
+    <div class="column is-one-fifth is-relative" style="height: 220px; width: 120px; margin-right: 15px">
+        <img class="thumb-overlay" src=@Model.BookCover asp-append-version="true">
+    </div>
+    <div class="column">
+        <div class="columns">
+            <div class="column is-relative">
+                <span class="tag is-success ">On-going</span>
+            </div>
+            <div class="column"></div>
+            <div class="column is-two-fifths-widescreen is-half-tablet">
+                <a class="button  btn-label">Edit series</a>
+                <a class="button is-primary">
+                    <i class="fas fa-bars is-white"></i>
+                </a>
+                <a class="button is-primary">
+                    <i class="fas fa-plus is-white"></i>
+                </a>
+            </div>
+        </div>
+        <div class="columns" id="info">
+            <div class="column">
+                <div class="columns">
+                    <div class="column index__title">
+                        <p>@Model.Title</p>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column" style="padding: 0.4rem">
+                        <div>
+                            <p class="index__body">
+                                <span> </span>
+                                Subscribers:  <span>@Model.Subscriptions.Count()</span>
+                                <span><i class="fas fa-grip-lines-vertical"></i></span>
+                                <span>Total word counts:<span>@Model.totalWordCount()</span></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column decrese-padding">
+                <div class="columns">
+                    <div class="column cell__key">Episodes</div>
+                    <div class="column cell__value">@Model.Episodes.Count()</div>
+                    <div class="column cell__key">Type</div>
+                    <div class="column cell__value">@Model.getType()</div>
+                    <div class="column cell__key">Updated</div>
+                    <div class="column cell__value">@Html.FormatValue(Model.LastestUpdate, "{0:dd-MMM-yyyy}")</div>
+                </div>
+                <div class="columns">
+                    <div class="column cell__key">Views</div>
+                    <div class="column cell__value">@Model.Episodes.Sum(e => e.Views)</div>
+                    <div class="column cell__key">Likes</div>
+                    <div class="column cell__value">@Model.LikeCount</div>
+                    <div class="column cell__key">Subscribers</div>
+                    <div class="column cell__value">@Model.Subscriptions.Count()</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
