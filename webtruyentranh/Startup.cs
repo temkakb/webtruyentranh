@@ -30,7 +30,7 @@ namespace webtruyentranh
             //services.AddControllersWithViews();
             services.AddControllersWithViews()
                     .AddNewtonsoftJson(options =>
-            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Serialize);
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddDbContext<ComicContext>(opt =>
             opt.UseSqlServer(Configuration.GetConnectionString("Default"))
             .LogTo(Console.WriteLine)
