@@ -19,9 +19,9 @@
     </nav>
     <nav class="level">
         <div class="level-item has-text-centered ">
-            <div class="toEpisode">
+            <div>
                 <div class="buttons are-medium ">
-                    <a class="button toEpisode" id="toEpisodeButtonSideBar">
+                    <a class="button" id="toEpisodeButtonSideBar">
                         <i class="fas fa-bars is-white"></i>
                     </a>
                 </div>
@@ -39,7 +39,6 @@
         $.ajax({
             url: "@(Url.Action("getDashBoard", "Dashboard"))",
             dataType: 'html'
-
             , success: function (result) {
                 $('.dashboard').html(result);
             }
@@ -60,5 +59,19 @@
                     alert('Failed to retrieve books.');
                 }
             });
+        });
+        $("#toEpisodeButtonSideBar").on("click", function (e) {
+            $.ajax({
+                type: "POST",
+                url: "@(Url.Action("GetEpDashboard", "Dashboard"))",
+
+                success: function (data) {
+                    $(".dashboard").html('');
+                    $(".dashboard").html(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve Episodes.');
+                }
+            })
         });
 </script>

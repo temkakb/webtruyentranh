@@ -42,6 +42,10 @@ namespace webtruyentranh.Controllers
                                         .ThenInclude(c => c.ChildComments)
                                         .Where(n => n.Account.Id == account.Id)
                                       .ToList();
+            if (novel == null)
+            {
+                return PartialView("~/Views/Shared/_notfound.cshtml");
+            }
             int totalLikes = 0;
             int totalViews = 0;
             int totalComments = 0;
