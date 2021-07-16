@@ -1,7 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model IEnumerable<Novel>
+﻿@model IEnumerable<Novel>
+
 <nav class="level" style="margin-top:100px">
     <div class="level-left">
         <div class="control has-icons-left">
@@ -56,19 +54,16 @@
     </tbody>
 </table>
 <script type="text/javascript">
-
     $(document).ready(function () {
-        $('select').trigger("change");
+          $('select').trigger("change");
     });
-    $('select').change(function () {
-
+         $('select').change(function () {
             $.ajax({
                 url: '@Url.Action("GetEpisodes", "Episode")',
                 data: { 'id': $(this).val() },
                 dataType: "json",
                 method: 'post',
                 success: function (response) {
-
                     var result = JSON.parse(response);
                     var items = [];
                     for (var i in result) {
@@ -110,5 +105,5 @@
                     alert(err);
                 }
             });
-        });
+         });
 </script>

@@ -49,3 +49,25 @@
         </div>
     </div>
 </section>
+<script>
+     $(document).ready(function () {
+        $(".toEpisode").on("click", function () {
+            var id = $(this).attr("data-novel-id");
+
+            $.ajax({
+                type: "POST",
+                url: "@(Url.Action("GetEpDashboard", "Dashboard"))",
+                success: function (data) {
+                    $(".dashboard").html('');
+                    $(".dashboard").html(data);
+                    if (id != undefined) {
+                        $("select").val(id).trigger("change");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve Episodes.');
+                }
+            });
+        });
+    });
+</script> 

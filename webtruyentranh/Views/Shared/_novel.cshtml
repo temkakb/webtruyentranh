@@ -12,7 +12,7 @@
             <div class="column"></div>
             <div class="column is-two-fifths-widescreen is-half-tablet">
                 <a class="button  btn-label">Edit series</a>
-                <a id="@Model.Id" class="button is-primary toEpisode">
+                <a data-novel-id="@Model.Id" class="button is-primary toEpisode">
                     <i class="fas fa-bars is-white"></i>
                 </a>
                 <a class="button is-primary">
@@ -63,25 +63,3 @@
         </div>
     </div>
 </section>
-<script type="text/javascript">
-
-        $(".toEpisode").click(function () {
-          //  var id = $(this).attr("id");
-            $.ajax({
-                type: "POST",
-                url: "@(Url.Action("GetEpDashboard", "Dashboard"))",
-                success: function (data) {
-                    $(".dashboard").html('');
-                    $(".dashboard").html(data);
-
-                    //if (id != undefined) {
-                    //    $("select").val(id).trigger("change");
-                    //}
-                },
-
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert('Failed to retrieve Episodes.');
-                }
-            });
-        });
-</script>
