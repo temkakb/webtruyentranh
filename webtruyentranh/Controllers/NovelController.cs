@@ -32,8 +32,7 @@ namespace webtruyentranh.Controllers
   
         public JsonResult RequestItems(long ge, String q,int pagination)
         {
-           
-            
+
             int staticnum = pagination * 5;
             int count;
             Debug.WriteLine(staticnum);
