@@ -26,8 +26,6 @@ namespace webtruyentranh.Utility
                 var uploadParams = new ImageUploadParams
                 {
                     File = new FileDescription(file.FileName, filestream),
-
-
                 };
                 uploadResult = _cloudinary.Upload(uploadParams);
 

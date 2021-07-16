@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Account>
+@{
+    ViewData["Title"] = "Creator";
+    Layout = "~/Views/Shared/_Layoutpage.cshtml";
+
+}
+
+
+ 
+
+    <link rel="stylesheet" href="~/css/styleCreator.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="~/css/slick.css" rel="stylesheet">
+
+    <div class="brand">
+        <div class="container-fluid" style="width: 117%; padding-right: 15px; padding-left: 15px; margin-right: 0px; margin-left: -116px; ">
+            <div class="brand-slider">
+                @foreach (var item in Model)
+                {
+                    List<String> a = new List<String>();
+                    item.Novels.ForEach(n => a.Add(n.BookCover));
+
+                    @for (int i = 0; i < @a.Count; i++)
+
+                    {
+                        <div class="brand-item" style="height: 180px; width: 40px;"><img src="@a[i].ToString()" alt="" style="width: 100%; height: 100%;"></div>
+                    }
+
+                }
+
+
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="~/js/slick.min.js"></script>
+    <script src="~/js/main1.js"></script>
+
+    <div style="margin-left: 25%; margin-bottom: -169px; margin-top: -19px ">
+        <img src="https://badgeos.org/wp-content/uploads/2018/06/badges_0004_leaderboard-300x300.png" alt="" style="width: 623px; height: 254px " />
+    </div>
+
+    <main style="margin-bottom:200px">
+        <section style="margin-left:150px; margin-top:0px">
+
+            <div class="is-flex is-flex-direction-row is-flex-wrap-wrap is-justify-content-center ">
+                @foreach (var item in Model)
+                {
+                    <div class="column ">
+                        <div class="wrapper1">
+                            <div class="container1">
+                                <img src="@item.Profile.Avartar"
+                                     alt=""
+                                     class="profile-img" />
+
+                                <div class="content">
+                                    <div class="sub-content " style="word-break: break-all;">
+                                        <a href="@Url.ActionLink("Getprofile","Profile",new {Id=item.Profile.Id})">
+                                            <h1 style="font-size: 19px">@item.Profile.DisplayName</h1>
+                                        </a>
+                                        <p class="text_content">
+                                            <i>@item.Profile.Description</i>
+                                        </p>
+
+                                    </div>
+
+                                    <p title="Series" style="margin-top: 10px">
+                                        <i class="far fa-bookmark fa-2x" style="margin-left:45%;margin-top:16px;"></i>
+                                    </p>
+                                    <p style="text-align: center;margin-bottom:3px">@item.Novels.Count Series</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </main>
+
+
+
+
+
+
