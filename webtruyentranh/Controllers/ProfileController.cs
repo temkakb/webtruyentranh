@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using webtruyentranh.Viewmodels;
 using webtruyentranh.Utility;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace webtruyentranh.Controllers
 
@@ -156,6 +157,23 @@ namespace webtruyentranh.Controllers
             //else
             //    return RedirectToAction("Getprofile", "Profile",new {Id= ReciveAccount.Profile.Id });
             return Redirect(ReturnUrl);
+        }
+        public JsonResult Getmessages(long Id,int pagination)
+        {
+            var staticnum = pagination * 5;
+
+            Debug.WriteLine(Id);
+            var listms = _db.Messages.Include(m => m.ChildMessages).ThenInclude(child => child.Account.Profile).Include(m => m.Sender.Profile).Where(m => m.ReceiverAccountId == Id)
+                .OrderByDescending(d => d.CreateDate).Skip(staticnum-5).Take(staticnum).ToList();
+            return Json(JsonConvert.SerializeObject(new {  listms=listms }, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                Formatting = Formatting.Indented
+
+            }));
+
+
         }
 
         /*---------------------------------------------------------------------------------------------------*/

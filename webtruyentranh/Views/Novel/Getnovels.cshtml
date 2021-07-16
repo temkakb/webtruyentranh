@@ -101,9 +101,9 @@
 </main>
 <script src="~/js/jquery-3.2.1.min.js"></script>
 <script>
-    var Floaddata = function (elm, q, pagination, firstloaddata ) {
-         $.ajax({
-             type: "GET",
+        var Floaddata = function (elm, q, pagination, firstloaddata ) {
+             $.ajax({
+                 type: "GET",
              url: "@Url.Action("RequestItems", "Novel")",
              data: {
                'ge': elm,
@@ -127,7 +127,7 @@
                        '<div class="column is-3 ">' +
 
                        '  <div class="image-flash item_wrap">' +
-                       '<figure><img style="border-radius:5px;"src=' + nl.BookCover + '></figure>' +
+                       '<figure><img style="border-radius:5px; height:220px; width:150px;"src=' + nl.BookCover + '></figure>' +
 
                        '</div>' +
                        '</div>' +
@@ -202,7 +202,6 @@
                   $('.now-pagination').attr("id", Number(pagination) + 1);
                   pagination = $('.now-pagination').attr("id");
                   Floaddata(elm, q, pagination, firstloaddata = false);
-
                        }
        });
 
