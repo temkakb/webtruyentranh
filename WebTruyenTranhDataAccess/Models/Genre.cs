@@ -12,7 +12,10 @@ namespace WebTruyenTranhDataAccess.Models
         public string GenreName { get; set; }
 
         public List<Novel> Novels { get; set; }
+        public Genre()
+        {
 
+        }
         public Genre(long id, string genreName)
         {
             Id = id;

@@ -1,0 +1,221 @@
+﻿@model IEnumerable<Genre>;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_Layoutpage";
+}
+<link href="~/css/Style-novels.css" rel="stylesheet" />
+<main role="main" class="pb-3" style="margin-top: 50px; ">
+
+    <section class="ftco-section">
+
+        <!-- Main container -->
+        <nav class="level">
+
+            <div class="level-left">
+                <div class="level-item">
+                    <div> </div>
+                    <ul class="ge-ul">
+                        <li class="ge-li ge-li-click" id="0">All Genres</li>
+                        @foreach (var item in Model)
+                        {
+                            <li class="ge-li" id="@item.Id" >@item.GenreName</li>
+
+                        }
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+        <hr />
+        <nav class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <div> </div>
+                    <ul class="ge-ul">
+                        <li class="q-li q-li-click" id="POPULAR">Popular</li>
+                        <li class="q-li" id="FRESH">Fresh</li>
+                        <li class="q-li" id="ALL">ALL</li>
+                    
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <hr />
+        <div class="request-content">
+            <div class="columns request-containner now-pagination" id="1">
+                <div class="column is-6">
+                    <p style="margin:15px 0 15px 0;" id="count-result"></p>
+                    <ul id="data-novels">
+
+
+                        @*<li>
+                            <a class="columns">
+                                <div class="column is-3 ">
+
+                                    <div class="image-flash item_wrap">
+                                        <figure><img style="border-radius:5px;" src="" /></figure>
+
+                                    </div>
+                                </div>
+                                <div class="column is-6 item_detail">
+                                    <p class="item_title">
+
+                                    </p>
+
+                                    <p class="item_info">
+                                        <span class="G-item">
+
+                                        </span>
+                                        <span class="G-item cachder">|</span>
+
+                                    </p>
+
+                                </div>
+                            </a>
+                        </li>*@
+
+
+                    </ul>
+                </div>
+                <div class="column">
+
+                    <div class="block" id="ft-container" style="position:fixed;">
+                        <p class="ft-title" style="font-size:26px;">Featured novels</p>
+                   
+                         
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        
+
+    </section>
+</main>
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<script>
+        var Floaddata = function (elm, q, pagination, firstloaddata ) {
+             $.ajax({
+                 type: "GET",
+             url: "@Url.Action("RequestItems", "Novel")",
+             data: {
+               'ge': elm,
+                 'q': q,
+                 'pagination': pagination
+                },
+                dataType: "json",
+             success: function (data) {
+                 var result = JSON.parse(data);
+                 if (firstloaddata) {
+                     $('#count-result').text(result['countresult'] + ' results');
+                 }
+               $(result['Novels']).each(function (idx, nl) {
+                   var genre = "";
+                   $(nl.Genres).each(function (idx, ge) {
+                       genre = genre + " " + ge.GenreName;
+                   });
+                   $('#data-novels').append(
+                       '<li>' +
+                       '<a class="columns">' +
+                       '<div class="column is-3 ">' +
+
+                       '  <div class="image-flash item_wrap">' +
+                       '<figure><img style="border-radius:5px; height:220px; width:150px;"src=' + nl.BookCover + '></figure>' +
+
+                       '</div>' +
+                       '</div>' +
+                       '<div class="column is-6 item_detail">' +
+                       '  <p class="item_title">' + nl.Title +
+
+                       ' </p>' +
+
+                       ' <p class="item_info">' +
+                       ' <span class="G-item">' +
+
+                       '  </span>' +
+                       '<span class="G-item cachder">' + genre + " " + '| ' + nl.LikeCount +' likes' + '</span>' +
+
+                       '   </p>'+
+
+                       ' </div>'+
+                       ' </a>'+
+                     '  </li>'
+                   );
+               });
+                 $('.item-contaniner').remove();
+               
+               $(result['Featurednovel']).each(function (idx, ft) {
+                   $('#ft-container').append(
+                       '<a>'+
+                       ' <div class="item-contaniner" style="display:flex; margin : 10px 0px 10px 0px;">'+
+
+                       '<div class="block" style="width:80px; height:120px;">'+
+                       ' <img style="width:100%;height:100%;" src=' + ft.BookCover +' />'+
+                       ' </div>' +
+                       '    <div class="block" style="width:60%; margin-left:10px;">'+
+                       '  <p class="item_title">' + ft.Title+' </p>'+
+                       '   </div>'+
+
+                       '   </div>'+
+                       '   </a>'
+
+                   );
+               });
+
+            }
+      });
+
+    }
+    $('.ge-li').click(function () {
+        $('.ge-li').removeClass('ge-li-click');
+
+        $(this).addClass('ge-li-click');
+
+        loadcontent();
+                            });
+    $('.q-li').click(function () {
+        $('.q-li').removeClass('q-li-click');
+
+        $(this).addClass('q-li-click');
+        loadcontent();
+                            });
+    var loadcontent = function () {
+        $('.now-pagination').attr("id", 1);
+        var pagination = $('.now-pagination').attr("id");
+        var elm = $('.ge-li-click').attr("id");
+        var q = $('.q-li-click').attr("id");
+       
+        $('#data-novels').empty();
+       
+        Floaddata(elm, q, pagination, firstloaddata =true);
+          $(window).on("scroll", function() { // EVENT lang xuong bot
+                var docHeight = $(document).height();
+                var winScrolled = $(window).height() + $(window).scrollTop();
+              if ((docHeight - winScrolled) < 1) {
+                  $('.now-pagination').attr("id", Number(pagination) + 1);
+                  pagination = $('.now-pagination').attr("id");
+                  Floaddata(elm, q, pagination, firstloaddata = false);
+                       }
+       });
+
+
+
+    }
+
+
+
+
+      
+
+
+
+
+    $(document).ready(loadcontent);
+</script>

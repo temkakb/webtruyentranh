@@ -15,7 +15,7 @@
     Novel topNovels9 = (Novel)ViewBag.Novel9;
 }
 
-<!-- <div class="js-fullheight"> -->
+
 
 <div class="hero-wrap js-fullheight">
     <div class="overlay"></div>
@@ -28,29 +28,32 @@
         </div>
     </div>
 </div>
-
 <!------------------------------------>
 <div class="bg-light">
     <section class="ftco-section-featured ftco-animate">
         <div class="container-fluid" data-scrollax-parent="true">
             <div class="row no-gutters d-flex align-items-center" data-scrollax=" properties: { translateY: '-30%'}">
 
-                <div class="col-md-3 mb-3 " data-aos="zoom-in">
-                    <a href="#" class="featured-img">
+                <div class="col-md-3 mb-3">
+                    <a href="" class="featured-img">
                         <div class="text-1 p-4 d-flex align-items-center">
                             <h3>@topNovels1.Title<br><span class="tag">NOVEL</span></h3>
                         </div>
                         <img src="@topNovels1.BookCover" class="img-fluid" alt="">
                         <div class="text p-4 d-flex align-items-center">
-                            <div class="user d-flex align-items-center">
-                                <div class="user-img mr-3" style="background-image: url(https://www.takepayments.com/media/ujflbty2/bryony-pearce.jpg?anchor=center&mode=crop&width=495&height=378&rnd=132125981071730000);"></div>
-                                <h3>@topNovels1.Account.Profile.DisplayName<br><span class="position">CREATOR</span></h3>
+                            
+                          
+                              <div class="user d-flex align-items-center">
+                               
+                                    <div class="user-img mr-3" style="background-image: url(@topNovels1.Account.Profile.Avartar)"></div>
+                              <h3> @topNovels1.Account.Profile.DisplayName<br><span class="position">CREATOR</span></h3>
                             </div>
+                           
                         </div>
                     </a>
                 </div>
 
-                <div class="col-md-6" data-aos="zoom-in">
+                <div class="col-md-6">
                     <div class="row no-gutters">
                         <div class="col-md-12">
                             <div class="row no-gutters d-flex align-items-end">
@@ -63,14 +66,14 @@
                                         <img src="@topNovels2.BookCover" class="img-fluid" alt="">
                                         <div class="text p-4 d-flex align-items-center">
                                             <div class="user d-flex align-items-center">
-                                                <div class="user-img mr-3" style="background-image: url(https://i.pinimg.com/236x/f4/da/db/f4dadb1efa1ac343dc381ee1d79274f9.jpg);"></div>
+                                                <div class="user-img mr-3" style="background-image: url(@topNovels2.Account.Profile.Avartar);"></div>
                                                 <h3>@topNovels2.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
 
-                                <div class="col-md-4" data-aos="zoom-in">
+                                <div class="col-md-4">
                                     <a href="#" class="featured-img">
                                         <div class="text-1 p-4 d-flex align-items-center">
                                             <h3>@topNovels3.Title<br><span class="tag">NOVEL</span></h3>
@@ -78,7 +81,7 @@
                                         <img src="@topNovels3.BookCover" class="img-fluid" alt="">
                                         <div class="text p-4 d-flex align-items-center">
                                             <div class="user d-flex align-items-center">
-                                                <div class="user-img mr-3" style="background-image: url(https://i.pinimg.com/564x/a5/e9/9e/a5e99ecd090638056a786751b9314063.jpg);"></div>
+                                                <div class="user-img mr-3" style="background-image: url(@topNovels3.Account.Profile.Avartar);"></div>
                                                 <h3>@topNovels3.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
                                             </div>
                                         </div>
@@ -88,7 +91,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12" data-aos="zoom-in">
+                        <div class="col-md-12">
                             <div class="row no-gutters d-flex align-items-start">
                                 <div class="col-md-8">
                                     <a href="#" class="featured-img">
@@ -98,13 +101,13 @@
                                         <img src="@topNovels4.BookCover" class="img-fluid" alt="">
                                         <div class="text p-4 d-flex align-items-center">
                                             <div class="user d-flex align-items-center">
-                                                <div class="user-img mr-3" style="background-image: url(https://i.pinimg.com/564x/47/c8/9d/47c89da69ee2bbfdbd192ac0e70029e8.jpg);"></div>
-                                                <h3>@topNovels4.Account.Profile.DisplayName<br><span class="position">CREATOR</span></h3>
+                                                <div class="user-img mr-3" style="background-image: url(@topNovels4.Account.Profile.Avartar);"></div>
+                                                <h3>@topNovels4.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
                                             </div>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-md-4" data-aos="zoom-in">
+                                <div class="col-md-4">
                                     <a href="#" class="featured-img">
                                         <div class="text-1 p-4 d-flex align-items-center">
                                             <h3>@topNovels5.Title<br><span class="tag">NOVEL</span></h3>
@@ -112,7 +115,7 @@
                                         <img src="@topNovels5.BookCover" class="img-fluid" alt="">
                                         <div class="text p-4 d-flex align-items-center">
                                             <div class="user d-flex align-items-center">
-                                                <div class="user-img mr-3" style="background-image: url(https://i.pinimg.com/564x/f7/e5/8c/f7e58cd514f2fe34a71364d9e31291a3.jpg);"></div>
+                                                <div class="user-img mr-3" style="background-image: url(@topNovels5.Account.Profile.Avartar);"></div>
                                                 <h3>@topNovels5.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
                                             </div>
                                         </div>
@@ -123,7 +126,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3" data-aos="zoom-in">
+                <div class="col-md-3">
                     <a href="#" class="featured-img">
                         <div class="text-1 p-4 d-flex align-items-center">
                             <h3>@topNovels6.Title<br><span class="tag">NOVEL</span></h3>
@@ -131,258 +134,194 @@
                         <img src="@topNovels6.BookCover" class="img-fluid" alt="">
                         <div class="text p-4 d-flex align-items-center">
                             <div class="user d-flex align-items-center">
-                                <div class="user-img mr-3" style="background-image: url(https://i.pinimg.com/564x/06/2f/28/062f287e6ed35ac4afef443be46ecefc.jpg);"></div>
+                                <div class="user-img mr-3" style="background-image: url(@topNovels6.Account.Profile.Avartar);"></div>
                                 <h3>@topNovels6.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
                             </div>
                         </div>
                     </a>
                 </div>
-                <!------------------------------------>
-            </div>
-            <div class="row mt-5 d-flex justify-content-center">
-                <div class="col-md-8 text-center heading-section ftco-animate">
-                    <h2 class="h1"><!---HE. is a---><strong class="px-3">STORIES WE LOVE <i class="icon icon-heart"></i></strong><!---is home to a creator community that has published 21,350 stories. We’re sure you’re going to find a story just for you on HE.!----></h2>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-<!------------------------------------>
-<section class="ftco-section">
-    <div class="container">
-        <div class="row no-gutters justify-content-center mb-5 pb-5">
-            <div class="col-md-7 text-center heading-section ftco-animate">
-            </div>
-            <div class="row">
-                <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-                    <a href="portfolio.html" class="image" style="background-image: url('@topNovels7.BookCover'); " data-scrollax=" properties: { translateY: '-20%'}">
-                    </a>
-                    <div class="text">
-                        <h4 class="subheading">🩸@topNovels7.Account.Profile.DisplayName🩸</h4>
-                        <h2 class="heading"><a href="portfolio.html">@topNovels7.Title</a></h2>
-                        <p>@topNovels7.Description</p>
-                        <p><a href="portfolio.html" class="btn btn-primary px-4">READ MORE</a></p>
-                    </div>
-                </div>
-                <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-                    <a href="portfolio.html" class="image image-2 order-2" style="background-image: url('@topNovels7.BookCover');" data-scrollax=" properties: { translateY: '-20%'}"></a>
-                    <div class="text order-1">
-                        <h4 class="subheading">🩸@topNovels7.Account.Profile.DisplayName🩸</h4>
-                        <h2 class="heading"><a href="portfolio.html">@topNovels7.Title</a></h2>
-                        <p>@topNovels7.Description</p>
-                        <p><a href="portfolio.html" class="btn btn-primary px-4">READ MORE</a></p>
-                    </div>
-                </div>
-                <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-                    <a href="portfolio.html" class="image" style="background-image: url('@topNovels7.BookCover'); " data-scrollax=" properties: { translateY: '-20%'}"></a>
-                    <div class="text">
-                        <h4 class="subheading">@topNovels7.Account.Profile.DisplayName🩸</h4>
-                        <h2 class="heading"><a href="portfolio.html">@topNovels7.Title</a></h2>
-                        <p>
-                            @topNovels7.Description
-                        </p>
-                        <p><a href="portfolio.html" class="btn btn-primary px-4">READ MORE</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!------------------------------------>
-@*<section class="ftco-section">
-    <div class="container">
-        <div class="row no-gutters justify-content-center mb-5 pb-5">
-            <div class="col-md-7 text-center heading-section ftco-animate">
-            </div>
-            <div class="row">
-                <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-                    <a href="portfolio.html" class="image" style="background-image: url('');background-size:cover;" data-scrollax=" properties: { translateY: '-20%'}">
-                    </a>
-                    <div class="text">
-                        <h4 class="subheading">🩸  🩸</h4>
-                        <h2 class="heading"><a href="portfolio.html"></a></h2>
-                        <p>Chèn nội dung novels vào đâyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</p>
-                        <p><a href="portfolio.html" class="btn btn-primary px-4">READ MORE</a></p>
-                    </div>
-                </div>
-                <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-                    <a href="portfolio.html" class="col-6 image image-2 order-2" style="background-image: url('@topNovels8.BookCover');" data-scrollax=" properties: { translateY: '-20%'}"></a>
-                    <div class="text order-1">
-                        <h4 class="subheading">🩸 @topNovels8.Account.Profile.DisplayName 🩸</h4>
-                        <h2 class="heading"><a href="portfolio.html">@topNovels8.Title</a></h2>
-                        <p>Chèn nội dung novels vào đâyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</p>
-                        <p>Chèn nội dung novels vào đâyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</p>
-                        <p><a href="portfolio.html" class="btn btn-primary px-4">READ MORE</a></p>
-                    </div>
-                </div>
-                <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-                    <a href="portfolio.html" class="image" style="background-image: url('@topNovels9.BookCover'); " data-scrollax=" properties: { translateY: '-20%'}"></a>
-                    <div class="text">
-                        <h4 class="subheading">🩸 @topNovels9.Account.Profile.DisplayName 🩸 </h4>
-                        <h2 class="heading"><a href="portfolio.html">@topNovels9.Title</a></h2>
-                        <p>
-                            Chèn nội dung novels vào đâyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
-                        </p>
-                        <p><a href="portfolio.html" class="btn btn-primary px-4">READ MORE</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>*@
-<!---------------------------->
-<section class="ftco-section-parallax">
-    <div class="parallax-img d-flex align-items-center">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                    <h2>Subcribe to our Newsletter</h2>
-                    <p>HE. is home to a creator community that has published 3,000 stories. We’re sure you’re going to find a story just for you!</p>
-                    <div class="row d-flex justify-content-center mt-5">
-                        <div class="col-md-6">
-                            <form action="#" class="subscribe-form">
-                                <div class="form-group">
-                                    <a href="#"><span class="icon icon-paper-plane"></span></a>
-                                    <input type="text" class="form-control" placeholder="Enter email address">
+                   <!------------------------------------>
+                            </div>
+                            <div class="row mt-5 d-flex justify-content-center">
+                                <div class="col-md-8 text-center heading-section ftco-animate">
+                                    <h2 class="h1"><!---HE. is a---><strong class="px-3">STORIES WE LOVE <i class="icon icon-heart"></i></strong><!---is home to a creator community that has published 21,350 stories. We’re sure you’re going to find a story just for you on HE.!----></h2>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!---------------------------->
-<section class="ftco-section testimony-section bg-light">
-    <div class="container">
-        <div class="row justify-content-center mb-5 pb-5">
-            <div class="col-md-7 text-center heading-section ftco-animate">
-                <h2 class="mb-4">FOLLOW US NOWWWWWWW!</h2>
-                <img src="https://cdn.discordapp.com/attachments/751417489262641226/864889200050438174/170876991_498733877793875_7934672547597954111_n.png" alt="this slowpoke moves" width="250" />
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-<section class="ftco-section ftco-counter" id="section-counter">
-    <div class="container">
-        <div class="row justify-content-center mb-5 pb-5">
-            <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                <h2>Our achievements</h2>
-                <p>Join hehdot the HE. Creator Community and share your work with millions of fans!</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-4 d-flex justify-content-center counter-wrap ftco-animate">
-                <div class="block-18 text-center">
-                    <div class="text">
-                        <strong class="number" data-number="@ViewBag.countCreator">0</strong>
-                        <span>USERS</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 d-flex justify-content-center counter-wrap ftco-animate">
-                <div class="block-18 text-center">
-                    <div class="text">
-                        <strong class="number" data-number="0">0</strong>
-                        <span>EPISODES</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 d-flex justify-content-center counter-wrap ftco-animate">
-                <div class="block-18 text-center">
-                    <div class="text">
-                        <strong class="number" data-number="@ViewBag.countNovels">0</strong>
-                        <span> NOVELS WE HAVE</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-
-<section class="ftco-section bg-light">
-    <div class="container">
-        <div class="row justify-content-center mb-5 pb-5">
-            <div class="col-md-7 text-center heading-section ftco-animate">
-                <span class="subheading">NOVEL</span>
-                <h2>Featured stories</h2>
-            </div>
-        </div>
-        <div class="row">
-            @foreach (var item in Model)
-            {
-                <div class="col-md-4 ftco-animate">
-                    <div class="blog-entry" data-aos="zoom-in">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('@item.BookCover');">
-                        </a>
-                        <div class="text p-4 d-block">
-                            <div class="meta mb-3">
-                                <div><a href="#">@item.LastestUpdate</a></div>
-                                <div><a href="#">@item.Account.Profile.DisplayName</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 7</a></div>
                             </div>
-                            <h3 class="heading"><a href="#">@item.Title</a></h3>
                         </div>
-                    </div>
+                    </section>
                 </div>
-            }
-            @*<div class="col-md-4 ftco-animate">
-                    <div class="blog-entry" data-aos-delay="100">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('@featureNovel2.BookCover');">
-                        </a>
-                        <div class="text p-4">
-                            <div class="meta mb-3">
-                                <div><a href="#">@featureNovel2.LastestUpdate</a></div>
-                                <div><a href="#">@featureNovel2.Account.Profile.DisplayName</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 9</a></div>
+                <!------------------------------------>
+                <section class="ftco-section">
+                    <div class="container">
+                        <div class="row no-gutters justify-content-center mb-5 pb-5">
+                            <div class="col-md-7 text-center heading-section ftco-animate">
                             </div>
-                            <h3 class="heading"><a href="#">@featureNovel2.Title</a></h3>
+                            <div class="row">
+                                <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
+                                    <a href="portfolio.html" class="image" style="background-image: url('@topNovels7.BookCover'); " data-scrollax=" properties: { translateY: '-20%'}">
+                                    </a>
+                                    <div class="text">
+                                        <a href="@Url.ActionLink("Getprofile","Profile",new {Id=topNovels7.Account.Profile.Id})"> <h4 class="subheading">🩸@topNovels7.Account.Profile.DisplayName🩸</h4> </a>
+                                        <h2 class="heading"><a href="portfolio.html">@topNovels7.Title</a></h2>
+                                        <p>@topNovels7.Description</p>
+                                        <p><a href="portfolio.html" class="btn btn-primary px-4">READ MORE</a></p>
+                                    </div>
+                                </div>
+                                <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
+                                    <a href="portfolio.html" class="image image-2 order-2" style="background-image: url('@topNovels8.BookCover');" data-scrollax=" properties: { translateY: '-20%'}"></a>
+                                    <div class="text order-1">
+                                        <a href="@Url.ActionLink("Getprofile","Profile",new {Id=topNovels7.Account.Profile.Id})">
+                                            <h4 class="subheading">🩸@topNovels8.Account.Profile.DisplayName🩸</h4>
+                                         </a>
+                                            <h2 class="heading"><a href="portfolio.html">@topNovels8.Title</a></h2>
+                                            <p>@topNovels8.Description</p>
+                                            <p><a href="portfolio.html" class="btn btn-primary px-4">READ MORE</a></p>
+                                    </div>
+                                </div>
+                                <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
+                                    <a href="portfolio.html" class="image" style="background-image: url('@topNovels7.BookCover'); " data-scrollax=" properties: { translateY: '-20%'}"></a>
+                                    <div class="text">
+                                        <a href="@Url.ActionLink("Getprofile","Profile",new {Id=topNovels7.Account.Profile.Id})">
+                                            <h4 class="subheading">@topNovels7.Account.Profile.DisplayName🩸</h4>
+                                            </a>
+                                            <h2 class="heading"><a href="portfolio.html">@topNovels7.Title</a></h2>
+                                            <p>
+                                                @topNovels7.Description
+                                            </p>
+                                            <p><a href="portfolio.html" class="btn btn-primary px-4">READ MORE</a></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 ftco-animate">
-                    <div class="blog-entry" data-aos-delay="200">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('@featureNovel3.BookCover');">
-                        </a>
-                        <div class="text p-4">
-                            <div class="meta mb-3">
-                                <div><a href="#">@featureNovel3.LastestUpdate</a></div>
-                                <div><a href="#">@featureNovel3.Account.Profile.DisplayName</a></div>
-                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                </section>
+                <!------------------------------------>
+                <!---------------------------->
+                <section class="ftco-section-parallax">
+                    <div class="parallax-img d-flex align-items-center">
+                        <div class="container">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+                                    <h2>Subcribe to our Newsletter</h2>
+                                    <p>HE. is home to a creator community that has published 3,000 stories. We’re sure you’re going to find a story just for you!</p>
+                                    <div class="row d-flex justify-content-center mt-5">
+                                        <div class="col-md-6">
+                                            <form action="#" class="subscribe-form">
+                                                <div class="form-group">
+                                                    <a href="#"><span class="icon icon-paper-plane"></span></a>
+                                                    <input type="text" class="form-control" placeholder="Enter email address">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 class="heading"><a href="#">@featureNovel3.Title</a></h3>
                         </div>
                     </div>
-                </div>*@
-        </div>
-    </div>
-</section>
+                </section>
+                <!---------------------------->
+                <section class="ftco-section testimony-section bg-light">
+                    <div class="container">
+                        <div class="row justify-content-center mb-5 pb-5">
+                            <div class="col-md-7 text-center heading-section ftco-animate">
+                                <h2 class="mb-4">FOLLOW US NOWWWWWWW!</h2>
+                                <img src="https://cdn.discordapp.com/attachments/751417489262641226/864889200050438174/170876991_498733877793875_7934672547597954111_n.png" alt="this slowpoke moves" width="250" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-@section Scripts {
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="~/js/popper.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/jquery.easing.1.3.js"></script>
-    <script src="~/js/jquery.waypoints.min.js"></script>
-    <script src="~/js/jquery.stellar.min.js"></script>
-    <script src="~/js/owl.carousel.min.js"></script>
-    <script src="~/js/jquery.magnific-popup.min.js"></script>
-    <script src="~/js/aos.js"></script>
-    <script src="~/js/jquery.animateNumber.min.js"></script>
-    <script src="~/js/bootstrap-datepicker.js"></script>
-    <script src="~/js/jquery.timepicker.min.js"></script>
-    <script src="~/js/particles.min.js"></script>
-    <script src="~/js/particle.js"></script>
-    <script src="~/js/scrollax.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="~/js/google-map.js"></script>
-    <script src="~/js/main.js"></script>
-}
+
+
+                <section class="ftco-section ftco-counter" id="section-counter">
+                    <div class="container">
+                        <div class="row justify-content-center mb-5 pb-5">
+                            <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+                                <h2>Our achievements</h2>
+                                <p>Join hehdot the HE. Creator Community and share your work with millions of fans!</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4 d-flex justify-content-center counter-wrap ftco-animate">
+                                <div class="block-18 text-center">
+                                    <div class="text">
+                                        <strong class="number" data-number="@ViewBag.countCreator">0</strong>
+                                        <span>USERS</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 d-flex justify-content-center counter-wrap ftco-animate">
+                                <div class="block-18 text-center">
+                                    <div class="text">
+                                        <strong class="number" data-number="0">0</strong>
+                                        <span>EPISODES</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4 d-flex justify-content-center counter-wrap ftco-animate">
+                                <div class="block-18 text-center">
+                                    <div class="text">
+                                        <strong class="number" data-number="@ViewBag.countNovels">0</strong>
+                                        <span> NOVELS WE HAVE</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+
+
+                <section class="ftco-section bg-light">
+                    <div class="container">
+                        <div class="row justify-content-center mb-5 pb-5">
+                            <div class="col-md-7 text-center heading-section ftco-animate">
+                                <span class="subheading">NOVEL</span>
+                                <h2>Featured stories</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-md-4 ftco-animate">
+                                    <div class="blog-entry" data-aos="zoom-in">
+                                        <a href="blog-single.html" class="block-20" style="background-image: url('@item.BookCover');">
+                                        </a>
+                                        <div class="text p-4 d-block">
+                                            <div class="meta mb-3">
+                                                <div><a href="#">@item.LastestUpdate</a></div>
+                                                <div><a href="#">@item.Account.Profile.DisplayName</a></div>
+                                                <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 7</a></div>
+                                            </div>
+                                            <h3 class="heading"><a href="#">@item.Title</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </section>
+
+                @section Scripts {
+                    <script src="~/js/jquery.min.js"></script>
+                    <script src="~/js/jquery-migrate-3.0.1.min.js"></script>
+                    <script src="~/js/popper.min.js"></script>
+                    <script src="~/js/bootstrap.min.js"></script>
+                    <script src="~/js/jquery.easing.1.3.js"></script>
+                    <script src="~/js/jquery.waypoints.min.js"></script>
+                    <script src="~/js/jquery.stellar.min.js"></script>
+                    <script src="~/js/owl.carousel.min.js"></script>
+                    <script src="~/js/jquery.magnific-popup.min.js"></script>
+                    <script src="~/js/aos.js"></script>
+                    <script src="~/js/jquery.animateNumber.min.js"></script>
+                    <script src="~/js/bootstrap-datepicker.js"></script>
+                    <script src="~/js/jquery.timepicker.min.js"></script>
+                    <script src="~/js/particles.min.js"></script>
+                    <script src="~/js/particle.js"></script>
+                    <script src="~/js/scrollax.min.js"></script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+                    <script src="~/js/google-map.js"></script>
+                    <script src="~/js/main.js"></script>
+                }

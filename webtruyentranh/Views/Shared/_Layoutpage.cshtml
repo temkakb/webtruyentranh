@@ -1,4 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@using WebTruyenTranhDataAccess.Context;
+@inject SignInManager<Account> signinManager;
+@inject UserManager<Account> userManager;
+@inject ComicContext _db;
+@inject IEnumerable<Notification> nofications;
+@{
+    var profile = _db.Profiles.FirstOrDefault(p => p.Account.UserName == User.Identity.Name);
+    var user = await userManager.GetUserAsync(User);
+
+    if (user != null)
+        nofications = _db.Notifications.Where(n => n.Account.Id == user.Id).Where(n => n.IsRead == false).Skip(0).Take(5).ToList();
+    else
+        nofications = null;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>@ViewData["Title"] - webtruyentranh</title>
@@ -18,7 +32,7 @@
     <link rel="stylesheet" href="~/css/icomoon.css">
     <link rel="stylesheet" href="~/css/style_layout_page.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.css">
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
@@ -34,7 +48,6 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
-
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
@@ -46,52 +59,192 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Home" asp-action="Discover" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">DISCOVER</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="AboutUs">ABOUT US</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Privacy">CONTACT</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="About">ABOUT US</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Contact">CONTACT</a>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a asp-area="" asp-controller="Authentication" asp-action="Index" class="nav-link">LOGIN <i class="icon icon-angle-double-down"></i></a>
-                    </li>
-                    <li class="nav-item cta">
-                        <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link"><span>PUBLISH</span></a>
-                    </li>
+
+                    @*<li class="nav-item">
+                            <a asp-area="" asp-controller="Authentication" asp-action="Index" class="nav-link">LOGIN <i class="icon icon-angle-double-down"></i></a>
+                        </li>
+                        <li class="nav-item cta">
+                            <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link"><span>PUBLISH</span></a>
+                        </li>*@
+
                 </ul>
+                <!----------notification------------>
+                <div class="navbar_right">
+                    @if (signinManager.IsSignedIn(User))
+                    {
+                        <div class="notifications">
+                            <div class="icon_wrap">
+                                <i class="icon-bell-o"></i>
+                                <span class="badge-danger badge-counter">@nofications.Count()</span>
+                            </div>
+                            <div class="notification_dd">
+                                <ul class="notification_ul">
+                                    <!---------------------->
+                                    @if (nofications.Any())
+                                    {
+                                        foreach (var nofi in nofications)
+                                        {
+                                            <li class="notify-read">
+                                                <div class="notify_icon">
+                                                    <span class="icon">
+                                                        <img src="" alt="creators_pic" />
+                                                    </span>
+                                                </div>
+                                                <div class="notify_data">
+                                                    <div class="title">
+                                                        @nofi.Content
+                                                    </div>
+                                                    <div class="sub_title">
+                                                        @profile.DisplayName
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                        }
+
+
+                                    }
+                                    else
+                                    {
+                                        <li class="show_all">
+                                            <p class="link">No Activities</p>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <!----------PRÒILE------------>
+                        <div class="profile">
+                            <div class="icon_wrap">
+                                <a href="@Url.Action("Getme","Profile")">  <img src="@profile.Avartar" alt="profile_pic"> </a>
+                                <span class="name">@profile.DisplayName</span>
+                                <i class="icon-chevron-down"></i>
+                            </div>
+
+                            <div class="profile_dd">
+                                <ul class="profile_ul">
+                                    <li><a class="myprofile" href="@Url.Action("Getme","Profile")"><span class="picon"><i class="icon-user-o"></i></span> My profile</a></li>
+                                    <li><a class="logout" href="@Url.Action("Logout","Authentication")"><span class="picon"><i class="icon-sign-out"></i></span> Log out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
+            <!----- end notification--------->
+            <!------------LOGIN POPUP------------>
+            @*<div class="container center">
+                    <a href="#login" class="btn btn-large teal modal-trigger">LOGIN</a>
+                </div>
+
+                <div id="login" class="modal ">
+                    <h5 class="modal-close">&#10005;</h5>
+                    <div class="modal-content center">
+                        <h4>Login Form</h4>
+                        <br>
+                        <form action="#">
+
+                            <div class="input-field">
+                                <i class="material-icons prefix">person</i>
+                                <input type="text" id="name">
+                                <label for="name">Username</label>
+                            </div>
+                            <br>
+
+                            <div class="input-field">
+                                <i class="material-icons prefix">lock</i>
+                                <input type="password" id="pass">
+                                <label for="pass">Password</label>
+                            </div>
+                            <br>
+
+                            <div class="left" style="margin-left:20px;">
+                                <input type="checkbox" id="check">
+                                <label for="check">Remember Me</label>
+                            </div>
+                            <br>
+
+                            <input type="submit" value="Login" class="btn btn-large">
+
+                        </form>
+                    </div>
+                </div>*@
+            <!------------LOGIN POPUP------------>
         </div>
     </nav>
     <!-- END nav -->
-    <!-- <div class="js-fullheight"> -->
-    @*<div class="hero-wrap js-fullheight">
-            <div class="overlay"></div>
-            <div id="particles-js"></div>
-            <div class="container">
-                <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
-                    <div class="col-md-6 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-                        <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Bite-sized <strong>Stories</strong> on the go</h1>
-                        <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><a href="#" class="btn btn-primary btn-outline-white px-5 py-3">START READING NOW!</a></p>
+
+    <div class="container">
+
+
+        @RenderBody()
+    </div>
+
+    <!-- FOOTER -->
+    <!--<footer class="ftco-footer ftco-bg-dark ftco-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">HE.</h2>
+                        <p>Bite-sized Stories on the go. Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in</p>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4 ml-5">
+                        <h2 class="ftco-heading-2">Quick Links</h2>
+                        <ul class="list-unstyled">
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index" class="py-2 d-block">Novels</a></li>
+                            <li><a asp-area="" asp-controller="" asp-action="Creators" class="py-2 d-block">Creators</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="About" class="py-2 d-block">About</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact" class="py-2 d-block">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Contact Information</h2>
+                        <ul class="list-unstyled">
+                            <li class="py-2 d-block">60 - 62 Le Loi, District 1, Ho Chi Minh City</li>
+                            <li class="py-2 d-block">+ 0987 654 321</li>
+                            <li class="py-2 d-block">teroof@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
+                            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>*@
+            <div class="row">
+                <div class="col-md-12 text-center">
 
-    <!-- <div class="js-fullheight"> -->
-    <div class="container">
-      
-            @RenderBody()
-   
-    </div>
-    <!-- <div class="js-fullheight"> -->
-    <!-- FOOTER -->
-   
-
+                    <p>-->
+    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+    <!--Copyright &copy;
+    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
+    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+    <!--</p>
+                </div>
+            </div>
+        </div>
+    </footer>-->
     <!-- loader -->
-    <div id="ftco-loader" class="show fullscreen">
-        <svg class="circular" width="48px" height="48px">
-            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
-        </svg>
-    </div>
+    @*<div id="ftco-loader" class="show fullscreen">
+            <svg class="circular" width="48px" height="48px">
+                <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+                <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D 00" />
+            </svg>
+        </div>*@
     <!-- end loader -->
     <!-- javascript -->
     <script src="~/js/jquery.min.js"></script>
@@ -110,13 +263,50 @@
     <script src="~/js/particles.min.js"></script>
     <script src="~/js/particle.js"></script>
     <script src="~/js/scrollax.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="~/js/google-map.js"></script>
     <script src="~/js/main.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
     <!-- end javascript -->
+    <!----------NOTIFICATION---------->
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".profile .icon_wrap").click(function () {
+                $(this).parent().toggleClass("active");
+                $(".notifications").removeClass("active");
+            });
+
+            $(".notifications .icon_wrap").click(function () {
+                $(this).parent().toggleClass("active");
+                $(".profile").removeClass("active");
+            });
+
+            $(".show_all .link").click(function () {
+                $(".notifications").removeClass("active");
+                $(".popup").show();
+            });
+
+            $(".close").click(function () {
+                $(".popup").hide();
+            });
+
+            $(".navbar-toggler").click(function () {
+                $(this).parent().toggleClass(".navbar-collapse.collapse.show");
+                $(".navbar-toggler").removeClass(".navbar-collapse.collapse.show");
+            });
+
+            $(document).ready(function () {
+                $('.modal').modal();
+            });
+        });
+    </script>
+    <!----------NOTIFICATION---------->
 </body>
+
+
 </html>
+

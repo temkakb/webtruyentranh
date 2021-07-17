@@ -1,5 +1,4 @@
-﻿@using webtruyentranh.Viewmodels;
-@model EditProfile_Viewmodel;
+﻿@model EditProfile_Viewmodel;
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -7,29 +6,37 @@
     Layout = "_Layoutpage";
 }
 <link href="~/css/backgroundeditprofile.css" rel="stylesheet" />
-
-<main role="main" class="pb-3" style="margin-top: 150px;  height:1200px; ">
-    <section class="ftco-section" style="height: 900px;">
-        <div class="columns is-mobile" style="background-color: white; border-radius:5px; height:900px;  ">
-            <div class="column is-5 " style="border-right: solid 5px rgba(226, 106, 106, 1); justify-content: center; ">
-                <figure class="image is-square	" >
-                    <img class="is-rounded" id="avatar-recent" style=" box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); " src="@ViewBag.recentavt">
-                </figure>
-                <div class="block " style="margin-top: 50px; justify-items: center;  ">
-                  
-                    <p class="subtitle is-3">@Model.DisplayName</p>
-                    <p class="subtitle is-5">@Model.Description</p>
-                    <p class="subtitle is-5">Date join: @Model.Datejoined</p>
-
-
-
-
+<link href="~/css/profile.css" rel="stylesheet" />
+<main role="main" class="pb-3" style="margin-top: 50px; padding-bottom:100px;" >
+    <section class="ftco-section">
+        <form method="post" asp-action="editprofile" asp-controller="profile" asp-route-Id="@Model.Id" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div class="columns is-desktop" style="background-color: white; border-radius:30px;   ">
+                <div class="column is-5 ">
+                    <div class="block" style="text-align:center; width:100%; height:46%; margin-top:35px; margin-bottom:70px;">
+                        <img id="avatar-recent" style=" width: 300px; height: 300px; border-radius: 50%; border: 3px solid #888; " src="@ViewBag.recentavt ">
+                        <div class="field" style="margin-top:20px;">
+                            <div class="control">
+                                <button class="button profile-button-edit btn-upload-avatar ">
+                                    <input type="file" class="file-input" asp-for="Avartar" onchange="loadFile(event)" /> Edit avatar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block " style="margin-top:30px; padding-bottom:50px;">
+                        <p class="subtitle is-3">@Model.DisplayName</p>
+                        <p class="subtitle is-5">@Model.Description</p>
+                        <p class="subtitle is-5">Date join: @Model.Datejoined</p>
+                    </div>
                 </div>
-                </div>
-            <div class="column">
-                <form method="post" asp-action="editprofile" asp-controller="profile" asp-route-Id="@Model.Id" enctype="multipart/form-data">
+                <div class="column">
                     <div class="field">
-                        <label class="label">Name</label>
+                        <div class="control">
+                            <button class="button profile-button-edit " style="float: right; width: 20%; margin:10px; position:sticky; height:15%;">SAVE</button>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Display Name</label>
                         <div class="control">
                             <input class="input is-danger is-medium" type="text" asp-for="DisplayName" placeholder="@Model.DisplayName">
                         </div>
@@ -41,45 +48,26 @@
                         </div>
                     </div>
                     <div class="field ">
-                        <label class="label">Description</label>
+                        <label class="label">About me</label>
                         <div class="control">
                             <textarea class="textarea is-danger" asp-for="Description" placeholder="@Model.Description"></textarea>
                         </div>
                     </div>
 
                     <div class="field ">
-                        <label class="label">@Model.Email</label>
+                        <label class="label">Email</label>
                         <div class="control">
-                            <input class="input" type="text" placeholder="temkakb@gmail.com" disabled>
+                            <input class="input" type="text" placeholder="@Model.Email" disabled>
                         </div>
                     </div>
-                    <div class="file">
-                        <label class="file-label" style="width:100%; text-align:center;">
-                            <input class="file-input" asp-for="Avartar"  onchange="loadFile(event)" >
-                            <span class="file-cta" style="width: 100%; background-color: rgba(241, 130, 141,1) ;">
-                                <span class="file-icon">
-                                    <i class="fas fa-upload"></i>
-                                </span>
-                                <span class="file-label" style="width: 100%; justify-items: center; ">
-                                    Upload Avartar
-                                </span>
-                            </span>
-                        </label>
-                    </div>
-                    <div class="field " style="margin: 50px;">
-
-                        <div class="control">
-                            <button class="button is-danger is-rounded" style="width:100%; height:40px; font-size:20px;">SAVE</button>
-
-                        </div>
-                    </div>
-                </form>
-
-
+                </div>
             </div>
 
-            </div>
-        </section>
+        </form>
+        @*<div class="block banner">
+            dấdsadasdasda
+        </div>*@
+    </section>
 </main>
 
 <script>

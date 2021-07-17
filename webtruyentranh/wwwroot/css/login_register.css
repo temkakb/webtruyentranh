@@ -22,7 +22,7 @@ html, body {
 
 .wrapper {
     overflow: hidden;
-    max-width: 500px;
+    max-width: 390px;
     background: #fff;
     padding: 30px;
     border-radius: 5px;
@@ -213,3 +213,6 @@ form .btn {
         font-weight: 500;
         cursor: pointer;
     }
+.ignore-css {
+    all: unset;
+}

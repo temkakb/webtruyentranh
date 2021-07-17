@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layoutpage.cshtml";
+}
+<link href="~/css/StyleSheet.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+<div class="fixed is-flex is-flex-direction-column is-justify-content-center is-align-content-center is-align-items-center is-flex-wrap-wrap" style="top:300px; width:100px;">
+    <nav class="level">
+        <div class="level-item has-text-centered">
+            <div>
+                <div class="buttons are-medium">
+                    <a href="@Url.Action("Index","Admin")" class="button" id="dashboardButton">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </a>
+                </div>
+                <p class="sidebar-title">Dashboard</p>
+            </div>
+        </div>
+    </nav>
+    <nav class="level">
+        <div class="level-item has-text-centered ">
+            <div class="toEpisode">
+                <div class="buttons are-medium">
+                    <a class="button " id="toEpisodeButton">
+                        <i class="fas fa-bars is-white"></i>
+                    </a>
+                </div>
+                <p class="sidebar-title" id="toEpisodeTitle">Genre</p>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container" style="margin-bottom:200px;  margin-top:50px;">
+    <h1 class="block index-label">
+        Dashboard
+    </h1>
+    <nav class="level">
+        <div class="level-item has-text-centered Sumary " style="margin-right: 10px">
+            <div>
+                <p class="heading">Total Creators</p>
+                <p class="title">@ViewData["CreatorsCount"]</p>
+            </div>
+        </div>
+        <div class="level-item has-text-centered Sumary" style="margin-right: 10px">
+            <div>
+                <p class="heading">Total Novels</p>
+                <p class="title">@ViewData["NovelCount"]</p>
+            </div>
+        </div>
+        <div class="level-item has-text-centered Sumary " style="margin-right: 10px">
+            <div>
+                <p class="heading">Total Comments</p>
+                <p class="title">@ViewData["NovelComment"]</p>
+            </div>
+        </div>
+    </nav>
+    <div class="content-container">
+        <div class="columns">
+            <div class="column is-6">
+                <h5 class="subtitle is-5">Enter Display Name or Profile Id</h5>
+                <input id="search-user" class="input is-info" type="text">
+                <div class="block" id="result-user-container">
+
+
+
+
+                </div>
+            </div>
+
+            <div class="column is-6">
+                <h5 class="subtitle is-5">Enter Novel name</h5>
+                <input id="search-novel" class="input is-info" type="text">
+                <div class="block" id="result-novel-container">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+ /* var searchRequest = null;*/
+
+$(function () {
+
+    $('#toEpisodeButton').on('click', function () {
+       /* $('.content-container').remove();*/
+        $.ajax({
+            url: "@Url.Action("LoadGenrecontent","Admin")",
+            type: 'GET',
+            dataType: 'html',
+            success: function (data) {
+                $('.content-container').html(data);
+            }
+        })
+
+    });
+
+    $("#search-user").keyup(function () {
+        value = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Finduser", "Admin")",
+                data: {
+                    'input_data' : value
+                },
+                dataType: "html",
+                success: function (data) {
+                    if (data) {
+                        $('#result-user-container').html(data);
+                    }
+
+                }
+            });
+
+    });
+});
+
+$(function () {
+
+    $("#search-novel").keyup(function () {
+
+        value = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Findnovel", "Admin")",
+                data: {
+                    'input_data' : value
+                },
+                dataType: "html",
+                success: function (data) {
+                    if (data) {
+                        $('#result-novel-container').html(data);
+                    }
+
+                }
+            });
+
+    });
+});
+
+    </script>

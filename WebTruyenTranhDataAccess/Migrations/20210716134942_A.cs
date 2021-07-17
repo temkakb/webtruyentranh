@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebTruyenTranhDataAccess.Migrations
 {
-    public partial class ThoTrangLongDen : Migration
+    public partial class A : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -279,7 +279,9 @@ namespace WebTruyenTranhDataAccess.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EpisodeNumber = table.Column<int>(type: "int", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(Max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(255)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(Max)", nullable: false),
+                    Views = table.Column<int>(type: "int", nullable: false),
                     NovelId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>

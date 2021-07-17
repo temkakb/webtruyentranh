@@ -18,5 +18,7 @@ namespace webtruyentranh.Viewmodels
         [MaxLength(24, ErrorMessage = "Password is up to 24 charaters")]
         [MinLength(8, ErrorMessage = "Password is as least 8 charaters")]
         public  String Password { get; set; }
+
+
     }
 }

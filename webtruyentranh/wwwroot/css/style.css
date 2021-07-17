@@ -110,7 +110,8 @@ ol,
 ul,
 dl {
     margin-top: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
+    list-style:none;
 }
 
     ol ol,
@@ -443,6 +444,7 @@ mark,
 }
 
 .list-unstyled {
+    color: #fff;
     padding-left: 0;
     list-style: none;
 }
@@ -4342,6 +4344,326 @@ input[type="button"].btn-block {
     display: block;
 }
 
+/*search*/
+@media (max-width: 575.98px) {
+    .navbar-expand-sm > .container, .navbar-expand-sm > .container-fluid {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .navbar.navbar-light.bg-light {
+        top:-5px;
+        display: block;
+        position: absolute;
+        width: 100%;
+        left: 50px;
+    }
+        .navbar.navbar-light.bg-light .form-control {
+            width: 40%;
+        }
+            .navbar.navbar-light.bg-light .form-control .btn.btn-outline-success.my-2.my-sm-0 {
+                left: 10px;
+            }
+}
+
+/******notification****/
+
+.navbar_right {
+    display: flex;
+}
+
+    .navbar_right img {
+        width: 35px;
+        border-radius: 50%;
+    }
+
+    .navbar_right .icon_wrap {
+        cursor: pointer;
+    }
+        /*alert count*/
+        .navbar_right .icon_wrap .badge-counter {
+            position: absolute;
+            transform: scale(0.6);
+            transform-origin: top right;
+            right: -0.105rem;
+            margin-top: -0.2rem;
+            margin: 2px;
+            padding: 0px 8px;
+        }
+
+    .navbar_right .notifications {
+        margin-right: 25px;
+    }
+
+        .navbar_right .notifications .icon_wrap {
+            font-size: 25px;
+            color: aliceblue;
+        }
+
+    .navbar_right .profile,
+    .navbar_right .notifications {
+        position: relative;
+    }
+@media (max-width: 991px) {
+    .navbar_right {
+        float: right;
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 481.98px) {
+    .profile .profile_dd, .notification_dd {
+        position: absolute;
+        top: 48px;
+        right: -147px;
+        user-select: none;
+        background: #fff;
+        border: 1px solid #c7d8e2;
+        width: 340px;
+        height: auto;
+        display: none;
+        border-radius: 3px;
+        box-shadow: 10px 10px 35px rgb(0 0 0 / 13%), -10px -10px 35px rgb(0 0 0 / 13%);
+    }
+        .profile .profile_dd:before, .notification_dd:before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            right: 148px;
+            border: 10px solid;
+            border-color: transparent transparent #fff transparent;
+        }
+}
+
+/**/
+.profile .profile_dd, .notification_dd {
+    position: absolute;
+    top: 48px;
+    right: -15px;
+    user-select: none;
+    background: #fff;
+    border: 1px solid #c7d8e2;
+    width: 340px;
+    height: auto;
+    display: none;
+    border-radius: 3px;
+    box-shadow: 10px 10px 35px rgba(0,0,0,0.125), -10px -10px 35px rgba(0,0,0,0.125);
+}
+
+    .profile .profile_dd:before, .notification_dd:before {
+        content: "";
+        position: absolute;
+        top: -20px;
+        right: 16px;
+        border: 10px solid;
+        border-color: transparent transparent #fff transparent;
+    }
+
+.notification_ul {
+    padding:0;
+    margin: 0;
+}
+    .notification_dd li {
+        border-bottom: 1px solid #e1e5eb;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+    }
+        .notification_dd li:hover {
+            cursor: pointer;
+            color: #e83e8c;
+            background: #f4f5f6;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .notification_dd li .notify_icon {
+            display: flex;
+        }
+
+            .notification_dd li a .notify_icon .icon img {
+                display: inline-block;
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                max-width: 145%;
+            }
+
+        .notification_dd li .notify_data {
+            margin: 0 10px;
+            width: 232px;
+        }
+
+            .notification_dd li .notify_data .title {
+                color: #000;
+                font-weight: 600;
+                font-size: 15px;
+                line-height: 1.5;
+                margin: 0;
+            }
+
+            .notification_dd li .notify_data .sub_title {
+                font-size: 14px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-top: 5px;
+            }
+
+        .notification_dd li.show_all {
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+            .notification_dd li.show_all p {
+                font-weight: 700;
+                color: #e83e8c;
+                cursor: pointer;
+            }
+
+                .notification_dd li.show_all p:hover {
+                    text-decoration: underline;
+                }
+
+.navbar_right .profile .icon_wrap {
+    color: #f0f0f0;
+    display: flex;
+    align-items: center;
+}
+
+.navbar_right .profile .name {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.navbar_right .icon_wrap:hover,
+.navbar_right .profile.active .icon_wrap,
+.navbar_right .notifications.active .icon_wrap {
+    color: #f0f0f0;
+}
+
+.profile_ul {
+    margin: 0px 0px -1px -41px;
+}
+
+.profile .profile_dd {
+    width: 150px;
+}
+
+    .profile .profile_dd:before {
+        right: 10px;
+    }
+
+    .profile .profile_dd ul li {
+        border-bottom: 1px solid #f1f2f4;
+    }
+
+        .profile .profile_dd ul li a {
+            color: #343a40;
+            display: block;
+            padding: 15px 15px 10px 10px;
+            position: relative;
+        }
+
+            .profile .profile_dd ul li a:hover {
+                color: #e83e8c;
+                background: #f4f5f6;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+
+        .profile .profile_dd ul li.profile_li a:hover {
+            background: transparent;
+            cursor: default;
+            color: #7f8db0;
+        }
+
+        .profile .profile_dd ul li .btn {
+            height: 32px;
+            padding: 7px 10px;
+            color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+            text-align: center;
+            background: #3b80f9;
+            width: 125px;
+            margin: 5px auto 15px;
+        }
+
+            .profile .profile_dd ul li .btn:hover {
+                background: #6593e4;
+            }
+
+.profile.active .profile_dd,
+.notifications.active .notification_dd {
+    display: block;
+}
+
+/*************POP UP notify********/
+.popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    transition: all 0.2s ease;
+    display: block;
+}
+
+    .popup .shadow {
+        width: 100%;
+        height: 100%;
+        background: #000;
+        opacity: 0.6;
+    }
+
+    .popup .inner_popup {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 100%;
+        height: auto;
+        z-index: 1;
+    }
+
+    .popup .notification_dd {
+        display: block;
+        position: static;
+        margin: 0 auto;
+        height: 357px;
+        overflow: auto;
+    }
+
+        .popup .notification_dd:before {
+            display: none;
+        }
+
+        .popup .notification_dd li.title {
+            margin: 2px;
+            font-weight: 700;
+            color: #e83e8c;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            font-size: 24px;
+        }
+
+            .popup .notification_dd li.title .close {
+                position: absolute;
+                top: 2px;
+                right: 10px;
+                font-size: 20px;
+                cursor: pointer;
+            }
+
+                .popup .notification_dd li.title .close:hover {
+                    opacity: 0.5;
+                }
+/*********END NOTIFICATION********************/
+
 .navbar {
     position: relative;
     display: -webkit-box;
@@ -4454,13 +4776,6 @@ input[type="button"].btn-block {
     background-size: 100% 100%;
 }
 
-@media (max-width: 575.98px) {
-    .navbar-expand-sm > .container,
-    .navbar-expand-sm > .container-fluid {
-        padding-right: 0;
-        padding-left: 0;
-    }
-}
 
 @media (min-width: 576px) {
     .navbar-expand-sm {
@@ -5329,7 +5644,12 @@ input[type="button"].btn-block {
 
 .badge-danger {
     color: #fff;
+    border-radius: 50%;
     background-color: #dc3545;
+    height: 25px;
+    width: 25px;
+    font-size: 16px;
+    font-weight: 900;
 }
 
     .badge-danger[href]:hover, .badge-danger[href]:focus {
@@ -5840,7 +6160,7 @@ button.close {
     -webkit-appearance: none;
 }
 
-.modal-open {
+/*.modal-open {
     overflow: hidden;
 }
 
@@ -6023,7 +6343,7 @@ button.close {
         max-width: 800px;
     }
 }
-
+*/
 .tooltip {
     position: absolute;
     z-index: 1070;
@@ -10172,6 +10492,7 @@ h1, h2, h3, h4, h5,
         background: #ee76ad7d !important;
         top: 0;
         position: relative;
+        padding:15px;
     }
 }
 
@@ -10333,7 +10654,7 @@ h1, h2, h3, h4, h5,
     letter-spacing: .1em;
 }
 
-.ftco-navbar-light.scrolled .nav-link {
+.ftco-navbar-light.scrolled .nav-link{
     padding-top: 0.9rem !important;
     padding-bottom: 0.9rem !important;
     color: #404044 !important;
@@ -10341,6 +10662,18 @@ h1, h2, h3, h4, h5,
 
     .ftco-navbar-light.scrolled .nav-link.active {
         color: #ee76ad !important;
+    }
+
+    .ftco-navbar-light.scrolled .navbar_right .notifications .icon_wrap {
+        color: #000000 !important;
+    }
+
+    .ftco-navbar-light.scrolled .navbar_right .profile .icon_wrap .name {
+        color: #000000 !important;
+    }
+
+    .ftco-navbar-light.scrolled .navbar_right .profile .icon_wrap .icon-chevron-down {
+        color: #000000 !important;
     }
 
 .ftco-navbar-light.scrolled.awake {
@@ -10359,6 +10692,7 @@ h1, h2, h3, h4, h5,
 .ftco-navbar-light.scrolled .navbar-brand {
     color: #404044;
 }
+
 
 .navbar-brand {
     font-weight: 700;
