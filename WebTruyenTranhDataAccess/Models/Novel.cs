@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace WebTruyenTranhDataAccess.Models
 {
     public class Novel
-    {
+    {    
         public long Id { get; set; }
 
         [Required(ErrorMessage = "Please enter novel title")]
