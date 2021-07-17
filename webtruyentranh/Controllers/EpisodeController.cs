@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebTruyenTranhDataAccess.Context;
+
 using WebTruyenTranhDataAccess.Models;
 
 namespace webtruyentranh.Controllers
@@ -23,6 +25,39 @@ namespace webtruyentranh.Controllers
             this.signInManager = signInManager;
             _context = context;
         }
+
+        
+        [HttpGet]
+        public IActionResult getlistepisode()
+        {
+
+            return View();
+        }
+
+        [HttpGet]
+        [Route("novel/{novelSlugify}/episode/{episodenumber}")]       
+        public IActionResult Episode(string novelSlugify, int episodenumber)
+        {
+            var episode = _context.Episodes.FirstOrDefault(p => p.EpisodeNumber == episodenumber);
+            var novel = _context.Novels.Include(m => m.Likes).Include(m => m.Genres).FirstOrDefault(p => p.Slugify == novelSlugify);
+            ViewBag.novel = novel;
+            return View(episode);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+        public IActionResult Delete()
+        {
+            return View();
+        }
+        public IActionResult Update()
+        {
+            return View();
+        }
+
+
 
         [HttpPost]
         public JsonResult GetEpisodes(int id)

@@ -6,6 +6,7 @@
 <link href="~/css/StyleSheet.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
+
 <div class="fixed is-flex is-flex-direction-column is-justify-content-center is-align-content-center is-align-items-center is-flex-wrap-wrap" style="top:300px; width:100px;">
     <nav class="level">
         <div class="level-item has-text-centered">
@@ -33,6 +34,7 @@
     </nav>
 </div>
 <div class="container" style="margin-bottom:200px;  margin-top:50px;">
+
     <h1 class="block index-label">
         Dashboard
     </h1>
@@ -56,15 +58,13 @@
             </div>
         </div>
     </nav>
+
     <div class="content-container">
         <div class="columns">
             <div class="column is-6">
                 <h5 class="subtitle is-5">Enter Display Name or Profile Id</h5>
                 <input id="search-user" class="input is-info" type="text">
                 <div class="block" id="result-user-container">
-
-
-
 
                 </div>
             </div>
@@ -75,16 +75,20 @@
                 <div class="block" id="result-novel-container">
 
                 </div>
+
             </div>
         </div>
     </div>
 
+
     
     <script src="~/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
+
  /* var searchRequest = null;*/
 
 $(function () {
+
 
     $('#toEpisodeButton').on('click', function () {
        /* $('.content-container').remove();*/
@@ -101,6 +105,7 @@ $(function () {
 
     $("#search-user").keyup(function () {
         value = $(this).val();
+
             $.ajax({
                 type: "GET",
                 url: "@Url.Action("Finduser", "Admin")",
@@ -121,9 +126,11 @@ $(function () {
 
 $(function () {
 
+
     $("#search-novel").keyup(function () {
 
         value = $(this).val();
+
             $.ajax({
                 type: "GET",
                 url: "@Url.Action("Findnovel", "Admin")",
@@ -142,4 +149,6 @@ $(function () {
     });
 });
 
+
     </script>
+

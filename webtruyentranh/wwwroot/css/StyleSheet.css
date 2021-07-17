@@ -9,14 +9,17 @@
     margin: 0;
 }
 
+
 .container {
     width: 100%;
     height: auto;
 }
 
+
 section {
     position: relative;
 }
+
 
 .center {
     line-height: 200px;
@@ -30,6 +33,7 @@ section {
         display: inline-block;
         vertical-align: middle;
     }
+
 
 .fixed {
     position: fixed;
@@ -50,17 +54,21 @@ section {
         margin-bottom: 0px;
     }
 
+
 #todashboardButtonSideBar {
+
     background: #f6b606;
     color: white;
     border: 0px;
 }
+
 
 #toEpisodeTitleSideBar {
     color: white;
 }
 
 #toEpisodeButtonSideBar {
+
     background: #5e5e72;
     border: 0px;
     color: white;
@@ -71,6 +79,7 @@ section {
 }
 
 .toEpisode:hover #toEpisodeTitleSideBar {
+
     color: #f6b606
 }
 
@@ -193,6 +202,7 @@ index__body {
     border-radius: 5px;
 }
 
+
 .editSeriesbtn {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
@@ -248,4 +258,5 @@ table p {
 
 .newSeriesbtn, .editSeriesbtn, .addEpisodebtn > .button {
     margin: 10px;
+
 }

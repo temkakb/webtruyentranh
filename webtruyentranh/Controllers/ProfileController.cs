@@ -11,7 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using webtruyentranh.Viewmodels;
 using webtruyentranh.Utility;
 using Microsoft.AspNetCore.Http;
+
 using Newtonsoft.Json;
+
 
 namespace webtruyentranh.Controllers
 
@@ -190,10 +192,12 @@ namespace webtruyentranh.Controllers
             var profile = _db.Profiles.Include(p => p.Account).Where(p => p.AccountId == account.Id).FirstOrDefault();
 
             return ViewComponent("loadReply", new { profile = profile });
+
         }
 
         [Authorize]
         [HttpPost]
+
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> postreply(long Id, String Content, String ReturnUrl) //post reply and return
 
@@ -204,5 +208,6 @@ namespace webtruyentranh.Controllers
             _db.SaveChanges();
             return Redirect(ReturnUrl);
         }
+
     }
 }
