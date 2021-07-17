@@ -13,11 +13,6 @@
         nofications = _db.Notifications.Where(n => n.Account.Id == user.Id).Where(n => n.IsRead == false).Skip(0).Take(5).ToList();
     else
         nofications = null;
-
-
-
-
-
 }
 
 

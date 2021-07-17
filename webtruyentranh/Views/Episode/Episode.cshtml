@@ -4,8 +4,10 @@
     ViewData["Title"] = "Episode";
     Layout = "~/Views/Shared/_Layoutpage.cshtml";
     var novel = (WebTruyenTranhDataAccess.Models.Novel)ViewBag.novel;
-    
+
 }
+
+
 
 <!-- Sidebar  -->
 <nav id="sidebar">
@@ -48,7 +50,7 @@
             {
                 <a href="#" class="tag-cloud-link">@item.GenreName</a>
             }
-            </div>
+        </div>
     </div>
 
     <!---episode-list-->
@@ -79,31 +81,32 @@
     </div>
 </nav>
 
-    <!-- Page Content  -->
-    <div id="content">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="icon-align-left"></i>
-                    <span>Episode List</span>
-                </button>
-            </div>
-        </nav>
-        <main>
-            <div class="site-section">
-                <div class="container">
-                    <div class="title-header">
-                        <p class="title-episode">@novel.Title, Part @Model.EpisodeNumber <a href="#" style="color:#e91e63;"><i class="icon-heart" style="color: #e91e63c7;font-size: 40px;"></i></a> </p>
-                        <p class="date">@novel.LastestUpdate</p>
-                    </div>
-                    <hr>
-                    <div class="content-viewer">
-                        @Model.Content
-                    </div>
-                            <!-----COMMENT LIST---->
-                            <hr />
+<!-- Page Content  -->
+<div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="icon-align-left"></i>
+                <span>Episode List</span>
+            </button>
+        </div>
+    </nav>
+    <main>
+        <div class="site-section">
+            <div class="container">
+                <div class="title-header">
+                    <p class="title-episode">@novel.Title, Part @Model.EpisodeNumber <a href="#" style="color:#e91e63;"><i class="icon-heart" style="color: #e91e63c7;font-size: 40px;"></i></a> </p>
+                    <p class="date">@novel.LastestUpdate</p>
                 </div>
+                <hr>
+                <div class="content-viewer">
+                    @Model.Content
+                </div>
+                <!-----COMMENT LIST---->
+                <hr />
             </div>
-            @*end container*@
-        </main>
-    </div>
+        </div>
+        @*end container*@
+    </main>
+</div>
+
