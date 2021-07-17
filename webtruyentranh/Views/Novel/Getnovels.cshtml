@@ -80,23 +80,13 @@
                     </ul>
                 </div>
                 <div class="column">
-
                     <div class="block" id="ft-container" style="position:fixed;">
-                        <p class="ft-title" style="font-size:26px;">Featured novels</p>
-                   
-                         
-
-
-
+                        <p class="ft-title" style="font-size:26px;">Featured novels</p>    
+                       
                     </div>
                 </div>
-
-
             </div>
-
-        </div>
-        
-
+        </div>       
     </section>
 </main>
 <script src="~/js/jquery-3.2.1.min.js"></script>
@@ -123,7 +113,7 @@
                    });
                    $('#data-novels').append(
                        '<li>' +
-                       '<a class="columns">' +
+                       '<a class="columns" href="/novel/' + nl.Slugify + '/episode/1' +'" style="color:black;" >' +
                        '<div class="column is-3 ">' +
 
                        '  <div class="image-flash item_wrap">' +
@@ -153,7 +143,7 @@
                
                $(result['Featurednovel']).each(function (idx, ft) {
                    $('#ft-container').append(
-                       '<a>'+
+                       '<a  href="/novel/' + ft.Slugify + '/episode/1' + '" style="color:black;" >'+
                        ' <div class="item-contaniner" style="display:flex; margin : 10px 0px 10px 0px;">'+
 
                        '<div class="block" style="width:80px; height:120px;">'+
