@@ -106,17 +106,18 @@
 
                     foreach (var novel in ViewBag.profile.Account.Novels)
                     {
+            <a href="/novel/@novel.Slugify/episode/1">
+                <div class="box">
 
-            <div class="box">
+                    <div class="columns">
+                        <div class="column is-4"> <img src="@novel.BookCover" style=" height:80px; width:60px;"></div>
 
-                <div class="columns">
-                    <div class="column is-4"> <img src="@novel.BookCover" style=" height:80px; width:60px;"></div>
+                        <div class="column ">   <h1 class="subtitle is-4">@novel.Title</h1></div>
 
-                    <div class="column ">   <h1 class="subtitle is-4">@novel.Title</h1></div>
 
-    
+                    </div>
                 </div>
-            </div>
+            </a>
                        
                     }
                 }
