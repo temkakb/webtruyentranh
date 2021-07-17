@@ -83,7 +83,7 @@ namespace webtruyentranh.Controllers
 
         }
         [Authorize]
-        public async Task< JsonResult> UserSubscription( long Id)
+        public async Task< IActionResult> DoSubscription( long Id)
         {
             try
             {
@@ -93,25 +93,96 @@ namespace webtruyentranh.Controllers
                 {
                     _db.Subscriptions.Add(new Subscription
                     {
-                        AccountId = account.Id,
-                        NovelId = Id
+                    AccountId = account.Id,
+                    NovelId = Id,
+                    ExpirationDate=DateTime.Now
                     });
                     _db.SaveChanges();
-
-                }
+        }
                 else
                 {
-
+                    return NotFound();
                 }
-
             }
             catch (Exception ex)
             {
-
+                return NotFound();
             }
-            return null;
+            return Ok();
+        }
+        public async Task<IActionResult> UnSubscription(long Id)
+        {
+            try
+            {
+                var account = await userManager.GetUserAsync(User);
+                var any = _db.Subscriptions.Where(s => s.AccountId == account.Id).Where(s => s.NovelId == Id).SingleOrDefault();
+                if (any != null)
+                {
+                    _db.Remove(any);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
+        public async Task<IActionResult> Dolike (long Id)
+        {
+            try
+            {
+                var account = await userManager.GetUserAsync(User);
+                var any = _db.Likes.Where(l => l.AccountId == account.Id).Where(l => l.NovelId == Id).SingleOrDefault();
+                if (any == null)
+                {
+                    _db.Likes.Add(new Like
+                    {
+                        AccountId = account.Id,
+                        NovelId = Id
+                       
+                    });
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
+        public async Task<IActionResult> UnLike (long Id)
+        {
+            try
+            {
+                var account = await userManager.GetUserAsync(User);
+                var any = _db.Likes.Where(l => l.AccountId == account.Id).Where(l => l.NovelId == Id).SingleOrDefault();
+                if (any != null)
+                {
+                    _db.Remove(any);
+                    _db.SaveChanges();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+            return Ok();
 
         }
+
     }
 
 }
