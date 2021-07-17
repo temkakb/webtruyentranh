@@ -87,8 +87,22 @@ namespace webtruyentranh.Controllers
         {
             //try
             //{
-            //    var account = await userManager.GetUserAsync(User); 
-            //    var any = _db.Subscriptions.Where(s=>s.AccountId==account.Id  ).Where(s=>s.)
+            //    var account = await userManager.GetUserAsync(User);
+            //    var any = _db.Subscriptions.Where(s => s.AccountId == account.Id).Where(s => s.NovelId == Id).SingleOrDefault();
+            //    if (any ==null)
+            //    {
+            //        _db.Subscriptions.Add(new Subscription
+            //        {
+            //            AccountId=account.Id,
+            //            NovelId=Id
+            //        });
+            //        _db.SaveChanges();
+                 
+            //    }
+            //    else
+            //    {
+
+            //    }
 
             //}
             //catch (Exception ex)
