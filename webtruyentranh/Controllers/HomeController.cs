@@ -69,7 +69,7 @@ namespace webtruyentranh.Controllers
        
         public IActionResult Creators()
         {
-            var listCreator = _db.Accounts.Include(a => a.Profile).Include(b=>b.Novels).OrderByDescending(c=>c.Novels.Count).Take(8).ToList();
+            var listCreator = _db.Profiles.Include(a => a.Account).ThenInclude(b=>b.Novels).OrderByDescending(c=>c.Account.Novels.Count).Take(8).ToList();
             return View(listCreator);
         }
        
