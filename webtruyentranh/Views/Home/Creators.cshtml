@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Account>
+﻿@model IEnumerable<Profile>
 @{
     ViewData["Title"] = "Creator";
     Layout = "~/Views/Shared/_Layoutpage.cshtml";
@@ -19,7 +19,7 @@
                 @foreach (var item in Model)
                 {
                     List<String> a = new List<String>();
-                    item.Novels.ForEach(n => a.Add(n.BookCover));
+                    item.Account.Novels.ForEach(n => a.Add(n.BookCover));
 
                     @for (int i = 0; i < @a.Count; i++)
 
@@ -50,17 +50,17 @@
                     <div class="column ">
                         <div class="wrapper1">
                             <div class="container1">
-                                <img src="@item.Profile.Avartar"
+                                <img src="@item.Avartar"
                                      alt=""
                                      class="profile-img" />
 
                                 <div class="content">
                                     <div class="sub-content " style="word-break: break-all;">
-                                        <a href="@Url.ActionLink("Getprofile","Profile",new {Id=item.Profile.Id})">
-                                            <h1 style="font-size: 19px">@item.Profile.DisplayName</h1>
+                                        <a href="@Url.ActionLink("Getprofile","Profile",new {Id=item.Id})">
+                                            <h1 style="font-size: 19px">@item.DisplayName</h1>
                                         </a>
                                         <p class="text_content">
-                                            <i>@item.Profile.Description</i>
+                                            <i>@item.Description</i>
                                         </p>
 
                                     </div>
@@ -68,7 +68,7 @@
                                     <p title="Series" style="margin-top: 10px">
                                         <i class="far fa-bookmark fa-2x" style="margin-left:45%;margin-top:16px;"></i>
                                     </p>
-                                    <p style="text-align: center;margin-bottom:3px">@item.Novels.Count Series</p>
+                                    <p style="text-align: center;margin-bottom:3px">@item.Account.Novels.Count Series</p>
 
                                 </div>
                             </div>
