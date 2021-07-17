@@ -17,6 +17,10 @@ namespace WebTruyenTranhDataAccess.Context
         {
         }
 
+        public ComicContext()
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

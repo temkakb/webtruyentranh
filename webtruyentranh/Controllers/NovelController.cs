@@ -85,30 +85,30 @@ namespace webtruyentranh.Controllers
         [Authorize]
         public async Task< JsonResult> UserSubscription( long Id)
         {
-            //try
-            //{
-            //    var account = await userManager.GetUserAsync(User);
-            //    var any = _db.Subscriptions.Where(s => s.AccountId == account.Id).Where(s => s.NovelId == Id).SingleOrDefault();
-            //    if (any ==null)
-            //    {
-            //        _db.Subscriptions.Add(new Subscription
-            //        {
-            //            AccountId=account.Id,
-            //            NovelId=Id
-            //        });
-            //        _db.SaveChanges();
-                 
-            //    }
-            //    else
-            //    {
+            try
+            {
+                var account = await userManager.GetUserAsync(User);
+                var any = _db.Subscriptions.Where(s => s.AccountId == account.Id).Where(s => s.NovelId == Id).SingleOrDefault();
+                if (any == null)
+                {
+                    _db.Subscriptions.Add(new Subscription
+                    {
+                        AccountId = account.Id,
+                        NovelId = Id
+                    });
+                    _db.SaveChanges();
 
-            //    }
+                }
+                else
+                {
 
-            //}
-            //catch (Exception ex)
-            //{
+                }
 
-            //}
+            }
+            catch (Exception ex)
+            {
+
+            }
             return null;
 
         }

@@ -23,6 +23,7 @@ namespace webtruyentranh.Controllers
         private readonly RoleManager<IdentityRole<long>> roleManager;
 
         public AdminController(UserManager<Account> userManager, SignInManager<Account> signInManager, RoleManager<IdentityRole<long>> roleManager, ComicContext db)
+
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -112,16 +113,20 @@ namespace webtruyentranh.Controllers
         public async Task<JsonResult> Blockuser(long Id)
         {
 
+
             var account = _db.Accounts.Find(Id);
             
+
             if (account == null)
             {
                 return Json(new { success = false, msg = "account not found" });
             }
+
             if (await userManager.IsInRoleAsync(account, "Admin"))
             {
                 return Json(new { success = false, msg = "This user is admin, cannot block" });
             }
+
             if (await userManager.IsLockedOutAsync(account))
             {
                 return Json(new { success = false, msg = $"Account {account.UserName} account has been blocked for 200 years!! " });
@@ -169,6 +174,7 @@ namespace webtruyentranh.Controllers
 
 
         }
+
         /*------------------------------------------------------manage Genre-------------------------------------------------------*/
         [Authorize(Roles = "SuperAdmin")]
         public IActionResult LoadGenrecontent()
@@ -223,6 +229,7 @@ namespace webtruyentranh.Controllers
             return Json(new { success = true, msg = "Successed" });
         }
     }
+
 
 
 }

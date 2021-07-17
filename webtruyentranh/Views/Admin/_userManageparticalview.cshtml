@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Profile>;
+
 @inject UserManager<Account> userManager;
 
 
@@ -23,13 +24,17 @@ else
             <article class="media">
                 <div class="media-left">
                     <figure class="image is-64x64">
+
                         <a href="@Url.Action("Getprofile","Profile",new { Id=profile.Id})"><img src="@profile.Avartar" alt="Image"> </a>
+
                     </figure>
                 </div>
                 <div class="media-content">
                     <div class="content">
                         <p>
+
                             <a href="@Url.Action("Getprofile","Profile",new { Id=profile.Id})"> <strong>@profile.DisplayName</strong> </a>
+
                             @if (await userManager.IsLockedOutAsync(profile.Account))
                             {
                                 <small style="color:red;">Account is blocked</small>
