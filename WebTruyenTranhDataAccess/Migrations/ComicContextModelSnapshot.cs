@@ -336,6 +336,10 @@ namespace WebTruyenTranhDataAccess.Migrations
                     b.Property<long?>("NovelId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<int>("Views")
                         .HasColumnType("int");
 

@@ -30,7 +30,9 @@ namespace WebTruyenTranhDataAccess.Models
 
         public int LikeCount
         {
-            get { return Likes.Count(); }
+
+            get { return Likes == null ? 0 : Likes.Count(); }
+
             set { likeCount = value; }
         }
 

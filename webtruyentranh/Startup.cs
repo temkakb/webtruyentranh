@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using WebTruyenTranhDataAccess.Context;
 using WebTruyenTranhDataAccess.Models;
 using Microsoft.AspNetCore.Http;
+
+
 namespace webtruyentranh
 {
     public class Startup
@@ -26,7 +28,10 @@ namespace webtruyentranh
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            //services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                    .AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddDbContext<ComicContext>(opt =>
             opt.UseSqlServer(Configuration.GetConnectionString("Default"))
             .LogTo(Console.WriteLine)
@@ -39,10 +44,13 @@ namespace webtruyentranh
                         ).AddTokenProvider<DataProtectorTokenProvider<Account>>(TokenOptions.DefaultProvider)
 
             .AddEntityFrameworkStores<ComicContext>();
-            services.ConfigureApplicationCookie(config => {
+
+            services.ConfigureApplicationCookie(config =>
+            {
                 config.LoginPath = "/Authentication/index";
                 config.AccessDeniedPath = new PathString("/profile/getme");
-               });
+            });
+
             services.AddAuthentication().AddGoogle(option =>
             {
                 option.ClientSecret = "5ecQw-i5kAVUHw6hQl2xnkxm";
@@ -75,37 +83,40 @@ namespace webtruyentranh
 
             app.UseEndpoints(endpoints =>
             {
-            endpoints.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            endpoints.MapControllerRoute(
-                name: "authentication",
-                pattern: "{controller=Authentication}/{action=index}"
-                );
-            endpoints.MapControllerRoute(
-              name: "profile",
-              pattern: "{controller=Profile}/{action=Getme}"
-              );
-            endpoints.MapControllerRoute(
 
-             name: "profile",
-             pattern: "{controller=Dashboard}/{action=Sumary}"
-             );
-            endpoints.MapControllerRoute(
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "authentication",
+                    pattern: "{controller=Authentication}/{action=index}"
+                    );
+                endpoints.MapControllerRoute(
+                  name: "profile",
+                  pattern: "{controller=Profile}/{action=Getme}"
+                  );
+                endpoints.MapControllerRoute(
+                 name: "dashboard",
+                 pattern: "{controller=Dashboard}/{action=Sumary}"
+                 );
+                endpoints.MapControllerRoute(
+                name: "dashboardEpisode",
+                pattern: "{controller=Dashboard}/Series/{action=getEpisode}"
+                );
+                endpoints.MapControllerRoute(
                  name: "admin",
                 pattern: "{controller=Admin}/{action=Index}"
                 );
-
             });
-      
             CreateUserRoles(serviceProvider).Wait();
 
-             async Task CreateUserRoles(IServiceProvider serviceProvider)
+            async Task CreateUserRoles(IServiceProvider serviceProvider)
             {
-            
                 var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<long>>>();
                 var UserManager = serviceProvider.GetRequiredService<UserManager<Account>>();
-                string[] roleNames = {"SuperAdmin", "Admin","Member" };
+
+                string[] roleNames = { "SuperAdmin", "Admin", "Member" };
+
                 IdentityResult roleResult;
 
                 foreach (var roleName in roleNames)
@@ -113,26 +124,23 @@ namespace webtruyentranh
                     var roleExist = await RoleManager.RoleExistsAsync(roleName);
                     if (!roleExist)
                     {
-             
                         roleResult = await RoleManager.CreateAsync(new IdentityRole<long>(roleName));
                     }
                 }
 
-             
                 var poweruser = new Account
                 {
                     UserName = "admin12345",
                     Email = "admin@hemail.com",
                     EmailConfirmed = true,
                 };
-                
+
                 string userPWD = "Admin@123456789";
                 var _user = await UserManager.FindByEmailAsync(poweruser.Email);
 
                 if (_user == null)
                 {
-                    
-                   
+
                     var createPowerUser = await UserManager.CreateAsync(poweruser, userPWD);
                     if (createPowerUser.Succeeded)
                     {

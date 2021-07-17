@@ -6156,7 +6156,7 @@ button.close {
     -webkit-appearance: none;
 }
 
-.modal-open {
+/*.modal-open {
     overflow: hidden;
 }
 
@@ -6339,7 +6339,7 @@ button.close {
         max-width: 800px;
     }
 }
-
+*/
 .tooltip {
     position: absolute;
     z-index: 1070;

@@ -1,4 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@using WebTruyenTranhDataAccess.Context;
+@inject SignInManager<Account> signinManager;
+@inject UserManager<Account> userManager;
+@inject ComicContext _db;
+@inject IEnumerable<Notification> nofications;
+@{
+    var profile = _db.Profiles.FirstOrDefault(p => p.Account.UserName == User.Identity.Name);
+    var user = await userManager.GetUserAsync(User);
+
+    if (user != null)
+        nofications = _db.Notifications.Where(n => n.Account.Id == user.Id).Where(n => n.IsRead == false).Skip(0).Take(5).ToList();
+    else
+        nofications = null;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>@ViewData["Title"] - webtruyentranh</title>
@@ -23,7 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.css">
 
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 <body>
@@ -55,124 +69,76 @@
                             <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Contact">CONTACT</a>
                         </div>
                     </li>
+
                     @*<li class="nav-item">
                             <a asp-area="" asp-controller="Authentication" asp-action="Index" class="nav-link">LOGIN <i class="icon icon-angle-double-down"></i></a>
                         </li>
                         <li class="nav-item cta">
                             <a asp-area="" asp-controller="" asp-action="Index" class="nav-link"><span>PUBLISH</span></a>
                         </li>*@
+
                 </ul>
                 <!----------notification------------>
                 <div class="navbar_right">
-                    <div class="notifications">
-                        <div class="icon_wrap">
-                            <i class="icon-bell-o"></i>
-                            <span class="badge-danger badge-counter">5</span>
-                        </div>
-                        <div class="notification_dd">
-                            <ul class="notification_ul">
-                                <!---------------------->
-                                <li class="notify-read">
-                                    <div class="notify_icon">
-                                        <span class="icon">
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                        </span>
-                                    </div>
-                                    <div class="notify_data">
-                                        <div class="title">
-                                            Goodmorning, Anna Has A New Episode. Do you want to read?
-                                        </div>
-                                        <div class="sub_title">
-                                            Anna
-                                        </div>
-                                    </div>
-                                </li>
-                                <!---------------------->
-                                <li class="notify-unread">
-                                    <div class="notify_icon">
-                                        <span class="icon">
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                        </span>
-                                    </div>
-                                    <div class="notify_data">
-                                        <div class="title">
-                                            Goodmorning, Anna Has A New Episode. Do you want to read?
-                                        </div>
-                                        <div class="sub_title">
-                                            Anna
-                                        </div>
-                                    </div>
-                                </li>
-                                <!---------------------->
-                                <li class="notify-read">
-                                    <div class="notify_icon">
-                                        <span class="icon">
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                        </span>
-                                    </div>
-                                    <div class="notify_data">
-                                        <div class="title">
-                                            Goodmorning, Anna Has A New Episode. Do you want to read?
-                                        </div>
-                                        <div class="sub_title">
-                                            Anna
-                                        </div>
-                                    </div>
-                                </li>
-                                <!---------------------->
-                                <li class="notify-unread">
-                                    <div class="notify_icon">
-                                        <span class="icon">
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                        </span>
-                                    </div>
-                                    <div class="notify_data">
-                                        <div class="title">
-                                            Goodmorning, Anna Has A New Episode. Do you want to read?
-                                        </div>
-                                        <div class="sub_title">
-                                            Anna
-                                        </div>
-                                    </div>
-                                </li>
-                                <!---------------------->
-                                <li class="notify-read">
-                                    <div class="notify_icon">
-                                        <span class="icon">
-                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQb_trtdnNKLUJwyigy0i0pTmKt8P3Kg3qrtg&usqp=CAU" alt="creators_pic" />
-                                        </span>
-                                    </div>
-                                    <div class="notify_data">
-                                        <div class="title">
-                                            Goodmorning, Anna Has A New Episode. Do you want to read?
-                                        </div>
-                                        <div class="sub_title">
-                                            Anna
-                                        </div>
-                                    </div>
-                                </li>
-                                <!----------SHOW ALL------------>
-                                <li class="show_all">
-                                    <p class="link">Show All Activities</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!----------PRÒILE------------>
-                    <div class="profile">
-                        <div class="icon_wrap">
-                            <img src="https://pbs.twimg.com/profile_images/737359467742912512/t_pzvyZZ.jpg" alt="profile_pic">
-                            <span class="name">Name</span>
-                            <i class="icon-chevron-down"></i>
-                        </div>
+                    @if (signinManager.IsSignedIn(User))
+                    {
+                        <div class="notifications">
+                            <div class="icon_wrap">
+                                <i class="icon-bell-o"></i>
+                                <span class="badge-danger badge-counter">@nofications.Count()</span>
+                            </div>
+                            <div class="notification_dd">
+                                <ul class="notification_ul">
+                                    <!---------------------->
+                                    @if (nofications.Any())
+                                    {
+                                        foreach (var nofi in nofications)
+                                        {
+                                            <li class="notify-read">
+                                                <div class="notify_icon">
+                                                    <span class="icon">
+                                                        <img src="" alt="creators_pic" />
+                                                    </span>
+                                                </div>
+                                                <div class="notify_data">
+                                                    <div class="title">
+                                                        @nofi.Content
+                                                    </div>
+                                                    <div class="sub_title">
+                                                        @profile.DisplayName
+                                                    </div>
+                                                </div>
+                                            </li>
 
-                        <div class="profile_dd">
-                            <ul class="profile_ul">
-                                <li><a class="myprofile" href="#"><span class="picon"><i class="icon-user-o"></i></span> My profile</a></li>
-                                <li><a class="logout" href="#"><span class="picon"><i class="icon-sign-out"></i></span> Log out</a></li>
-                            </ul>
+                                        }
+
+
+                                    }
+                                    else
+                                    {
+                                        <li class="show_all">
+                                            <p class="link">No Activities</p>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                        <!----------PRÒILE------------>
+                        <div class="profile">
+                            <div class="icon_wrap">
+                                <a href="@Url.Action("Getme","Profile")">  <img src="@profile.Avartar" alt="profile_pic"> </a>
+                                <span class="name">@profile.DisplayName</span>
+                                <i class="icon-chevron-down"></i>
+                            </div>
+
+                            <div class="profile_dd">
+                                <ul class="profile_ul">
+                                    <li><a class="myprofile" href="@Url.Action("Getme","Profile")"><span class="picon"><i class="icon-user-o"></i></span> My profile</a></li>
+                                    <li><a class="logout" href="@Url.Action("Logout","Authentication")"><span class="picon"><i class="icon-sign-out"></i></span> Log out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
             <!----- end notification--------->
@@ -219,6 +185,8 @@
     <!-- END nav -->
 
     <div class="container">
+
+
         @RenderBody()
     </div>
 
@@ -270,9 +238,14 @@
                 $(".popup").hide();
             });
 
-            $(".navbar-toggler .navbar-collapse.collapse.show ").click(function () {
-                $(this).parent().toggleClass("active");
-                $(".navbar-toggler").removeClass("active");
+            $(".navbar-toggler").click(function () {
+                $(this).parent().toggleClass(".navbar-collapse.collapse.show");
+                $(".navbar-toggler").removeClass(".navbar-collapse.collapse.show");
+            });
+
+            $(document).ready(function () {
+                $('.modal').modal();
+
             });
 
         });
@@ -312,4 +285,6 @@
     <!----------SIDE BAR---------->
 </body>
 
+
 </html>
+

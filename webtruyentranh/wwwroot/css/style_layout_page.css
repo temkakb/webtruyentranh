@@ -4412,6 +4412,7 @@ input[type="button"].btn-block {
     text-align: center;
     font-size: 18px;
     font-weight: 700;
+    margin: 20px;
 }
 .number-views, .number-labe, .number-subcribers{
     font-size: 15px;
@@ -4433,8 +4434,10 @@ input[type="button"].btn-block {
     }
 
 #sidebar .sidebar-header {
-    padding: 5px 10px 25px;
+    padding: 0;
     background: #f8f9fa;
+    margin: 0;
+
 }
     #sidebar .sidebar-header img.book-cover {
         background-size: cover;

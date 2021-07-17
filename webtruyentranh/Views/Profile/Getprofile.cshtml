@@ -1,6 +1,5 @@
 ﻿@model WebTruyenTranhDataAccess.Models.Message;
-@using WebTruyenTranhDataAccess.Models;
-@using Microsoft.AspNetCore.Identity;
+
 @inject UserManager<Account> userManager;
 
 @{
@@ -18,7 +17,7 @@
 
 <link href="~/css/profile.css" rel="stylesheet" />
 
-<main role="main" class="pb-3" style="margin-top: 50px; ">
+<main role="main" class="pb-3" style="margin-top: 150px; ">
 
     <section class="ftco-section">
         <div class="columns  is-desktop">
@@ -26,6 +25,11 @@
                 <figure style="height:300px; width:100%;">
                     <img class="is-rounded" src="@ViewBag.profile.Avartar" style="height:100%; width:100%; border-radius:50%;" />
                 </figure>
+                @if (await userManager.IsInRoleAsync(@ViewBag.profile.Account, "Admin"))
+                {
+                    <div class="title" style="color: white; background-color: aqua; margin-top: 20px; text-align: center; -webkit-touch-callout: none; -webkit-user-select: none;  -khtml-user-select: none;  -moz-user-select: none; -ms-user-select: none;  user-select: none; ">Administrator</div>
+                }
+
                 <h1 class="subheading" style="word-wrap: break-word; margin:30px 0px 0px 0px; font-size:36px; width: 100%;">@ViewBag.profile.DisplayName</h1>
                 @if (!islocked)
                 {
@@ -44,7 +48,8 @@
                     <article class="message is-danger">
                         <div class="message-header">
                             <p>Account has been blocked</p>
-                           
+
+
                         </div>
                         <div class="message-body">
                             This account has been blocked because violating regulations
@@ -55,6 +60,9 @@
             </div>
             <div class="column is-6 ">
                 <form style=" width: 100%;" method="post" asp-action="Message" asp-controller="Profile" asp-route-ReturnUrl="@Context.Request.Path">
+
+                    @Html.AntiForgeryToken()
+
                     <div class="control " style=" width: 100%;">
                         <input hidden value="@ViewBag.profile.Account.Id" name="Id" />
                         @*neu model valid *@
@@ -65,13 +73,25 @@
                                 </span>
                             </div>
                         }
-                        <textarea class="textarea is-medium"  placeholder="Share something..." @if (islocked) { @disable }  style="min-height:100px;" asp-for="Content"   required ></textarea>
-                        <button class="button profile-button-ms" style="margin-top: 5px; float:right;" @if (islocked) { @disable  }>Share</button>
+
+                        @if (islocked)
+                        {
+                            <textarea class="textarea is-medium" placeholder="Share something..." asp-for="Content" style="min-height:100px;" disabled></textarea>
+                            <button class="button profile-button-ms" style="margin-top: 5px; float:right;" disabled>Share</button>
+                        }
+                        else
+                        {
+                            <textarea class="textarea is-medium" placeholder="Share something..." asp-for="Content" style="min-height:100px;" required></textarea>
+                            <button class="button profile-button-ms" style="margin-top: 5px; float:right;">Share</button>
+                        }
                     </div>
                 </form>
                 <!--comment block-->
-                <div class="block" style="width: 100%; overflow: auto;">
-                    @await Component.InvokeAsync("Firstloadmessage", new { Id = @ViewBag.profile.Account.Id, profileId = @ViewBag.profile.Id })
+                <p class="profile-id" id="@ViewBag.profile.Id" hidden></p>
+                <p class="account-id" id="@ViewBag.profile.Account.Id" hidden></p>
+                <div class="block mss-container mss-pagination" id="1" style="width: 100%; overflow: hidden;">
+
+
                 </div>
             </div>
             <div class="column is-3">
@@ -91,7 +111,9 @@
 
                 <div class="columns">
                     <div class="column is-4"> <img src="@novel.BookCover" style=" height:80px; width:60px;"></div>
-                    <div class="column ">   <h1 class="subtitle is-3">@novel.Title</h1></div>
+
+                    <div class="column ">   <h1 class="subtitle is-4">@novel.Title</h1></div>
+
     
                 </div>
             </div>
@@ -101,4 +123,111 @@
             </div>
         </div>
     </section>
+
 </main>
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<script >
+    var callajax = function (Id, pagination, profileId) {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("Getmessages", "Profile")",
+            data: {
+                'Id': Id,
+                'pagination': pagination
+            },
+            dataType: "json",
+            success: function (data) {
+                var result = JSON.parse(data);
+                $(result['listms']).each(function (idx, mss) {
+                    var data_mss =
+                        '<article class="media" style="margin :15px;">' +
+                        '   <figure class="media-left">' +
+                        '   <p class="image is-48x48">' +
+                        ' <a href="' + '/Profile/Getprofile/' + mss.Sender.Profile.Id + '">' +
+                        '<img src="' + mss.Sender.Profile.Avartar + '" style = "height:100%; width:100%; border-radius:50%">' +
+                        ' </a > ' +
+                        '  </p>' +
+                        '  </figure>' +
+                        ' <div class="media-content">' +
+                        '  <div class="content">' +
+                        '   <p>' +
+                        ' <a href=/Profile/Getprofile/' + mss.Sender.Profile.Id + '> <strong>' + mss.Sender.Profile.DisplayName + '</strong> </a>';
+                    if (profileId == mss.Sender.Profile.Id) {
+                        data_mss += '  <span class="tag is-rounded" style="background-color: #f6b606 ">Author</span>';
+                    }
+                    data_mss += ' <br>' +
+                        mss.Content +
+                        '   <br>' +
+                        '<small>' + mss.CreateDate + '<a class="button profile-button-edit" id=' + mss.Id + ' onclick="btnloadformreply(' + mss.Id + ')" style="width: 60px; height:26px; margin-left:5px; text-decoration:none; font-size:13px; color:white;">Reply</a></small>' +
+                        ' </p>' +
+                        ' </div>' +
+                        '<form class="reply-form" method="post" action=/profile/postreply/' + mss.Id + '?ReturnUrl=' + window.location.href + ' id=replyform-' + mss.Id + ' >' +
+                        ' </form>';
+                    if (mss.ChildMessages.length != 0) {
+
+                        $(mss.ChildMessages).each(function (index, chilmss) {
+                            //alert(chilmss.Content);
+                            //alert(data_mss);
+
+                            data_mss += ' <article class="media" style="margin :10px;">' +
+                                '<figure class="media-left">' +
+                                '     <p class="image is-48x48">' +
+                                ' <a href="' + '/Profile/Getprofile/' + chilmss.Account.Profile.Id + '">' +
+                                '<img src="' + chilmss.Account.Profile.Avartar + '" style = "height:100%; width:100%; border-radius:50%">' +
+                                ' </p>' +
+                                ' </figure>' +
+                                '  <div class="media-content">' +
+                                '   <div class="content">' +
+                                '<p>' +
+                                ' <a href=/profile/Getprofile/' + chilmss.Account.Profile.Id + '> <strong>' + chilmss.Account.Profile.DisplayName + '</strong> </a>';
+                            ////alert(child);
+                            if (profileId == mss.Sender.Profile.Id) {
+                                data_mss += '  <span class="tag is-rounded" style="background-color: #f6b606 ">Author</span>';
+                            }
+                            data_mss += '<br>' +
+                                chilmss.Content +
+                                '  <br>' +
+                                '   <small>' + chilmss.CommentDate + '</small>' +
+                                '</p>' +
+                                '</div>' +
+                                '</div>' +
+                                ' </article>';
+                        });
+                    }
+                    data_mss = data_mss + ' </div>' +
+                        '</article>';
+                    $('.mss-container').append(data_mss);
+                });
+            }
+        });
+
+    };
+    var loaddata = function () {
+        var profile_id = $('.profile-id').attr('id');
+        var account_id = $('.account-id').attr('id');
+        var pagination = $('.mss-pagination').attr('id');
+        callajax(account_id, pagination, profile_id);
+        /*EVENT*/
+        $(window).on("scroll", function () { // EVENT lang xuong bot
+            var docHeight = $(document).height();
+            var winScrolled = $(window).height() + $(window).scrollTop();
+            if ((docHeight - winScrolled) < 1) {
+                $('.mss-pagination').attr("id", Number(pagination) + 1);
+                pagination = $('.mss-pagination').attr("id");
+                callajax(account_id, pagination, profile_id);
+            }
+        });
+    };
+    function btnloadformreply(id) {
+        @* rm cai form partical view *@
+        $('.replyform-particalview').remove();
+        var id = id;
+        $.get( '@Url.Action("reply","profile" )', function(data) {
+            $('#' +'replyform-' + id).html(data);
+});
+    }
+
+    $(document).ready(loaddata);
+
+</script>
+

@@ -9,9 +9,31 @@
     margin: 0;
 }
 
+
+.container {
+    width: 100%;
+    height: auto;
+}
+
+
 section {
     position: relative;
 }
+
+
+.center {
+    line-height: 200px;
+    height: 20px;
+    text-align: center;
+}
+
+    /* If the text has multiple lines, add the following: */
+    .center p {
+        line-height: 1.5;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
 
 .fixed {
     position: fixed;
@@ -32,27 +54,32 @@ section {
         margin-bottom: 0px;
     }
 
-#dashboardButton {
+
+#todashboardButtonSideBar {
+
     background: #f6b606;
     color: white;
     border: 0px;
 }
 
-#toEpisodeTitle {
+
+#toEpisodeTitleSideBar {
     color: white;
 }
 
-#toEpisodeButton {
+#toEpisodeButtonSideBar {
+
     background: #5e5e72;
     border: 0px;
     color: white;
 }
 
-.toEpisode:hover #toEpisodeButton {
+.toEpisode:hover #toEpisodeButtonSideBar {
     background: #f6b606
 }
 
-.toEpisode:hover #toEpisodeTitle {
+.toEpisode:hover #toEpisodeTitleSideBar {
+
     color: #f6b606
 }
 
@@ -175,7 +202,61 @@ index__body {
     border-radius: 5px;
 }
 
-.container {
-    width: 100%;
-    height: auto;
+
+.editSeriesbtn {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: normal;
+    color: #ffffff !important;
+    background: #868696 !important;
+}
+
+.addEpisodebtn {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 40px;
+    text-align: center;
+    letter-spacing: normal;
+    color: #ffffff !important;
+    background: #f6b606 !important;
+    margin: 10px;
+}
+
+.newSeriesbtn {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 40px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: normal;
+    color: #ffffff !important;
+    background: #868696;
+}
+
+.actionBtn {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 40px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: normal;
+    color: #ffffff !important;
+}
+
+table p {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: start;
+    letter-spacing: normal;
+    color: #000000 !important;
+}
+
+.newSeriesbtn, .editSeriesbtn, .addEpisodebtn > .button {
+    margin: 10px;
+
 }

@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<Profile>;
-@using WebTruyenTranhDataAccess.Models;
-@using Microsoft.AspNetCore.Identity;
+
 @inject UserManager<Account> userManager;
 
 
@@ -25,13 +24,17 @@ else
             <article class="media">
                 <div class="media-left">
                     <figure class="image is-64x64">
-                        <img src="@profile.Avartar" alt="Image">
+
+                        <a href="@Url.Action("Getprofile","Profile",new { Id=profile.Id})"><img src="@profile.Avartar" alt="Image"> </a>
+
                     </figure>
                 </div>
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>@profile.DisplayName</strong>
+
+                            <a href="@Url.Action("Getprofile","Profile",new { Id=profile.Id})"> <strong>@profile.DisplayName</strong> </a>
+
                             @if (await userManager.IsLockedOutAsync(profile.Account))
                             {
                                 <small style="color:red;">Account is blocked</small>
