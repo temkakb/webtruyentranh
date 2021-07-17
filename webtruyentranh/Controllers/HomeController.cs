@@ -40,9 +40,9 @@ namespace webtruyentranh.Controllers
             ViewBag.Novel8 = novels.OrderByDescending(c => c.LikeCount).Skip(7).Take(1).First();
             ViewBag.Novel9 = novels.OrderByDescending(c => c.LikeCount).Skip(8).Take(1).First();
 
-            ViewBag.Featurednovel1 = novels.OrderBy(n => n.LastestUpdate).Skip(0).Take(1);
-            ViewBag.Featurednovel2 = novels.OrderBy(n => n.LastestUpdate).Skip(1).Take(1);
-            ViewBag.Featurednovel3 = novels.OrderBy(n => n.LastestUpdate).Skip(2).Take(1);
+            //ViewBag.Featurednovel1 = novels.OrderBy(n => n.LastestUpdate).Skip(0).Take(1);
+            //ViewBag.Featurednovel2 = novels.OrderBy(n => n.LastestUpdate).Skip(1).Take(1);
+            //ViewBag.Featurednovel3 = novels.OrderBy(n => n.LastestUpdate).Skip(2).Take(1);
             
             var novelFeature = novels.OrderBy(n => n.LastestUpdate).Skip(0).Take(3).ToList();
             return View(novelFeature);
