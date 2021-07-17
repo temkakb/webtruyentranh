@@ -8,15 +8,19 @@ using WebTruyenTranhDataAccess.Context;
 using System.Diagnostics;
 using WebTruyenTranhDataAccess.Models;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace webtruyentranh.Controllers
 {
     public class NovelController : Controller
     {
         private readonly ComicContext _db;
-        public NovelController(ComicContext _db)
+        private readonly UserManager<Account> userManager;
+        public NovelController(ComicContext _db, UserManager<Account> userManager )
         {
             this._db = _db;
+            this.userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -74,6 +78,22 @@ namespace webtruyentranh.Controllers
                 Formatting = Formatting.Indented
 
             }));
+
+        }
+        [Authorize]
+        public async Task< JsonResult> UserSubscription( long Id)
+        {
+            //try
+            //{
+            //    var account = await userManager.GetUserAsync(User); 
+            //    var any = _db.Subscriptions.Where(s=>s.AccountId==account.Id  ).Where(s=>s.)
+
+            //}
+            //catch (Exception ex)
+            //{
+
+            //}
+            return null;
 
         }
     }
