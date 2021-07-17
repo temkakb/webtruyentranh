@@ -1,123 +1,109 @@
-﻿
+﻿@using WebTruyenTranhDataAccess.Models
+@model WebTruyenTranhDataAccess.Models.Episode
 @{
     ViewData["Title"] = "Episode";
     Layout = "~/Views/Shared/_Layoutpage.cshtml";
+    var novel = (WebTruyenTranhDataAccess.Models.Novel)ViewBag.novel;
+    
 }
 
-<h1 class="title">Episode : SEE YOU AGAIN</h1>
-<p>
-    It's been a long day without you, my friend
-    And I'll tell you all about it when I see you again
-    We've come a long way from where we began
-    Oh, I'll tell you all about it when I see you again
-    When I see you again
-</p>
-<br />
-<p>
-    Damn, who knew?
-    All the planes we flew, good things we been through
-    That I'd be standing right here talking to you
-    'Bout another path, I know we loved to hit the road and laugh
-    But something told me that it wouldn't last
-    Had to switch up, look at things different, see the bigger picture
-    Those were the days, hard work forever pays
-    Now I see you in a better place (see you in a better place)
-</p>
-<br />
-<p>
-    Uh
-    How can we not talk about family when family's all that we got?
-    Everything I went through, you were standing there by my side
-    And now you gon' be with me for the last ride
-    It's been a long day without you, my friend
-    And I'll tell you all about it when I see you again (I'll see you again)
-    We've come a long way (yeah, we came a long way)
-    From where we began (you know we started)
-    Oh, I'll tell you all about it when I see you again (I'll tell you)
-    When I see you again
-    First, you both go out your way and the vibe is feeling strong
-    And what's small turned to a friendship, a friendship turned to a bond
-    And that bond will never be broken, the love will never get lost
-    (The love will never get lost)
-    And when brotherhood come first, then the line will never be crossed
-    Established it on our own when that line had to be drawn
-    And that line is what we reached, so remember me when I'm gone
-    (Remember me when I'm gone)
-</p>
-<br />
-<p>
-    How can we not talk about family when family's all that we got?
-    Everything I went through you were standing there by my side
-    And now you gon' be with me for the last ride
-    So let the light guide your way, yeah
-    Hold every memory as you go
-    And every road you take
-    Will always lead you home, home
-    It's been a long day without you, my friend
-    And I'll tell you all about it when I see you again
-    We've come a long way from where we began
-    Oh, I'll tell you all about it when I see you again
-    When I see you again
-    When I see you again (yeah, uh)
-    See you again (yeah, yeah, yeah)
-    When I see you again
-</p>
-<br />
-<p>
-    It's been a long day without you, my friend
-    And I'll tell you all about it when I see you again
-    We've come a long way from where we began
-    Oh, I'll tell you all about it when I see you again
-    When I see you again
-</p>
-<br />
-<p>
-    Damn, who knew?
-    All the planes we flew, good things we been through
-    That I'd be standing right here talking to you
-    'Bout another path, I know we loved to hit the road and laugh
-    But something told me that it wouldn't last
-    Had to switch up, look at things different, see the bigger picture
-    Those were the days, hard work forever pays
-    Now I see you in a better place (see you in a better place)
-</p>
-<br />
-<p>
-    Uh
-    How can we not talk about family when family's all that we got?
-    Everything I went through, you were standing there by my side
-    And now you gon' be with me for the last ride
-    It's been a long day without you, my friend
-    And I'll tell you all about it when I see you again (I'll see you again)
-    We've come a long way (yeah, we came a long way)
-    From where we began (you know we started)
-    Oh, I'll tell you all about it when I see you again (I'll tell you)
-    When I see you again
-    First, you both go out your way and the vibe is feeling strong
-    And what's small turned to a friendship, a friendship turned to a bond
-    And that bond will never be broken, the love will never get lost
-    (The love will never get lost)
-    And when brotherhood come first, then the line will never be crossed
-    Established it on our own when that line had to be drawn
-    And that line is what we reached, so remember me when I'm gone
-    (Remember me when I'm gone)
-</p>
-<br />
-<p>
-    How can we not talk about family when family's all that we got?
-    Everything I went through you were standing there by my side
-    And now you gon' be with me for the last ride
-    So let the light guide your way, yeah
-    Hold every memory as you go
-    And every road you take
-    Will always lead you home, home
-    It's been a long day without you, my friend
-    And I'll tell you all about it when I see you again
-    We've come a long way from where we began
-    Oh, I'll tell you all about it when I see you again
-    When I see you again
-    When I see you again (yeah, uh)
-    See you again (yeah, yeah, yeah)
-    When I see you again
-</p>
-<br />
+<!-- Sidebar  -->
+<nav id="sidebar">
+    <div id="dismiss">
+        <i class="icon-times"></i>
+    </div>
+    <div class="sidebar-header">
+        <!---book cover-->
+        <img src="@novel.BookCover" class="book-cover" alt="book cover" />
+        <!----thumb image-->
+        <div class="row">
+            <div class="col-sm">
+                <img src="@novel.Thumbnail" class="thumb-image" alt="thumbnail" />
+            </div>
+            <div class="col-sm">
+                <strong class="number-views" style="top:10px">@Model.Views</strong>
+                <span class="number-label">Views <i class="icon-eye"></i> </span>
+            </div>
+            <div class="col-sm">
+                <strong class="number-subcribers" style="top:10px">@novel.LikeCount</strong>
+                <span class="number-label">Likes <i class="icon-heart" style="color: #e91e63c7;"></i></span>
+            </div>
+        </div>
+        <div class=""><h3 class="name mb-4">@novel.Title</h3></div>
+    </div>
+    <!--------DESCRIPTION-SUBCRIBERS------->
+    <div class="bio">
+        <p>
+            @novel.Description
+            @*<a href="#">Read more</a>*@
+        </p>
+        <a href="#" class="btn btn-primary subcribers">Subscribers</a>
+    </div>
+    <!--------DESCRIPTION - SUBCRIBERS------->
+    <!--------GENRES------->
+    <div class="sidebar-box ftco-animate">
+        <h3>#Genres</h3>
+        <div class="tagcloud">
+            @foreach (var item in novel.Genres)
+            {
+                <a href="#" class="tag-cloud-link">@item.GenreName</a>
+            }
+            </div>
+    </div>
+
+    <!---episode-list-->
+    <div class="activity">
+        <div class="counter d-flex">
+            <div class="col">
+                <strong class="number-episodes">@Model.EpisodeNumber</strong> Episodes
+            </div>
+            <div class="col">
+                <a href="#"><i class="icon-sort-amount-asc"></i></a><!--------sort------->
+            </div>
+        </div>
+        <!---episode number-list-->
+        <div class="side-inner episode-list">
+            <ul class="list-unstyled">
+                <li class="episode-list-number">
+                    <a href="#" class="episode-number">
+                        <img class="mr-3" style=" height:17%; width: 17%; float: left;" src="@novel.Thumbnail" alt="thumb image">
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1">@novel.Title , Part @Model.EpisodeNumber</h5>
+                            <p>Episode: @Model.EpisodeNumber</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!------------------->
+    </div>
+</nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="icon-align-left"></i>
+                    <span>Episode List</span>
+                </button>
+            </div>
+        </nav>
+        <main>
+            <div class="site-section">
+                <div class="container">
+                    <div class="title-header">
+                        <p class="title-episode">@novel.Title, Part @Model.EpisodeNumber <a href="#" style="color:#e91e63;"><i class="icon-heart" style="color: #e91e63c7;font-size: 40px;"></i></a> </p>
+                        <p class="date">@novel.LastestUpdate</p>
+                    </div>
+                    <hr>
+                    <div class="content-viewer">
+                        @Model.Content
+                    </div>
+                            <!-----COMMENT LIST---->
+                            <hr />
+                </div>
+            </div>
+            @*end container*@
+        </main>
+    </div>

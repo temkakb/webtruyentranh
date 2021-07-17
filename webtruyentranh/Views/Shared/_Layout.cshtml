@@ -83,6 +83,7 @@
                         <a asp-controller="Dashboard" asp-action="Sumary" class="nav-link"><span>publish</span></a>
                     </li>
 
+
                 </ul>
                 <!---------notìication------------>
                 <div class="navbar_right" style="margin-left:10px;">
@@ -326,6 +327,8 @@
                 $(".profile .icon_wrap").click(function () {
                     $(this).parent().toggleClass("active");
                     $(".notifications").removeClass("active");
+                    
+                    
                 });
                 $(".notifications .icon_wrap").click(function () {
                     $(this).parent().toggleClass("active");
@@ -338,11 +341,13 @@
                 $(".close").click(function () {
                     $(".popup").hide();
                 });
+
                 $(".close").click(function () {
                     $(".popup").hide();
                 });
                 $(".navbar-collapse.collapse.show").click(function () {
                     $(this).parent().toggleClass(".navbar-collapse.collapse.show");
+
                     $(".navbar-toggler").removeClass("active");
                 });
                 $(document).ready(function () {

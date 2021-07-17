@@ -1,4 +1,5 @@
 ﻿@model WebTruyenTranhDataAccess.Models.Message;
+
 @inject UserManager<Account> userManager;
 
 @{
@@ -48,6 +49,7 @@
                         <div class="message-header">
                             <p>Account has been blocked</p>
 
+
                         </div>
                         <div class="message-body">
                             This account has been blocked because violating regulations
@@ -58,7 +60,9 @@
             </div>
             <div class="column is-6 ">
                 <form style=" width: 100%;" method="post" asp-action="Message" asp-controller="Profile" asp-route-ReturnUrl="@Context.Request.Path">
+
                     @Html.AntiForgeryToken()
+
                     <div class="control " style=" width: 100%;">
                         <input hidden value="@ViewBag.profile.Account.Id" name="Id" />
                         @*neu model valid *@
@@ -69,6 +73,7 @@
                                 </span>
                             </div>
                         }
+
                         @if (islocked)
                         {
                             <textarea class="textarea is-medium" placeholder="Share something..." asp-for="Content" style="min-height:100px;" disabled></textarea>
@@ -85,6 +90,7 @@
                 <p class="profile-id" id="@ViewBag.profile.Id" hidden></p>
                 <p class="account-id" id="@ViewBag.profile.Account.Id" hidden></p>
                 <div class="block mss-container mss-pagination" id="1" style="width: 100%; overflow: hidden;">
+
 
                 </div>
             </div>
@@ -105,7 +111,9 @@
 
                 <div class="columns">
                     <div class="column is-4"> <img src="@novel.BookCover" style=" height:80px; width:60px;"></div>
+
                     <div class="column ">   <h1 class="subtitle is-4">@novel.Title</h1></div>
+
     
                 </div>
             </div>
@@ -115,6 +123,7 @@
             </div>
         </div>
     </section>
+
 </main>
 <script src="~/js/jquery-3.2.1.min.js"></script>
 <script >
@@ -221,3 +230,4 @@
     $(document).ready(loaddata);
 
 </script>
+

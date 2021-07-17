@@ -214,8 +214,8 @@ public class AuthenticationController : Controller
                     Description = "Tell your story !",
                     Account = account,
                     Avartar = "/images/avartar.jpg"
-
                 }); 
+
 
                 db.SaveChanges();
 

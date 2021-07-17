@@ -1,5 +1,7 @@
 ﻿@model Novel
+
 @using Newtonsoft.Json
+
 <section class="box columns " id="Information" style="margin-bottom: 1.5rem">
     <div class="column is-one-fifth is-relative" style="height: 220px; width: 120px; margin-right: 15px">
         <img class="thumb-overlay" src=@Model.BookCover asp-append-version="true">
@@ -12,7 +14,9 @@
             <div class="column"></div>
             <div class="column is-two-fifths-widescreen is-half-tablet">
                 <a class="button  btn-label">Edit series</a>
+
                 <a data-novel-id="@Model.Id" class="button is-primary toEpisode">
+
                     <i class="fas fa-bars is-white"></i>
                 </a>
                 <a class="button is-primary">
