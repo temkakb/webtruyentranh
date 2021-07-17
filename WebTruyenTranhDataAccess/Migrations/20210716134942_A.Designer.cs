@@ -10,8 +10,8 @@ using WebTruyenTranhDataAccess.Context;
 namespace WebTruyenTranhDataAccess.Migrations
 {
     [DbContext(typeof(ComicContext))]
-    [Migration("20210708035612_init")]
-    partial class init
+    [Migration("20210716134942_A")]
+    partial class A
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -337,6 +337,10 @@ namespace WebTruyenTranhDataAccess.Migrations
 
                     b.Property<long?>("NovelId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("Views")
                         .HasColumnType("int");

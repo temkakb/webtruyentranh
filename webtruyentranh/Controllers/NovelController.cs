@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace webtruyentranh.Controllers
 {
+    
+
     public class NovelController : Controller
     {
         private readonly ComicContext _db;
