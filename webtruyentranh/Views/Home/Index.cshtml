@@ -30,115 +30,117 @@
     <section class="ftco-section-featured ftco-animate">
         <div class="container-fluid" data-scrollax-parent="true">
             <div class="row no-gutters d-flex align-items-center" data-scrollax=" properties: { translateY: '-30%'}">
+                <a href="@Url.ActionLink("Getprofile","Profile",new {Id=topNovels1.Account.Profile.Id})">
+                    <div class="col-md-3 mb-3">
+                        <a href="" class="featured-img">
+                            <div class="text-1 p-4 d-flex align-items-center">
+                                <h3>@topNovels1.Title<br><span class="tag">NOVEL</span></h3>
+                            </div>
+                            <img src="@topNovels1.BookCover" class="img-fluid" alt="">
+                            <div class="text p-4 d-flex align-items-center">
 
-                <div class="col-md-3 mb-3">
-                    <a href="" class="featured-img">
-                        <div class="text-1 p-4 d-flex align-items-center">
-                            <h3>@topNovels1.Title<br><span class="tag">NOVEL</span></h3>
-                        </div>
-                        <img src="@topNovels1.BookCover" class="img-fluid" alt="">
-                        <div class="text p-4 d-flex align-items-center">
-                            
-                          
-                              <div class="user d-flex align-items-center">
-                               
+
+                                <div class="user d-flex align-items-center">
+
+
                                     <div class="user-img mr-3" style="background-image: url(@topNovels1.Account.Profile.Avartar)"></div>
-                              <h3> @topNovels1.Account.Profile.DisplayName<br><span class="position">CREATOR</span></h3>
+                                    @*<img src="@topNovels1.Account.Profile.Avartar" class="user-img mr-3" alt="@Url.ActionLink("Getprofile","Profile",new {Id=topNovels1.Account.Profile.Id})" />*@
+                                    <h3> @topNovels1.Account.Profile.DisplayName<br><span class="position">CREATOR</span></h3>
+                                </div>
+
                             </div>
-                           
-                        </div>
+                        </a>
+                    </div>
                     </a>
-                </div>
+                    <div class="col-md-6">
+                        <div class="row no-gutters">
+                            <div class="col-md-12">
+                                <div class="row no-gutters d-flex align-items-end">
 
-                <div class="col-md-6">
-                    <div class="row no-gutters">
-                        <div class="col-md-12">
-                            <div class="row no-gutters d-flex align-items-end">
-
-                                <div class="col-md-8">
-                                    <a href="#" class="featured-img">
-                                        <div class="text-1 p-4 d-flex align-items-center">
-                                            <h3>@topNovels2.Title<br><span class="tag">NOVEL</span></h3>
-                                        </div>
-                                        <img src="@topNovels2.BookCover" class="img-fluid" alt="">
-                                        <div class="text p-4 d-flex align-items-center">
-                                            <div class="user d-flex align-items-center">
-                                                <div class="user-img mr-3" style="background-image: url(@topNovels2.Account.Profile.Avartar);"></div>
-                                                <h3>@topNovels2.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                    <div class="col-md-8">
+                                        <a href="#" class="featured-img">
+                                            <div class="text-1 p-4 d-flex align-items-center">
+                                                <h3>@topNovels2.Title<br><span class="tag">NOVEL</span></h3>
                                             </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <a href="#" class="featured-img">
-                                        <div class="text-1 p-4 d-flex align-items-center">
-                                            <h3>@topNovels3.Title<br><span class="tag">NOVEL</span></h3>
-                                        </div>
-                                        <img src="@topNovels3.BookCover" class="img-fluid" alt="">
-                                        <div class="text p-4 d-flex align-items-center">
-                                            <div class="user d-flex align-items-center">
-                                                <div class="user-img mr-3" style="background-image: url(@topNovels3.Account.Profile.Avartar);"></div>
-                                                <h3>@topNovels3.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                            <img src="@topNovels2.BookCover" class="img-fluid" alt="">
+                                            <div class="text p-4 d-flex align-items-center">
+                                                <div class="user d-flex align-items-center">
+                                                    <div class="user-img mr-3" style="background-image: url(@topNovels2.Account.Profile.Avartar);"></div>
+                                                    <h3>@topNovels2.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>
 
+                                    <div class="col-md-4">
+                                        <a href="#" class="featured-img">
+                                            <div class="text-1 p-4 d-flex align-items-center">
+                                                <h3>@topNovels3.Title<br><span class="tag">NOVEL</span></h3>
+                                            </div>
+                                            <img src="@topNovels3.BookCover" class="img-fluid" alt="">
+                                            <div class="text p-4 d-flex align-items-center">
+                                                <div class="user d-flex align-items-center">
+                                                    <div class="user-img mr-3" style="background-image: url(@topNovels3.Account.Profile.Avartar);"></div>
+                                                    <h3>@topNovels3.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-12">
-                            <div class="row no-gutters d-flex align-items-start">
-                                <div class="col-md-8">
-                                    <a href="#" class="featured-img">
-                                        <div class="text-1 p-4 d-flex align-items-center">
-                                            <h3>@topNovels4.Title<br><span class="tag">NOVEL</span></h3>
-                                        </div>
-                                        <img src="@topNovels4.BookCover" class="img-fluid" alt="">
-                                        <div class="text p-4 d-flex align-items-center">
-                                            <div class="user d-flex align-items-center">
-                                                <div class="user-img mr-3" style="background-image: url(@topNovels4.Account.Profile.Avartar);"></div>
-                                                <h3>@topNovels4.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                            <div class="col-md-12">
+                                <div class="row no-gutters d-flex align-items-start">
+                                    <div class="col-md-8">
+                                        <a href="#" class="featured-img">
+                                            <div class="text-1 p-4 d-flex align-items-center">
+                                                <h3>@topNovels4.Title<br><span class="tag">NOVEL</span></h3>
                                             </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-4">
-                                    <a href="#" class="featured-img">
-                                        <div class="text-1 p-4 d-flex align-items-center">
-                                            <h3>@topNovels5.Title<br><span class="tag">NOVEL</span></h3>
-                                        </div>
-                                        <img src="@topNovels5.BookCover" class="img-fluid" alt="">
-                                        <div class="text p-4 d-flex align-items-center">
-                                            <div class="user d-flex align-items-center">
-                                                <div class="user-img mr-3" style="background-image: url(@topNovels5.Account.Profile.Avartar);"></div>
-                                                <h3>@topNovels5.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                            <img src="@topNovels4.BookCover" class="img-fluid" alt="">
+                                            <div class="text p-4 d-flex align-items-center">
+                                                <div class="user d-flex align-items-center">
+                                                    <div class="user-img mr-3" style="background-image: url(@topNovels4.Account.Profile.Avartar);"></div>
+                                                    <h3>@topNovels4.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="#" class="featured-img">
+                                            <div class="text-1 p-4 d-flex align-items-center">
+                                                <h3>@topNovels5.Title<br><span class="tag">NOVEL</span></h3>
+                                            </div>
+                                            <img src="@topNovels5.BookCover" class="img-fluid" alt="">
+                                            <div class="text p-4 d-flex align-items-center">
+                                                <div class="user d-flex align-items-center">
+                                                    <div class="user-img mr-3" style="background-image: url(@topNovels5.Account.Profile.Avartar);"></div>
+                                                    <h3>@topNovels5.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-3">
-                    <a href="#" class="featured-img">
-                        <div class="text-1 p-4 d-flex align-items-center">
-                            <h3>@topNovels6.Title<br><span class="tag">NOVEL</span></h3>
-                        </div>
-                        <img src="@topNovels6.BookCover" class="img-fluid" alt="">
-                        <div class="text p-4 d-flex align-items-center">
-                            <div class="user d-flex align-items-center">
-                                <div class="user-img mr-3" style="background-image: url(@topNovels6.Account.Profile.Avartar);"></div>
-                                <h3>@topNovels6.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                    <div class="col-md-3">
+                        <a href="#" class="featured-img">
+                            <div class="text-1 p-4 d-flex align-items-center">
+                                <h3>@topNovels6.Title<br><span class="tag">NOVEL</span></h3>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                   <!------------------------------------>
+                            <img src="@topNovels6.BookCover" class="img-fluid" alt="">
+                            <div class="text p-4 d-flex align-items-center">
+                                <div class="user d-flex align-items-center">
+                                    <div class="user-img mr-3" style="background-image: url(@topNovels6.Account.Profile.Avartar);"></div>
+                                    <h3>@topNovels6.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                </div>
                             </div>
+                        </a>
+                    </div>
+                    <!------------------------------------>
+            </div>
                             <div class="row mt-5 d-flex justify-content-center">
                                 <div class="col-md-8 text-center heading-section ftco-animate">
                                     <h2 class="h1"><!---HE. is a---><strong class="px-3">STORIES WE LOVE <i class="icon icon-heart"></i></strong><!---is home to a creator community that has published 21,350 stories. We’re sure you’re going to find a story just for you on HE.!----></h2>
@@ -155,7 +157,7 @@
                             </div>
                             <div class="row">
                                 <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-                                    <a href="portfolio.html" class="image" style="background-image: url('@topNovels7.BookCover');background-size:cover; " data-scrollax=" properties: { translateY: '-20%'}">
+                                    <a href="portfolio.html" class="image" style="background-image: url('@topNovels7.BookCover');background-size:auto; " data-scrollax=" properties: { translateY: '-20%'}">
                                     </a>
                                     <div class="text">
                                         <a href="@Url.ActionLink("Getprofile","Profile",new {Id=topNovels7.Account.Profile.Id})"> <h4 class="subheading">🩸@topNovels7.Account.Profile.DisplayName🩸</h4> </a>
@@ -165,7 +167,7 @@
                                     </div>
                                 </div>
                                 <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-                                    <a href="portfolio.html" class="image image-2 order-2 " style="background-image: url('@topNovels8.BookCover');background-size:cover;" data-scrollax=" properties: { translateY: '-20%'}"></a>
+                                    <a href="portfolio.html" class="image image-2 order-2 " style="background-image: url('@topNovels8.BookCover');background-size:auto;" data-scrollax=" properties: { translateY: '-20%'}"></a>
                                     <div class="text order-1">
                                         <a href="@Url.ActionLink("Getprofile","Profile",new {Id=topNovels7.Account.Profile.Id})">
                                             <h4 class="subheading">🩸@topNovels8.Account.Profile.DisplayName🩸</h4>
@@ -176,7 +178,7 @@
                                     </div>
                                 </div>
                                 <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-                                    <a href="portfolio.html" class="image" style="background-image: url('@topNovels9.BookCover');background-size:cover;" data-scrollax=" properties: { translateY: '-20%'}"></a>
+                                    <a href="portfolio.html" class="image" style="background-image: url('@topNovels9.BookCover');background-size:auto;" data-scrollax=" properties: { translateY: '-20%'}"></a>
                                     <div class="text">
                                         <a href="@Url.ActionLink("Getprofile","Profile",new {Id=topNovels9.Account.Profile.Id})">
                                             <h4 class="subheading">@topNovels9.Account.Profile.DisplayName🩸</h4>
@@ -283,7 +285,7 @@
                             {
                                 <div class="col-md-4 ftco-animate">
                                     <div class="blog-entry" data-aos="zoom-in">
-                                        <a href="blog-single.html" class="block-20" style="background-image: url('@item.BookCover');">
+                                        <a href="blog-single.html" class="block-20" style="background-image: url('@item.BookCover'); background-size:cover;">
                                         </a>
                                         <div class="text p-4 d-block">
                                             <div class="meta mb-3">
