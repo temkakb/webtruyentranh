@@ -30,115 +30,114 @@
     <section class="ftco-section-featured ftco-animate">
         <div class="container-fluid" data-scrollax-parent="true">
             <div class="row no-gutters d-flex align-items-center" data-scrollax=" properties: { translateY: '-30%'}">
-
-                <div class="col-md-3 mb-3">
-                    <a href="" class="featured-img">
-                        <div class="text-1 p-4 d-flex align-items-center">
-                            <h3>@topNovels1.Title<br><span class="tag">NOVEL</span></h3>
-                        </div>
-                        <img src="@topNovels1.BookCover" class="img-fluid" alt="">
-                        <div class="text p-4 d-flex align-items-center">
-                            
-                          
-                              <div class="user d-flex align-items-center">
-                               
-                                    <div class="user-img mr-3" style="background-image: url(@topNovels1.Account.Profile.Avartar)"></div>
-                              <h3> @topNovels1.Account.Profile.DisplayName<br><span class="position">CREATOR</span></h3>
+             
+                    <div class="col-md-3 mb-3">
+                        <a href="" class="featured-img">
+                            <div class="text-1 p-4 d-flex align-items-center"onclick="window.open('/novel/@topNovels1.Slugify/episode/1', 'mywindow');">
+                                <h3>@topNovels1.Title<br><span class="tag">NOVEL</span></h3>
                             </div>
-                           
-                        </div>
-                    </a>
-                </div>
+                            <img src="@topNovels1.BookCover" class="img-fluid" alt=""onclick="window.open('/novel/@topNovels1.Slugify/episode/1', 'mywindow');" >
+                            <div class="text p-4 d-flex align-items-center">
 
-                <div class="col-md-6">
-                    <div class="row no-gutters">
-                        <div class="col-md-12">
-                            <div class="row no-gutters d-flex align-items-end">
 
-                                <div class="col-md-8">
-                                    <a href="#" class="featured-img">
-                                        <div class="text-1 p-4 d-flex align-items-center">
-                                            <h3>@topNovels2.Title<br><span class="tag">NOVEL</span></h3>
-                                        </div>
-                                        <img src="@topNovels2.BookCover" class="img-fluid" alt="">
-                                        <div class="text p-4 d-flex align-items-center">
-                                            <div class="user d-flex align-items-center">
-                                                <div class="user-img mr-3" style="background-image: url(@topNovels2.Account.Profile.Avartar);"></div>
-                                                <h3>@topNovels2.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <a href="#" class="featured-img">
-                                        <div class="text-1 p-4 d-flex align-items-center">
-                                            <h3>@topNovels3.Title<br><span class="tag">NOVEL</span></h3>
-                                        </div>
-                                        <img src="@topNovels3.BookCover" class="img-fluid" alt="">
-                                        <div class="text p-4 d-flex align-items-center">
-                                            <div class="user d-flex align-items-center">
-                                                <div class="user-img mr-3" style="background-image: url(@topNovels3.Account.Profile.Avartar);"></div>
-                                                <h3>@topNovels3.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
-                                            </div>
-                                        </div>
-                                    </a>
+                                <div class="user d-flex align-items-center" onclick="window.open('@Url.ActionLink("Getprofile","Profile",new {Id=topNovels1.Account.Profile.Id})','mywindow');">
+                                      <div class="user-img mr-3" style="background-image: url(@topNovels1.Account.Profile.Avartar)"></div>
+                                          <h3> @topNovels1.Account.Profile.DisplayName<br><span class="position">CREATOR</span></h3>
                                 </div>
 
                             </div>
-                        </div>
+                        </a>
+                    </div>
+                  
+                    <div class="col-md-6">
+                        <div class="row no-gutters">
+                            <div class="col-md-12">
+                                <div class="row no-gutters d-flex align-items-end">
 
-                        <div class="col-md-12">
-                            <div class="row no-gutters d-flex align-items-start">
-                                <div class="col-md-8">
-                                    <a href="#" class="featured-img">
-                                        <div class="text-1 p-4 d-flex align-items-center">
-                                            <h3>@topNovels4.Title<br><span class="tag">NOVEL</span></h3>
-                                        </div>
-                                        <img src="@topNovels4.BookCover" class="img-fluid" alt="">
-                                        <div class="text p-4 d-flex align-items-center">
-                                            <div class="user d-flex align-items-center">
-                                                <div class="user-img mr-3" style="background-image: url(@topNovels4.Account.Profile.Avartar);"></div>
-                                                <h3>@topNovels4.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                    <div class="col-md-8">
+                                        <a href="#" class="featured-img">
+                                            <div class="text-1 p-4 d-flex align-items-center"onclick="window.open('/novel/@topNovels2.Slugify/episode/1', 'mywindow');">
+                                                <h3>@topNovels2.Title<br><span class="tag">NOVEL</span></h3>
                                             </div>
-                                        </div>
-                                    </a>
+                                            <img src="@topNovels2.BookCover" class="img-fluid" alt=""onclick="window.open('/novel/@topNovels2.Slugify/episode/1', 'mywindow');">
+                                            <div class="text p-4 d-flex align-items-center">
+                                                <div class="user d-flex align-items-center"onclick="window.open('@Url.ActionLink("Getprofile","Profile",new {Id=topNovels2.Account.Profile.Id})','mywindow');">
+                                                    <div class="user-img mr-3" style="background-image: url(@topNovels2.Account.Profile.Avartar);"></div>
+                                                    <h3>@topNovels2.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <a href="#" class="featured-img">
+                                            <div class="text-1 p-4 d-flex align-items-center"onclick="window.open('/novel/@topNovels3.Slugify/episode/1', 'mywindow');">
+                                                <h3>@topNovels3.Title<br><span class="tag">NOVEL</span></h3>
+                                            </div>
+                                            <img src="@topNovels3.BookCover" class="img-fluid" alt=""onclick="window.open('/novel/@topNovels3.Slugify/episode/1', 'mywindow');">
+                                            <div class="text p-4 d-flex align-items-center">
+                                                <div class="user d-flex align-items-center"onclick="window.open('@Url.ActionLink("Getprofile","Profile",new {Id=topNovels3.Account.Profile.Id})','mywindow');">
+                                                    <div class="user-img mr-3" style="background-image: url(@topNovels3.Account.Profile.Avartar);"></div>
+                                                    <h3>@topNovels3.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
                                 </div>
-                                <div class="col-md-4">
-                                    <a href="#" class="featured-img">
-                                        <div class="text-1 p-4 d-flex align-items-center">
-                                            <h3>@topNovels5.Title<br><span class="tag">NOVEL</span></h3>
-                                        </div>
-                                        <img src="@topNovels5.BookCover" class="img-fluid" alt="">
-                                        <div class="text p-4 d-flex align-items-center">
-                                            <div class="user d-flex align-items-center">
-                                                <div class="user-img mr-3" style="background-image: url(@topNovels5.Account.Profile.Avartar);"></div>
-                                                <h3>@topNovels5.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="row no-gutters d-flex align-items-start">
+                                    <div class="col-md-8">
+                                        <a href="#" class="featured-img">
+                                            <div class="text-1 p-4 d-flex align-items-center"onclick="window.open('/novel/@topNovels4.Slugify/episode/1', 'mywindow');">
+                                                <h3>@topNovels4.Title<br><span class="tag">NOVEL</span></h3>
                                             </div>
-                                        </div>
-                                    </a>
+                                            <img src="@topNovels4.BookCover" class="img-fluid" alt=""onclick="window.open('/novel/@topNovels4.Slugify/episode/1', 'mywindow');">
+                                            <div class="text p-4 d-flex align-items-center">
+                                                <div class="user d-flex align-items-center"onclick="window.open('@Url.ActionLink("Getprofile","Profile",new {Id=topNovels4.Account.Profile.Id})','mywindow');">
+                                                    <div class="user-img mr-3" style="background-image: url(@topNovels4.Account.Profile.Avartar);"></div>
+                                                    <h3>@topNovels4.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="#" class="featured-img">
+                                            <div class="text-1 p-4 d-flex align-items-center"onclick="window.open('/novel/@topNovels5.Slugify/episode/1', 'mywindow');">
+                                                <h3>@topNovels5.Title<br><span class="tag">NOVEL</span></h3>
+                                            </div>
+                                            <img src="@topNovels5.BookCover" class="img-fluid" alt=""onclick="window.open('/novel/@topNovels5.Slugify/episode/1', 'mywindow');">
+                                            <div class="text p-4 d-flex align-items-center">
+                                                <div class="user d-flex align-items-center"onclick="window.open('@Url.ActionLink("Getprofile","Profile",new {Id=topNovels5.Account.Profile.Id})','mywindow');">
+                                                    <div class="user-img mr-3" style="background-image: url(@topNovels5.Account.Profile.Avartar);"></div>
+                                                    <h3>@topNovels5.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-3">
-                    <a href="#" class="featured-img">
-                        <div class="text-1 p-4 d-flex align-items-center">
-                            <h3>@topNovels6.Title<br><span class="tag">NOVEL</span></h3>
-                        </div>
-                        <img src="@topNovels6.BookCover" class="img-fluid" alt="">
-                        <div class="text p-4 d-flex align-items-center">
-                            <div class="user d-flex align-items-center">
-                                <div class="user-img mr-3" style="background-image: url(@topNovels6.Account.Profile.Avartar);"></div>
-                                <h3>@topNovels6.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                    <div class="col-md-3">
+                        <a href="#" class="featured-img">
+                            <div class="text-1 p-4 d-flex align-items-center"onclick="window.open('/novel/@topNovels6.Slugify/episode/1', 'mywindow');">
+                                <h3>@topNovels6.Title<br><span class="tag">NOVEL</span></h3>
                             </div>
-                        </div>
-                    </a>
-                </div>
-                   <!------------------------------------>
+                            <img src="@topNovels6.BookCover" class="img-fluid" alt=""onclick="window.open('/novel/@topNovels6.Slugify/episode/1', 'mywindow');">
+                            <div class="text p-4 d-flex align-items-center">
+                                <div class="user d-flex align-items-center"onclick="window.open('@Url.ActionLink("Getprofile","Profile",new {Id=topNovels6.Account.Profile.Id})','mywindow');">
+                                    <div class="user-img mr-3" style="background-image: url(@topNovels6.Account.Profile.Avartar);"></div>
+                                    <h3>@topNovels6.Account.Profile.DisplayName <br><span class="position">CREATOR</span></h3>
+                                </div>
                             </div>
+                        </a>
+                    </div>
+                    <!------------------------------------>
+            </div>
                             <div class="row mt-5 d-flex justify-content-center">
                                 <div class="col-md-8 text-center heading-section ftco-animate">
                                     <h2 class="h1"><!---HE. is a---><strong class="px-3">STORIES WE LOVE <i class="icon icon-heart"></i></strong><!---is home to a creator community that has published 21,350 stories. We’re sure you’re going to find a story just for you on HE.!----></h2>
@@ -155,37 +154,40 @@
                             </div>
                             <div class="row">
                                 <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-                                    <a href="portfolio.html" class="image" style="background-image: url('@topNovels7.BookCover');background-size:cover; " data-scrollax=" properties: { translateY: '-20%'}">
-                                    </a>
+                                    <a href="/novel/@topNovels7.Slugify/episode/1" class="image" style="background-image: url('@topNovels7.BookCover');background-size:auto;" data-scrollax=" properties: { translateY: '-20%'}"></a>
                                     <div class="text">
-                                        <a href="@Url.ActionLink("Getprofile","Profile",new {Id=topNovels7.Account.Profile.Id})"> <h4 class="subheading">🩸@topNovels7.Account.Profile.DisplayName🩸</h4> </a>
-                                        <h2 class="heading"><a href="portfolio.html">@topNovels7.Title</a></h2>
-                                        <p>@topNovels7.Description</p>
-                                        <p><a href="portfolio.html" class="btn btn-primary px-4">READ MORE</a></p>
-                                    </div>
-                                </div>
-                                <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-                                    <a href="portfolio.html" class="image image-2 order-2 " style="background-image: url('@topNovels8.BookCover');background-size:cover;" data-scrollax=" properties: { translateY: '-20%'}"></a>
-                                    <div class="text order-1">
                                         <a href="@Url.ActionLink("Getprofile","Profile",new {Id=topNovels7.Account.Profile.Id})">
-                                            <h4 class="subheading">🩸@topNovels8.Account.Profile.DisplayName🩸</h4>
-                                         </a>
-                                            <h2 class="heading"><a href="portfolio.html">@topNovels8.Title</a></h2>
-                                            <p>@topNovels8.Description</p>
-                                            <p><a href="portfolio.html" class="btn btn-primary px-4">READ MORE</a></p>
+                                            <h4 class="subheading">@topNovels7.Account.Profile.DisplayName🩸</h4>
+                                        </a>
+                                        <h2 class="heading"><a href="/novel/@topNovels7.Slugify/episode/1">@topNovels7.Title</a></h2>
+                                        <p>
+                                            @topNovels7.Description
+                                        </p>
+                                        <p><a href="/novel/@topNovels7.Slugify/episode/1" class="btn btn-primary px-4">READ MORE</a></p>
                                     </div>
                                 </div>
                                 <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-                                    <a href="portfolio.html" class="image" style="background-image: url('@topNovels9.BookCover');background-size:cover;" data-scrollax=" properties: { translateY: '-20%'}"></a>
+                                    <a href="/novel/@topNovels8.Slugify/episode/1" class="image image-2 order-2 " style="background-image: url('@topNovels8.BookCover');background-size:auto;" data-scrollax=" properties: { translateY: '-20%'}"></a>
+                                    <div class="text order-1">
+                                        <a href="@Url.ActionLink("Getprofile","Profile",new {Id=topNovels8.Account.Profile.Id})">
+                                            <h4 class="subheading">🩸@topNovels8.Account.Profile.DisplayName🩸</h4>
+                                        </a>
+                                        <h2 class="heading"><a href="/novel/@topNovels8.Slugify/episode/1">@topNovels8.Title</a></h2>
+                                        <p>@topNovels8.Description</p>
+                                        <p><a href="/novel/@topNovels8.Slugify/episode/1" class="btn btn-primary px-4">READ MORE</a></p>
+                                    </div>
+                                </div>
+                                <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
+                                    <a href="/novel/@topNovels9.Slugify/episode/1" class="image" style="background-image: url('@topNovels9.BookCover');background-size:auto;" data-scrollax=" properties: { translateY: '-20%'}"></a>
                                     <div class="text">
                                         <a href="@Url.ActionLink("Getprofile","Profile",new {Id=topNovels9.Account.Profile.Id})">
                                             <h4 class="subheading">@topNovels9.Account.Profile.DisplayName🩸</h4>
-                                            </a>
-                                            <h2 class="heading"><a href="portfolio.html">@topNovels9.Title</a></h2>
-                                            <p>
-                                                @topNovels9.Description
-                                            </p>
-                                            <p><a href="portfolio.html" class="btn btn-primary px-4">READ MORE</a></p>
+                                        </a>
+                                        <h2 class="heading"><a href="/novel/@topNovels9.Slugify/episode/1">@topNovels9.Title</a></h2>
+                                        <p>
+                                            @topNovels9.Description
+                                        </p>
+                                        <p><a href="/novel/@topNovels9.Slugify/episode/1" class="btn btn-primary px-4">READ MORE</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -283,15 +285,15 @@
                             {
                                 <div class="col-md-4 ftco-animate">
                                     <div class="blog-entry" data-aos="zoom-in">
-                                        <a href="blog-single.html" class="block-20" style="background-image: url('@item.BookCover');">
+                                        <a href="/novel/@item.Slugify/episode/1" class="block-20" style="background-image: url('@item.BookCover'); background-size:cover;">
                                         </a>
                                         <div class="text p-4 d-block">
                                             <div class="meta mb-3">
                                                 <div><a href="#">@item.LastestUpdate</a></div>
-                                                <div><a href="#">@item.Account.Profile.DisplayName</a></div>
+                                                <div><a href="/profile/getprofile/@item.Account.Profile.Id">@item.Account.Profile.DisplayName</a></div>
                                                 <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 7</a></div>
                                             </div>
-                                            <h3 class="heading"><a href="#">@item.Title</a></h3>
+                                            <h3 class="heading"><a href="/novel/@item.Slugify/episode/1">@item.Title</a></h3>
                                         </div>
                                     </div>
                                 </div>
