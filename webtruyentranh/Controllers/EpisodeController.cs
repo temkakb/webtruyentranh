@@ -38,10 +38,17 @@ namespace webtruyentranh.Controllers
         [Route("novel/{novelSlugify}/episode/{episodenumber}")]       
         public IActionResult Episode(string novelSlugify, int episodenumber)
         {
-            var episode = _context.Episodes.FirstOrDefault(p => p.EpisodeNumber == episodenumber);
-            var novel = _context.Novels.Include(m => m.Likes).Include(m => m.Genres).FirstOrDefault(p => p.Slugify == novelSlugify);
-            ViewBag.novel = novel;
-            return View(episode);
+          
+                var episode = _context.Episodes.Where(ep => ep.Novel.Slugify.Equals(novelSlugify)).Where(ep => ep.EpisodeNumber == episodenumber).FirstOrDefault();
+                if(episode==null)
+                return PartialView("~/Views/Shared/_notfound.cshtml");
+                ViewBag.epcount = _context.Episodes.Where(ep => ep.Novel.Slugify == novelSlugify).Count();
+                var novel = _context.Novels.Include(m => m.Likes).Include(m => m.Genres).FirstOrDefault(p => p.Slugify == novelSlugify);
+                ViewBag.novel = novel;
+                return View(episode);
+          
+          
+          
         }
 
         public IActionResult Create()
