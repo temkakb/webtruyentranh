@@ -36,40 +36,34 @@ namespace webtruyentranh.Controllers
         }
         [HttpGet]
   
-        public JsonResult RequestItems(long ge, String q,int pagination)
+        public JsonResult RequestItems(long ge, String q,int pagination,string search)
         {
-
             int staticnum = pagination * 5;
             int count;
-            Debug.WriteLine(staticnum);
-            Debug.WriteLine(ge);
             IEnumerable<Novel> novels;
             if (ge == 0)
             {
-                novels = _db.Novels.Include(n => n.Genres).ToList();
+                novels = _db.Novels.Include(n => n.Genres).ToList(); if (search!=null) { novels = novels.Where(n => n.Title.Contains(search) || n.Genres.Any(g=>g.GenreName.Contains(search))); }
                 count = novels.Count();
                 novels = novels.Skip(staticnum - 5).Take(staticnum);
-
             }
             else
             {
                 if (q.Equals("POPULAR"))
                 {
-                    novels = _db.Novels.Include(n => n.Genres).Where(n => n.Genres.Any(g => g.Id == ge)).ToList().OrderByDescending(n => n.LikeCount);
-                     count = novels.Count();
-                    novels = novels.Skip(staticnum - 5).Take(staticnum);
-
-                }
-                if (q.Equals("FRESH"))
-                {
-                    novels = _db.Novels.Include(n => n.Genres).Where(n => n.Genres.Any(g => g.Id == ge)).ToList().OrderBy(n => n.LastestUpdate);
+                    novels = _db.Novels.Include(n => n.Genres).Where(n => n.Genres.Any(g => g.Id == ge)).ToList().OrderByDescending(n => n.LikeCount); if (search != null) { novels = novels.Where(n => n.Title.Contains(search) || n.Genres.Any(g => g.GenreName.Contains(search))); }
                     count = novels.Count();
                     novels = novels.Skip(staticnum - 5).Take(staticnum);
                 }
-                novels = _db.Novels.Include(n => n.Genres).Where(n => n.Genres.Any(g => g.Id == ge)).ToList() ;
-              count = novels.Count();
+                if (q.Equals("FRESH"))
+                {
+                    novels = _db.Novels.Include(n => n.Genres).Where(n => n.Genres.Any(g => g.Id == ge)).ToList().OrderBy(n => n.LastestUpdate); if (search != null) { novels = novels.Where(n => n.Title.Contains(search) || n.Genres.Any(g => g.GenreName.Contains(search))); }
+                    count = novels.Count();
+                    novels = novels.Skip(staticnum - 5).Take(staticnum);
+                }
+                novels = _db.Novels.Include(n => n.Genres).Where(n => n.Genres.Any(g => g.Id == ge)).ToList(); if (search != null) { novels = novels.Where(n => n.Title.Contains(search) || n.Genres.Any(g => g.GenreName.Contains(search))); }
+                count = novels.Count();
                 novels = novels.Skip(staticnum - 5).Take(staticnum); 
-
             }
             var Featurednovel = _db.Novels.Include(n => n.Genres).ToList().OrderBy(n => n.LastestUpdate).Skip(0).Take(2).ToList();
             //ViewBag.pagination = pagination+1;
@@ -78,9 +72,7 @@ namespace webtruyentranh.Controllers
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects,
                 Formatting = Formatting.Indented
-
             }));
-
         }
         [Authorize]
         public async Task< IActionResult> DoSubscription( long Id)
