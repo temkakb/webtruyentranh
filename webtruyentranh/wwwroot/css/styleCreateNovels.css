@@ -1,0 +1,238 @@
+﻿
+main{
+    margin-left:350px;
+    margin-top:50px;
+    margin-bottom:10%;
+}
+.form-group {
+    margin-top: 20px;
+    max-width: 700px;
+}
+
+.desc_counter {
+    margin-left: 600px;
+}
+/*-----------thumbnail--------------*/
+.form-group .imgThumbnail {
+    margin-left: 400px;
+    margin-top:0px;
+}
+ .form-group .imgThumbnail img {
+        margin-top: 71px;
+        margin-left: 0px;
+    }
+
+.item_info_thumbnail {
+    margin-top: -139px;
+}
+.form_thumbnail {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -226px;
+    margin-left: -104px;
+    width: 165px;
+    height: 165px;
+    border: 2px dashed #3534346b;
+}
+    .form_thumbnail img {
+        height:90%;
+        width:100%;
+      
+    }
+    .form_thumbnail p {
+        width: 100%;
+        height: 17%;
+        text-align: center;
+        line-height: 0px;
+        /*   color: #070707;*/
+        font-family: Arial;
+    }
+
+    .form_thumbnail .input_thumbnail {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+        
+    }
+    .form_thumbnail .btn_upload {
+        border-radius: 7px;
+        background-color: #00ced152;
+        /*font-weight: bold;*/
+        /*font-size:50px;*/
+        width: 85px;
+        height: auto;
+        margin-left: 41px;
+    }
+/*.hover14 figure {
+    position: relative;
+}
+
+    .hover14 figure::before {
+        position: absolute;
+        top: 0;
+        left: -75%;
+        z-index: 2;
+        display: block;
+        content: '';
+        width: 50%;
+        height: 100%;
+        background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+        background: linear-gradient(to right, rgb(18 181 185 / 57%) 0%, rgb(104 14 14 / 0%) 100%);
+        -webkit-transform: skewX(-25deg);
+        transform: skewX(-25deg);
+    }
+
+    .hover14 figure:hover::before {
+        -webkit-animation: shine .75s;
+        animation: shine .75s;
+    }
+
+@-webkit-keyframes shine {
+    100% {
+        left: 125%;
+    }
+}
+
+@keyframes shine/
+    100% {
+        left: 125%;
+    }
+}*/
+
+        /*--------------form bookcover---------------*/
+.form_group_bookcover .imgBookcover {
+    margin-left: 400px;
+    margin-top: 0px;
+}
+    .form_group_bookcover .imgBookcover img {
+        margin-top: 183px;
+        margin-left: 0px;
+    }
+
+.form_group_bookcover {
+    margin-top: 250px;
+ 
+}
+ .form_group_bookcover .item_info_bookcover {
+        position: absolute;
+        margin-top: 400px;
+    }
+.form_bookcover img {
+    height: 70%;
+    width: 100%;
+}
+.form_bookcover {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -751px;
+    margin-left: 168px;
+    width: 221px;
+    height: 341px;
+    border: 2px dashed #3534346b;
+}
+
+    .form_bookcover p {
+        width: 100%;
+        height: 33%;
+        text-align: center;
+        line-height: 75px;
+        color: #070707;
+        font-family: Arial;
+    }
+
+    .form_bookcover .input_bookcover {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+    }
+
+    .form_bookcover .btn_upload_bookcover {
+        border-radius: 7px;
+        background-color: #00ced152;
+        /*font-weight: bold;*/
+        /*font-size:50px;*/
+        width: 85px;
+        height: auto;
+        margin-left: 68px;
+    }
+.form_item_header {
+    margin-top:0px;
+}
+/*--------------form banner---------------*/
+/*.form_group_banner .imgBanner {
+    margin-left: 600px;
+    margin-top: 0px;
+}
+
+    .form_group_banner .imgBanner img {
+        margin-top: 160px;
+        margin-left: 0px;
+        width: 0px;
+        height: auto;
+    }*/
+.form_group_banner {
+    margin-top: 47px;
+}
+
+    .form_group_banner .item_info_banner {
+        position: absolute;
+        margin-top: 400px;
+    }
+
+.form_banner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -390px;
+    margin-left: 75px;
+    width: 418px;
+    height: 133px;
+    border: 2px dashed #3534346b;
+}
+
+    .form_banner p {
+        width: 100%;
+        height: 25%;
+        text-align: center;
+        line-height: 0px;
+        color: #070707;
+        font-family: Arial;
+    }
+
+    .form_banner .input_banner {
+        position:  absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+    }
+
+    .form_banner .btn_upload_banner {
+        border-radius: 7px;
+        background-color: #00ced152;
+        width: 85px;
+        height: auto;
+        margin-left: 163px;
+    }
+
+.form_item_header {
+    margin-top: 0px;
+}
+.form_banner img {
+    height: 85%;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}

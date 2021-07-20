@@ -174,6 +174,11 @@ namespace webtruyentranh.Controllers
             return Ok();
 
         }
+        public IActionResult CreateNovels()
+        {
+            return View();
+        }
+
 
     }
 
