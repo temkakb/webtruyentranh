@@ -27,9 +27,9 @@ main{
 }
 .form_thumbnail {
     position: absolute;
-    top: 50%;
+    top: 38%;
     left: 50%;
-    margin-top: -226px;
+    margin-top: -262px;
     margin-left: -104px;
     width: 165px;
     height: 165px;
@@ -236,3 +236,4 @@ main{
     margin-left: 25%;
     margin-right: 25%;
 }
+/*-------------------------------------checkbox-----------------*/

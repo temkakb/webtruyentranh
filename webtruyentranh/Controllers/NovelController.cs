@@ -10,16 +10,18 @@ using WebTruyenTranhDataAccess.Models;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using webtruyentranh.Viewmodels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace webtruyentranh.Controllers
 {
-    
+
 
     public class NovelController : Controller
     {
         private readonly ComicContext _db;
         private readonly UserManager<Account> userManager;
-        public NovelController(ComicContext _db, UserManager<Account> userManager )
+        public NovelController(ComicContext _db, UserManager<Account> userManager)
         {
             this._db = _db;
             this.userManager = userManager;
@@ -28,22 +30,22 @@ namespace webtruyentranh.Controllers
         {
             return View();
         }
-        public IActionResult Getnovels ()
+        public IActionResult Getnovels()
         {
             var genre = _db.Genres.ToList();
 
             return View(genre);
         }
         [HttpGet]
-  
-        public JsonResult RequestItems(long ge, String q,int pagination,string search)
+
+        public JsonResult RequestItems(long ge, String q, int pagination, string search)
         {
             int staticnum = pagination * 5;
             int count;
             IEnumerable<Novel> novels;
             if (ge == 0)
             {
-                novels = _db.Novels.Include(n => n.Genres).ToList(); if (search!=null) { novels = novels.Where(n => n.Title.Contains(search) || n.Genres.Any(g=>g.GenreName.Contains(search))); }
+                novels = _db.Novels.Include(n => n.Genres).ToList(); if (search != null) { novels = novels.Where(n => n.Title.Contains(search) || n.Genres.Any(g => g.GenreName.Contains(search))); }
                 count = novels.Count();
                 novels = novels.Skip(staticnum - 5).Take(staticnum);
             }
@@ -63,11 +65,11 @@ namespace webtruyentranh.Controllers
                 }
                 novels = _db.Novels.Include(n => n.Genres).Where(n => n.Genres.Any(g => g.Id == ge)).ToList(); if (search != null) { novels = novels.Where(n => n.Title.Contains(search) || n.Genres.Any(g => g.GenreName.Contains(search))); }
                 count = novels.Count();
-                novels = novels.Skip(staticnum - 5).Take(staticnum); 
+                novels = novels.Skip(staticnum - 5).Take(staticnum);
             }
             var Featurednovel = _db.Novels.Include(n => n.Genres).ToList().OrderBy(n => n.LastestUpdate).Skip(0).Take(2).ToList();
             //ViewBag.pagination = pagination+1;
-            return Json(JsonConvert.SerializeObject(new { Novels = novels, countresult=count, Featurednovel= Featurednovel }, new JsonSerializerSettings()
+            return Json(JsonConvert.SerializeObject(new { Novels = novels, countresult = count, Featurednovel = Featurednovel }, new JsonSerializerSettings()
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects,
@@ -75,7 +77,7 @@ namespace webtruyentranh.Controllers
             }));
         }
         [Authorize]
-        public async Task< IActionResult> DoSubscription( long Id)
+        public async Task<IActionResult> DoSubscription(long Id)
         {
             try
             {
@@ -85,12 +87,12 @@ namespace webtruyentranh.Controllers
                 {
                     _db.Subscriptions.Add(new Subscription
                     {
-                    AccountId = account.Id,
-                    NovelId = Id,
-                    ExpirationDate=DateTime.Now
+                        AccountId = account.Id,
+                        NovelId = Id,
+                        ExpirationDate = DateTime.Now
                     });
                     _db.SaveChanges();
-        }
+                }
                 else
                 {
                     return NotFound();
@@ -124,7 +126,7 @@ namespace webtruyentranh.Controllers
             }
             return Ok();
         }
-        public async Task<IActionResult> Dolike (long Id)
+        public async Task<IActionResult> Dolike(long Id)
         {
             try
             {
@@ -136,7 +138,7 @@ namespace webtruyentranh.Controllers
                     {
                         AccountId = account.Id,
                         NovelId = Id
-                       
+
                     });
                     _db.SaveChanges();
                 }
@@ -151,7 +153,7 @@ namespace webtruyentranh.Controllers
             }
             return Ok();
         }
-        public async Task<IActionResult> UnLike (long Id)
+        public async Task<IActionResult> UnLike(long Id)
         {
             try
             {
@@ -176,11 +178,36 @@ namespace webtruyentranh.Controllers
         }
         public IActionResult CreateNovels()
         {
-            return View();
-        }
-
+            var item = _db.Genres.Select(x => new SelectListItem()
+            {
+                Text = x.GenreName,
+                Value = x.Id.ToString(),
+            }).ToList();
+            var gn = new Genres_Viewmodel()
+            {
+                genres = item
+        };
+                 return View(gn);
 
     }
+        //public IActionResult CreateNovels()
+        //        {
+        //            //IQ<Genres> gn = _db.Genres.OrderByDescending(x=>x.Id).ToList();
+
+
+
+
+
+
+
+        //            return View();
+        //        }
+    }
+
 
 }
 
+        
+
+
+ 

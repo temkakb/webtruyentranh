@@ -1,4 +1,4 @@
-﻿
+﻿@model webtruyentranh.Viewmodels.Genres_Viewmodel
 @{
     ViewData["Title"] = "CreateNovels";
     Layout = "~/Views/Shared/_Layoutpage.cshtml";
@@ -61,24 +61,7 @@
                     <button class="btn_upload" type="submit">Upload</button>
                 </form>
             </div>
-
-        </div>
-
-        @*<div class="dashboard__tip">
-            <p class="tip tip__title">
-                    <span class="ico-mini ico-mini--ink ico-mini--right">
-                        <i class="ico sp-ico-info-wht-xs"></i>
-                    </span>
-                    "Not an artist?"flex
-            </p>
-            <p class="tip tip__desc">
-                "Not an artist? Try using a royalty free image, working with a comic creator from the Tapas community, or creating your own with "
-            </p>
-            <div class="tip-thumbnail-tapamon">*@
-               
-            @*</div>
-        </div>*@
-            
+        </div>     
 
         <div class="form_group_bookcover">
             <div class="form_item_header">
@@ -116,7 +99,25 @@
                     </form>
                 </div>
             </div>
-</section>
+
+        <div class="form_checkboxList" style="margin-top: 211px;">
+            <div class="form_item_checkbox">
+                <b> Genres </b>
+            </div>
+            <div class="checkbox"style="margin-top: 2px; margin-left: 194px ">
+                @for (int i = 0; i < Model.genres.Count; i++)
+                {
+                    <input type="hidden" asp-for="@Model.genres[i].Value" />
+                    <input asp-for="genres[i].Selected" />  @Model.genres[i].Text
+            <br /> 
+                }
+            </div>
+            <div class="btn_submit" style="margin-left: 143px; margin-top: 88px; ">
+                <input type="submit" value="Save" class="btn btn-primary" style="width: 244px; "/>
+            </div>
+        </div>
+       
+        </section>
 </main>
 <script>
     $(document).ready(function () {
