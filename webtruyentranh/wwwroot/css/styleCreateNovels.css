@@ -27,7 +27,7 @@ main{
 }
 .form_thumbnail {
     position: absolute;
-    top: 38%;
+    top: 46%;
     left: 50%;
     margin-top: -262px;
     margin-left: -104px;
@@ -36,7 +36,7 @@ main{
     border: 2px dashed #3534346b;
 }
     .form_thumbnail img {
-        height:90%;
+        height:100%;
         width:100%;
       
     }
@@ -60,13 +60,16 @@ main{
         
     }
     .form_thumbnail .btn_upload {
-        border-radius: 7px;
+     /*   border-radius: 4px;*/
         background-color: #00ced152;
         /*font-weight: bold;*/
         /*font-size:50px;*/
         width: 85px;
         height: auto;
         margin-left: 41px;
+        text-align: center;
+        border: 1px solid black;
+        margin-top: 24px;
     }
 /*.hover14 figure {
     position: relative;
@@ -123,7 +126,7 @@ main{
         margin-top: 400px;
     }
 .form_bookcover img {
-    height: 70%;
+    height: 100%;
     width: 100%;
 }
 .form_bookcover {
@@ -157,13 +160,21 @@ main{
     }
 
     .form_bookcover .btn_upload_bookcover {
-        border-radius: 7px;
-        background-color: #00ced152;
+        /*border-radius: 7px;
+        background-color: #00ced152;*/
         /*font-weight: bold;*/
         /*font-size:50px;*/
+        /*width: 85px;
+        height: auto;
+        margin-left: 68px;*/
+        background-color: #00ced152;
         width: 85px;
         height: auto;
-        margin-left: 68px;
+        margin-left: 41px;
+        text-align: center;
+        border: 1px solid black;
+        margin-top: 24px;
+        margin-left: 50px;
     }
 .form_item_header {
     margin-top:0px;
@@ -220,20 +231,20 @@ main{
     }
 
     .form_banner .btn_upload_banner {
-        border-radius: 7px;
         background-color: #00ced152;
         width: 85px;
         height: auto;
-        margin-left: 163px;
+        margin-left: 142px;
+        text-align: center;
+        border: 1px solid black;
     }
 
 .form_item_header {
     margin-top: 0px;
 }
 .form_banner img {
-    height: 85%;
-    width: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
+    height: 100%;
+    width: 100%;
+  
 }
 /*-------------------------------------checkbox-----------------*/

@@ -183,25 +183,42 @@ namespace webtruyentranh.Controllers
                 Text = x.GenreName,
                 Value = x.Id.ToString(),
             }).ToList();
-            var gn = new Genres_Viewmodel()
+            var gn = new UploadImage_Viewmodel()
             {
                 genres = item
-        };
+            };
                  return View(gn);
 
-    }
-        //public IActionResult CreateNovels()
-        //        {
-        //            //IQ<Genres> gn = _db.Genres.OrderByDescending(x=>x.Id).ToList();
+        }
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
 
+        public async Task<IActionResult> upLoadImage()
+        {
+            try
+            {
+                var profile = _db.Profiles.Include(p => p.Account).FirstOrDefault(p => p.Account.UserName == User.Identity.Name);
+                var EditProfileView = new EditProfile_Viewmodel()
+                {
+                    Id = profile.Id,
+                    DisplayName = profile.DisplayName,
+                    Description = profile.Description,
+                    ExternalLink = profile.ExternalLink,
+                    Email = profile.Account.Email,
+                    Datejoined = profile.DateJoined
+                };
+                ViewBag.recentavt = profile.Avartar;
+                profile = null;
 
+                return View(EditProfileView);
+            }
+            catch (Exception ex)
+            {
+                return PartialView("~/Views/Shared/_notfound.cshtml");
+            }
+        }
 
-
-
-
-
-        //            return View();
-        //        }
     }
 
 
