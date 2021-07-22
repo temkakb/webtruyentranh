@@ -13,11 +13,11 @@ main{
     margin-left: 600px;
 }
 /*-----------thumbnail--------------*/
-.form-group .imgThumbnail {
+.form_group_thumbnail .imgThumbnail {
     margin-left: 400px;
-    margin-top:0px;
+    margin-top: 0px;
 }
- .form-group .imgThumbnail img {
+ .form_group_thumbnail .imgThumbnail img {
         margin-top: 71px;
         margin-left: 0px;
     }
@@ -27,7 +27,7 @@ main{
 }
 .form_thumbnail {
     position: absolute;
-    top: 38%;
+    top: 46%;
     left: 50%;
     margin-top: -262px;
     margin-left: -104px;
@@ -36,7 +36,7 @@ main{
     border: 2px dashed #3534346b;
 }
     .form_thumbnail img {
-        height:90%;
+        height:100%;
         width:100%;
       
     }
@@ -60,49 +60,18 @@ main{
         
     }
     .form_thumbnail .btn_upload {
-        border-radius: 7px;
+     /*   border-radius: 4px;*/
         background-color: #00ced152;
         /*font-weight: bold;*/
         /*font-size:50px;*/
         width: 85px;
         height: auto;
         margin-left: 41px;
-    }
-/*.hover14 figure {
-    position: relative;
-}
-
-    .hover14 figure::before {
-        position: absolute;
-        top: 0;
-        left: -75%;
-        z-index: 2;
-        display: block;
-        content: '';
-        width: 50%;
-        height: 100%;
-        background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
-        background: linear-gradient(to right, rgb(18 181 185 / 57%) 0%, rgb(104 14 14 / 0%) 100%);
-        -webkit-transform: skewX(-25deg);
-        transform: skewX(-25deg);
+        text-align: center;
+        border: 1px solid black;
+        margin-top: 24px;
     }
 
-    .hover14 figure:hover::before {
-        -webkit-animation: shine .75s;
-        animation: shine .75s;
-    }
-
-@-webkit-keyframes shine {
-    100% {
-        left: 125%;
-    }
-}
-
-@keyframes shine/
-    100% {
-        left: 125%;
-    }
-}*/
 
         /*--------------form bookcover---------------*/
 .form_group_bookcover .imgBookcover {
@@ -115,15 +84,15 @@ main{
     }
 
 .form_group_bookcover {
-    margin-top: 250px;
- 
+    /*margin-top: 250px;*/
+    margin-top: 397px;
 }
  .form_group_bookcover .item_info_bookcover {
         position: absolute;
         margin-top: 400px;
     }
 .form_bookcover img {
-    height: 70%;
+    height: 100%;
     width: 100%;
 }
 .form_bookcover {
@@ -157,13 +126,21 @@ main{
     }
 
     .form_bookcover .btn_upload_bookcover {
-        border-radius: 7px;
-        background-color: #00ced152;
+        /*border-radius: 7px;
+        background-color: #00ced152;*/
         /*font-weight: bold;*/
         /*font-size:50px;*/
+        /*width: 85px;
+        height: auto;
+        margin-left: 68px;*/
+        background-color: #00ced152;
         width: 85px;
         height: auto;
-        margin-left: 68px;
+        margin-left: 41px;
+        text-align: center;
+        border: 1px solid black;
+        margin-top: 24px;
+        margin-left: 50px;
     }
 .form_item_header {
     margin-top:0px;
@@ -220,20 +197,20 @@ main{
     }
 
     .form_banner .btn_upload_banner {
-        border-radius: 7px;
         background-color: #00ced152;
         width: 85px;
         height: auto;
-        margin-left: 163px;
+        margin-left: 142px;
+        text-align: center;
+        border: 1px solid black;
     }
 
 .form_item_header {
     margin-top: 0px;
 }
 .form_banner img {
-    height: 85%;
-    width: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
+    height: 100%;
+    width: 100%;
+  
 }
 /*-------------------------------------checkbox-----------------*/
