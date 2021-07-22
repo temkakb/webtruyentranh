@@ -10,8 +10,7 @@ namespace webtruyentranh.Viewmodels
 {
     public class UploadImage_Viewmodel
     {
-        [Key]
-        public long Id { get; set; }
+      
         public string GenreName { get; set; }
         public IList<SelectListItem> genres { get; set; }
         

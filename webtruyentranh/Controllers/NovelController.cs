@@ -204,6 +204,7 @@ namespace webtruyentranh.Controllers
             if (ModelState.IsValid)
 
             {
+
                 var account = await userManager.GetUserAsync(User);
                 var nv = new Novel();
                 //nv.Id = createnovel.Id;
@@ -212,16 +213,29 @@ namespace webtruyentranh.Controllers
                 nv.LikeCount = 0;
                 nv.LastestUpdate = DateTime.Now;
                 nv.Account = account;
-                nv.Thumbnail = await Cloudinary_Utility.uploadavartar(createnovel.Thumbnail);
-                nv.BookCover = await Cloudinary_Utility.uploadavartar(createnovel.Bookcover);
-                nv.Banner = await Cloudinary_Utility.uploadavartar(createnovel.Banner);
+                Task task1 = new Task(async()=> { nv.Thumbnail = await Cloudinary_Utility.uploadavartar(createnovel.Thumbnail); });
+                Task task2 = new Task(async () => { nv.BookCover = await Cloudinary_Utility.uploadavartar(createnovel.Bookcover); });
+                Task task3 = new Task(async () => { nv.Banner = await Cloudinary_Utility.uploadavartar(createnovel.Banner); });
+               
+                task1.Start();
+                task2.Start();
+                task3.Start();
+                task1.Wait();
+                task2.Wait();
+               
+                nv.Slugify = Slugify.GenerateSlug(nv.Title);
+                var genresIds = createnovel.genres.Where(x => x.Selected)
+                                                .Select(y => y.Value);
 
+                var genres = _db.Genres.Where(g => genresIds.Contains(g.Id.ToString())).ToList();
+                
                 try
                 {
                     _db.Attach(account);
                     _db.Novels.Add(nv);
+                    nv.Genres = (List<Genre>)genres;
                     _db.SaveChanges();
-            }
+                }
 
                 catch (Exception ex)
             {
