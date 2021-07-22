@@ -41,6 +41,7 @@ namespace WebTruyenTranhDataAccess.Models
         public string Slugify { get; set; }
 
         public Account Account { get; set; }
+        public long  AccountId { get; set; }
 
         public List<Genre> Genres { get; set; }
 

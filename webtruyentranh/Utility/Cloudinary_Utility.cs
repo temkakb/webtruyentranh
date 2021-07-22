@@ -32,10 +32,6 @@ namespace webtruyentranh.Utility
                 if (uploadResult.Error != null)
                     throw new Exception(uploadResult.Error.Message);
                 return uploadResult.SecureUri.AbsoluteUri;
-
-
-
-
             }
         }
     }

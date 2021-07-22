@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using webtruyentranh.Viewmodels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
+using webtruyentranh.Utility;
 
 namespace webtruyentranh.Controllers
 {
@@ -177,6 +178,7 @@ namespace webtruyentranh.Controllers
             return Ok();
 
         }
+        
         [HttpGet]
         public IActionResult CreateNovels()
         {
@@ -196,27 +198,39 @@ namespace webtruyentranh.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateNovels(IFormCollection f)
+        
+        public async Task<IActionResult> CreateNovelsAsync(UploadImage_Viewmodel createnovel)
         {
-            try
+            if (ModelState.IsValid)
+
             {
+                var account = await userManager.GetUserAsync(User);
                 var nv = new Novel();
-                nv.Title = f["Title"];
-                nv.Description = f["mota"];
-                nv.LikeCount = 100;
+                //nv.Id = createnovel.Id;
+                nv.Title = createnovel.Title;
+                nv.Description = createnovel.Description;
+                nv.LikeCount = 0;
                 nv.LastestUpdate = DateTime.Now;
-                _db.Novels.Add(nv);
-                _db.SaveChanges();
-                return RedirectToAction("Getme", "Profile");
-                
+                nv.Account = account;
+                nv.Thumbnail = await Cloudinary_Utility.uploadavartar(createnovel.Thumbnail);
+                nv.BookCover = await Cloudinary_Utility.uploadavartar(createnovel.Bookcover);
+                nv.Banner = await Cloudinary_Utility.uploadavartar(createnovel.Banner);
 
+                try
+                {
+                    _db.Attach(account);
+                    _db.Novels.Add(nv);
+                    _db.SaveChanges();
             }
-            catch(Exception ex)
+
+                catch (Exception ex)
             {
-                return RedirectToAction("CreateNovels");
+                ModelState.AddModelError("save_error", "Save Error" + ex.Message);
+                return View(createnovel);
             }
-
-            return RedirectToAction("Getme", "Profile");
+            return RedirectToAction("Sumary", "Dashboard");
+            }
+            return View(createnovel);
         }
 
     }

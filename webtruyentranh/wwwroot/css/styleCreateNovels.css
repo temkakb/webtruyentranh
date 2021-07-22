@@ -13,11 +13,11 @@ main{
     margin-left: 600px;
 }
 /*-----------thumbnail--------------*/
-.form-group .imgThumbnail {
+.form_group_thumbnail .imgThumbnail {
     margin-left: 400px;
-    margin-top:0px;
+    margin-top: 0px;
 }
- .form-group .imgThumbnail img {
+ .form_group_thumbnail .imgThumbnail img {
         margin-top: 71px;
         margin-left: 0px;
     }
@@ -84,8 +84,8 @@ main{
     }
 
 .form_group_bookcover {
-    margin-top: 250px;
- 
+    /*margin-top: 250px;*/
+    margin-top: 397px;
 }
  .form_group_bookcover .item_info_bookcover {
         position: absolute;

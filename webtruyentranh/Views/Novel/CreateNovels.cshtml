@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "CreateNovels";
     Layout = "~/Views/Shared/_Layoutpage.cshtml";
+
 }
 
 <link href="/css/styleCreateNovels.css" rel="stylesheet" />
@@ -9,9 +10,8 @@
 
 <main>
     <section>
-        @using (Html.BeginForm())
-        {
-
+       
+        <form asp-action="CreateNovels" enctype="multipart/form-data">
             <div class="form-group">
                 <div class="form_item">
                     <div class="form_item_header">
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="item_info">
-                        <input class="input is-rounded" type="text" name="Title" maxlength="100" placeholder="Enter your title" style="height:62px;padding:12px">
+                        <input class="input is-rounded" type="text" asp-for="Title" maxlength="100" placeholder="Enter your title" style="height:62px;padding:12px">
 
                     </div>
                 </div>
@@ -34,30 +34,29 @@
                     </div>
                     <div class="item_info">
 
-                        <textarea rows="10" type="text" maxlength="1000" name="mota" placeholder="Enter your descripton" style="width:100%;border-radius:12px;padding:12px"></textarea>
+                        <textarea rows="10" type="text" maxlength="1000" asp-for="Description" placeholder="Enter your descripton" style="width:100%;border-radius:12px;padding:12px"></textarea>
 
                     </div>
                 </div>
             </div>
 
-          <div class="form-group">
+            <div class="form_group_thumbnail">
                 <div class="form_item_header">
                     <div class="header">
                         <b> Thumbnail</b>
                     </div>
                 </div>
-                <div class="imgThumbnail">
-                    <img src="https://d30womf5coomej.cloudfront.net/resources/images/some/tapamon-artist.png" alt="thumbnail" width="100">
-                </div>
+                
                 <div class="item_info_thumbnail">
-                    <form class="form_thumbnail" action="#" method="POST">
-                        <input id="img_load" class="input_thumbnail" type="file" multiple onchange="loadFileThumbnail(event)">
+                   
+                    <div class="form_thumbnail">
+                        <input id="img_load" asp-for="Thumbnail"class="input_thumbnail" type="file" multiple onchange="loadFileThumbnail(event)">
                         <img id="img-recent" src="https://cdn.discordapp.com/attachments/751417489262641226/866892583992688670/clouduploadfilestorageuploadicon-1320190558968694328.png" alt="" />
                         <label class="btn_upload" for="img_load">
                             Upload
                         </label>
-
-                    </form>
+                    </div>
+                   
                 </div>
             </div>
 
@@ -72,14 +71,15 @@
                 </div>
 
                 <div class="item_info_bookcover">
-                    <form class="form_bookcover" action="#" method="POST">
-                        <input id="img_loadbookcover" class="input_bookcover" type="file" multiple onchange="loadFilebookCover(event)">
+                   
+                    <div class="form_bookcover">
+                        <input id="img_loadbookcover" asp-for="Bookcover"class="input_bookcover" type="file" multiple onchange="loadFilebookCover(event)">
                         <img id="img-bookcover-recent" src="https://cdn.discordapp.com/attachments/751417489262641226/866892583992688670/clouduploadfilestorageuploadicon-1320190558968694328.png" alt="" />
                         <label class="btn_upload_bookcover" for="img_loadbookcover">
                             Upload
                         </label>
 
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -91,13 +91,14 @@
                     </div>
                 </div>
                 <div class="item_info_banner">
-                    <form class="form_banner" action="#" method="POST">
-                        <input id="img_loadbanner" class="input_banner" type="file" multiple onchange="loadFilebookBanner(event)">
+                 
+                    <div class="form_banner">
+                        <input id="img_loadbanner" asp-for="Banner"class="input_banner" type="file" multiple onchange="loadFilebookBanner(event)">
                         <img id="img-banner-recent" src="https://cdn.discordapp.com/attachments/751417489262641226/866892583992688670/clouduploadfilestorageuploadicon-1320190558968694328.png" style="width: 150px; height: 122px; margin-left: 138px; margin-top: 5px; margin-bottom: 10px; " alt="" />
                         <label class="btn_upload_banner" for="img_loadbanner">
                             Upload
                         </label>
-                    </form>
+                    </div>
                 </div>
             </div>
 
@@ -117,7 +118,8 @@
                     <input type="submit" value="Save" class="btn btn-primary" style="width: 244px; " />
                 </div>
             </div>
-        }
+            
+        </form>
     </section>
 </main>
 <script>
