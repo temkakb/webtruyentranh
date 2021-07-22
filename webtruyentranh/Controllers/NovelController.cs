@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using webtruyentranh.Viewmodels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
 
 namespace webtruyentranh.Controllers
 {
@@ -176,6 +177,7 @@ namespace webtruyentranh.Controllers
             return Ok();
 
         }
+        [HttpGet]
         public IActionResult CreateNovels()
         {
             var item = _db.Genres.Select(x => new SelectListItem()
@@ -190,33 +192,31 @@ namespace webtruyentranh.Controllers
                  return View(gn);
 
         }
+        
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> upLoadImage()
+        public IActionResult CreateNovels(IFormCollection f)
         {
             try
             {
-                var profile = _db.Profiles.Include(p => p.Account).FirstOrDefault(p => p.Account.UserName == User.Identity.Name);
-                var EditProfileView = new EditProfile_Viewmodel()
-                {
-                    Id = profile.Id,
-                    DisplayName = profile.DisplayName,
-                    Description = profile.Description,
-                    ExternalLink = profile.ExternalLink,
-                    Email = profile.Account.Email,
-                    Datejoined = profile.DateJoined
-                };
-                ViewBag.recentavt = profile.Avartar;
-                profile = null;
+                var nv = new Novel();
+                nv.Title = f["Title"];
+                nv.Description = f["mota"];
+                nv.LikeCount = 100;
+                nv.LastestUpdate = DateTime.Now;
+                _db.Novels.Add(nv);
+                _db.SaveChanges();
+                return RedirectToAction("Getme", "Profile");
+                
 
-                return View(EditProfileView);
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
-                return PartialView("~/Views/Shared/_notfound.cshtml");
+                return RedirectToAction("CreateNovels");
             }
+
+            return RedirectToAction("Getme", "Profile");
         }
 
     }

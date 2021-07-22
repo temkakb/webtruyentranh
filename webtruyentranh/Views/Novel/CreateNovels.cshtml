@@ -9,130 +9,119 @@
 
 <main>
     <section>
-        <div class="form-group">
-            <div class="form_item">
+        @using (Html.BeginForm())
+        {
+
+            <div class="form-group">
+                <div class="form_item">
+                    <div class="form_item_header">
+                        <div class="header">
+                            <b> Title</b>
+                        </div>
+                    </div>
+                    <div class="item_info">
+                        <input class="input is-rounded" type="text" name="Title" maxlength="100" placeholder="Enter your title" style="height:62px;padding:12px">
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form_item">
+                    <div class="form_item_header">
+                        <div class="header">
+                            <b> Description</b>
+                        </div>
+                    </div>
+                    <div class="item_info">
+
+                        <textarea rows="10" type="text" maxlength="1000" name="mota" placeholder="Enter your descripton" style="width:100%;border-radius:12px;padding:12px"></textarea>
+
+                    </div>
+                </div>
+            </div>
+
+          <div class="form-group">
                 <div class="form_item_header">
                     <div class="header">
-                        <b> Title</b>
+                        <b> Thumbnail</b>
                     </div>
                 </div>
-                <div class="item_info">
-                    <input class="input is-rounded" type="text" maxlength="100" placeholder="Enter your title" style="height:62px">
-                    <div class="input_desc">
-                        <span class="desc_counter">
-                            <span class="js-counter">0</span>/100
-                        </span>
+                <div class="imgThumbnail">
+                    <img src="https://d30womf5coomej.cloudfront.net/resources/images/some/tapamon-artist.png" alt="thumbnail" width="100">
+                </div>
+                <div class="item_info_thumbnail">
+                    <form class="form_thumbnail" action="#" method="POST">
+                        <input id="img_load" class="input_thumbnail" type="file" multiple onchange="loadFileThumbnail(event)">
+                        <img id="img-recent" src="https://cdn.discordapp.com/attachments/751417489262641226/866892583992688670/clouduploadfilestorageuploadicon-1320190558968694328.png" alt="" />
+                        <label class="btn_upload" for="img_load">
+                            Upload
+                        </label>
 
-                    </div>
+                    </form>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="form_item">
+
+            <div class="form_group_bookcover">
                 <div class="form_item_header">
                     <div class="header">
-                        <b> Description</b>
+                        <b> Bookcover</b>
                     </div>
                 </div>
-                <div class="item_info">
-                    
-                    <textarea rows="10"  type="text" maxlength="1000" placeholder="Enter your descripton" style="width:100%;border-radius:12px;padding:12px"></textarea>
-                    <div class="input_desc">
-                        <span class="desc_counter">
-                            <span class="js-counter">0</span>/1000
-                        </span>
+                <div class="imgBookcover">
+                    <img src="https://d30womf5coomej.cloudfront.net/resources/images/some/tapamon-bookcover.png" alt="book-cover" width="396">
+                </div>
+
+                <div class="item_info_bookcover">
+                    <form class="form_bookcover" action="#" method="POST">
+                        <input id="img_loadbookcover" class="input_bookcover" type="file" multiple onchange="loadFilebookCover(event)">
+                        <img id="img-bookcover-recent" src="https://cdn.discordapp.com/attachments/751417489262641226/866892583992688670/clouduploadfilestorageuploadicon-1320190558968694328.png" alt="" />
+                        <label class="btn_upload_bookcover" for="img_loadbookcover">
+                            Upload
+                        </label>
+
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="form_group_banner">
+                <div class="form_item_header">
+                    <div class="header">
+                        <b> Banner</b>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="form_item_header">
-                <div class="header">
-                    <b> Thumbnail</b>
-                </div>
-            </div>
-            <div class="imgThumbnail" >
-                <img src="https://d30womf5coomej.cloudfront.net/resources/images/some/tapamon-artist.png" alt="thumbnail" width="100">
-            </div>
-            <div class="item_info_thumbnail">
-                <form class="form_thumbnail" action="#" method="POST">
-                    <input id="img_load" class="input_thumbnail" type="file" multiple onchange="loadFileThumbnail(event)">
-                    <img id="img-recent" src="https://cdn.discordapp.com/attachments/751417489262641226/866892583992688670/clouduploadfilestorageuploadicon-1320190558968694328.png" alt="" />
-                <label class="btn_upload" for="img_load" >
-                      Edit
-                  </label>
-                    @*<input type="file" class="file-input" asp-for="Thumbnail" onchange="loadFile(event)" /> edit*@
-                </form>
-            </div>
-        </div>     
-
-        <div class="form_group_bookcover">
-            <div class="form_item_header">
-                <div class="header">
-                    <b> Bookcover</b>
-                </div>
-            </div>
-            <div class="imgBookcover">
-                <img src="https://d30womf5coomej.cloudfront.net/resources/images/some/tapamon-bookcover.png" alt="book-cover" width="396">
-            </div>
-
-            <div class="item_info_bookcover">
-                <form class="form_bookcover" action="#" method="POST">
-                    <input id="img_loadbookcover" class="input_bookcover" type="file" multiple onchange="loadFilebookCover(event)">
-                    <img id="img-bookcover-recent"src="https://cdn.discordapp.com/attachments/751417489262641226/866892583992688670/clouduploadfilestorageuploadicon-1320190558968694328.png" alt="" />
-                    <label class="btn_upload_bookcover" for="img_loadbookcover">
-                        Edit
-                    </label>
-
-                </form>
-            </div>
-        </div>
-
-
-        <div class="form_group_banner">
-            <div class="form_item_header">
-                <div class="header">
-                    <b> Banner</b>
-                </div>
-            </div>
                 <div class="item_info_banner">
                     <form class="form_banner" action="#" method="POST">
-                        
-
                         <input id="img_loadbanner" class="input_banner" type="file" multiple onchange="loadFilebookBanner(event)">
-                        <img id="img-banner-recent" src="https://cdn.discordapp.com/attachments/751417489262641226/866892583992688670/clouduploadfilestorageuploadicon-1320190558968694328.png" style="width: 150px; height: 122px; margin-left: 138px; margin-top: 5px; margin-bottom: 10px; "alt="" />
+                        <img id="img-banner-recent" src="https://cdn.discordapp.com/attachments/751417489262641226/866892583992688670/clouduploadfilestorageuploadicon-1320190558968694328.png" style="width: 150px; height: 122px; margin-left: 138px; margin-top: 5px; margin-bottom: 10px; " alt="" />
                         <label class="btn_upload_banner" for="img_loadbanner">
-                            Edit
+                            Upload
                         </label>
                     </form>
                 </div>
             </div>
 
-        <div class="form_checkboxList" style="margin-top: 211px;">
-            <div class="form_item_checkbox">
-                <b> Genres </b>
+            <div class="form_checkboxList" style="margin-top: 211px;">
+                <div class="form_item_checkbox">
+                    <b> Genres </b>
+                </div>
+                <div class="checkbox" style="margin-top: 2px; margin-left: 194px ">
+                    @for (int i = 0; i < Model.genres.Count; i++)
+                    {
+                        <input type="hidden" asp-for="@Model.genres[i].Value" />
+                        <input asp-for="genres[i].Selected" /> @Model.genres[i].Text
+                        <br />
+                    }
+                </div>
+                <div class="btn_submit" style="margin-left: 143px; margin-top: 88px; ">
+                    <input type="submit" value="Save" class="btn btn-primary" style="width: 244px; " />
+                </div>
             </div>
-            <div class="checkbox"style="margin-top: 2px; margin-left: 194px ">
-                @for (int i = 0; i < Model.genres.Count; i++)
-                {
-                    <input type="hidden" asp-for="@Model.genres[i].Value" />
-                    <input asp-for="genres[i].Selected" />  @Model.genres[i].Text
-            <br /> 
-                }
-            </div>
-            <div class="btn_submit" style="margin-left: 143px; margin-top: 88px; ">
-                <input type="submit" value="Save" class="btn btn-primary" style="width: 244px; "/>
-            </div>
-        </div>
-       
-        </section>
+        }
+    </section>
 </main>
 <script>
-    //$(document).ready(function () {
-    //    $('form input').change(function () {
-    //        $('form p').text(this.files.length + " file(s) selected");
-    //    });
-    //});
+ 
     var loadFileThumbnail = function (event) {
         var output = document.getElementById('img-recent');
         output.src = URL.createObjectURL(event.target.files[0]);

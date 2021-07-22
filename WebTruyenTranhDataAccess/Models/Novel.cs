@@ -68,6 +68,10 @@ namespace WebTruyenTranhDataAccess.Models
             LastestUpdate = lastestUpdate;
         }
 
+        public Novel()
+        {
+        }
+
         public int totalWordCount()
         {
             int total = 0;
