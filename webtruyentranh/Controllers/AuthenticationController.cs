@@ -226,7 +226,7 @@ public class AuthenticationController : Controller
                     ViewData["Title"] = "Error";
                     ViewData["message"] = "Account confirmed";
                     return View();
-                }
+                    }
         }
         ViewData["Title"] = "Error (ಥ﹏ಥ)";
         ViewData["message"] = "Token expired";
