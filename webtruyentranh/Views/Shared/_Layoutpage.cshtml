@@ -71,7 +71,7 @@
                     </li>
                     @if (!signinManager.IsSignedIn(User)) { 
                         <li class="nav-item">
-                            <a  asp-controller="authentication" class="nav-link">LOGIN <i class="icon icon-angle-double-down"></i></a>
+                            <a  asp-controller="authentication" asp-action="Index" class="nav-link">LOGIN <i class="icon icon-angle-double-down"></i></a>
                         </li>
                     }
                     <li class="nav-item cta">
