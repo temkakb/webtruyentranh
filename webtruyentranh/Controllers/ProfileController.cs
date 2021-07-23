@@ -163,10 +163,8 @@ namespace webtruyentranh.Controllers
         public JsonResult Getmessages(long Id,int pagination)
         {
             var staticnum = pagination * 5;
-
-            Debug.WriteLine(Id);
             var listms = _db.Messages.Include(m => m.ChildMessages).ThenInclude(child => child.Account.Profile).Include(m => m.Sender.Profile).Where(m => m.ReceiverAccountId == Id)
-                .OrderByDescending(d => d.CreateDate).Skip(staticnum-5).Take(staticnum).ToList();
+                .OrderByDescending(d => d.CreateDate).Skip(staticnum-5).Take(5).ToList();
             return Json(JsonConvert.SerializeObject(new {  listms=listms }, new JsonSerializerSettings()
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
