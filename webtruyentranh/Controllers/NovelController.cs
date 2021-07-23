@@ -47,28 +47,23 @@ namespace webtruyentranh.Controllers
             IEnumerable<Novel> novels;
             if (ge == 0)
             {
-                novels = _db.Novels.Include(n => n.Genres).ToList(); if (search != null) { novels = novels.Where(n => n.Title.Contains(search) || n.Genres.Any(g => g.GenreName.Contains(search))); }
-                count = novels.Count();
-                novels = novels.Skip(staticnum - 5).Take(staticnum);
+                novels = _db.Novels.Include(n => n.Genres).Include(n=>n.Likes); if (search != null) { novels = novels.Where(n => n.Title.Contains(search) || n.Genres.Any(g => g.GenreName.Contains(search))); }
+                count = novels.Count();            
             }
             else
             {
-                if (q.Equals("POPULAR"))
-                {
-                    novels = _db.Novels.Include(n => n.Genres).Where(n => n.Genres.Any(g => g.Id == ge)).ToList().OrderByDescending(n => n.LikeCount); if (search != null) { novels = novels.Where(n => n.Title.Contains(search) || n.Genres.Any(g => g.GenreName.Contains(search))); }
-                    count = novels.Count();
-                    novels = novels.Skip(staticnum - 5).Take(staticnum);
-                }
-                if (q.Equals("FRESH"))
-                {
-                    novels = _db.Novels.Include(n => n.Genres).Where(n => n.Genres.Any(g => g.Id == ge)).ToList().OrderBy(n => n.LastestUpdate); if (search != null) { novels = novels.Where(n => n.Title.Contains(search) || n.Genres.Any(g => g.GenreName.Contains(search))); }
-                    count = novels.Count();
-                    novels = novels.Skip(staticnum - 5).Take(staticnum);
-                }
-                novels = _db.Novels.Include(n => n.Genres).Where(n => n.Genres.Any(g => g.Id == ge)).ToList(); if (search != null) { novels = novels.Where(n => n.Title.Contains(search) || n.Genres.Any(g => g.GenreName.Contains(search))); }
-                count = novels.Count();
-                novels = novels.Skip(staticnum - 5).Take(staticnum);
+                novels = _db.Novels.Include(n => n.Genres).Where(n => n.Genres.Any(g => g.Id == ge)); if (search != null) { novels = novels.Where(n => n.Title.Contains(search) || n.Genres.Any(g => g.GenreName.Contains(search))); }
+                count = novels.Count();            
             }
+            if (q.Equals("POPULAR"))
+            {               
+                novels = novels.OrderByDescending(n => n.LikeCount);
+            }
+            if (q.Equals("FRESH"))
+            {
+                novels = novels.OrderBy(n => n.LastestUpdate);
+            }
+            novels = novels.Skip(staticnum - 5).Take(5).ToList();  
             var Featurednovel = _db.Novels.Include(n => n.Genres).ToList().OrderBy(n => n.LastestUpdate).Skip(0).Take(2).ToList();
             //ViewBag.pagination = pagination+1;
             return Json(JsonConvert.SerializeObject(new { Novels = novels, countresult = count, Featurednovel = Featurednovel }, new JsonSerializerSettings()
