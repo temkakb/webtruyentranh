@@ -1,12 +1,13 @@
 ﻿@using WebTruyenTranhDataAccess.Models
+@inject SignInManager<Account> signinManager
 @model WebTruyenTranhDataAccess.Models.Episode
 @{
     ViewData["Title"] = "Episode";
     Layout = "~/Views/Shared/_Layoutpage.cshtml";
     var novel = (WebTruyenTranhDataAccess.Models.Novel)ViewBag.novel;
-    
-}
 
+}
+<link href="~/css/profile.css" rel="stylesheet" />
 <!-- Sidebar  -->
 <nav id="sidebar">
     <div id="dismiss">
@@ -48,7 +49,7 @@
             {
                 <a href="#" class="tag-cloud-link">@item.GenreName</a>
             }
-            </div>
+        </div>
     </div>
 
     <!---episode-list-->
@@ -65,14 +66,14 @@
         <div class="side-inner episode-list">
             <ul class="list-unstyled">
                 @*<li class="episode-list-number">
-                    <a href="#" class="episode-number">
-                        <img class="mr-3" style=" height:17%; width: 17%; float: left;" src="@novel.Thumbnail" alt="thumb image">
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">@novel.Title , Part @Model.EpisodeNumber</h5>
-                            <p>Episode: @Model.EpisodeNumber</p>
-                        </div>
-                    </a>
-                </li>*@
+                        <a href="#" class="episode-number">
+                            <img class="mr-3" style=" height:17%; width: 17%; float: left;" src="@novel.Thumbnail" alt="thumb image">
+                            <div class="media-body">
+                                <h5 class="mt-0 mb-1">@novel.Title , Part @Model.EpisodeNumber</h5>
+                                <p>Episode: @Model.EpisodeNumber</p>
+                            </div>
+                        </a>
+                    </li>*@
 
             </ul>
         </div>
@@ -80,37 +81,134 @@
     </div>
 </nav>
 
-    <!-- Page Content  -->
-    <div id="content">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="icon-align-left"></i>
-                    <span>Episode List</span>
-                </button>
-            </div>
-        </nav>
-        <main>
-            <div class="site-section">
-                <div class="container">
-                    <div class="title-header">
-                        <p class="title-episode">@novel.Title, Part @Model.EpisodeNumber <a href="#" style="color:#e91e63;"><i class="icon-heart" style="color: #e91e63c7;font-size: 40px;"></i></a> </p>
-                        <p class="date">@novel.LastestUpdate</p>
+<!-- Page Content  -->
+<div id="content">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="icon-align-left"></i>
+                <span>Episode List</span>
+            </button>
+        </div>
+    </nav>
+    <main>
+        <div class="site-section">
+            <div class="container">
+                <div class="title-header">
+                    <p class="title-episode">@novel.Title, Part @Model.EpisodeNumber <a href="#" style="color:#e91e63;"><i class="icon-heart" style="color: #e91e63c7;font-size: 40px;"></i></a> </p>
+                    <p class="date">@novel.LastestUpdate</p>
+                </div>
+                <hr>
+                <div class="content-viewer">
+                    @Model.Content
+                </div>
+                <!-----COMMENT LIST---->
+                <hr />
+                @if (signinManager.IsSignedIn(User))
+                {
+                    <div class="postcomment">
+                        <form method="post" asp-action="Postcomment" asp-controller="Episode" asp-route-ReturnUrl="@Context.Request.Path" asp-route-Id="@Model.Id">
+                            @Html.AntiForgeryToken()
+                            <article class="media">
+                                <div class="media-content">
+                                    <div class="field">
+                                        <p class="control">
+                                            <textarea class="textarea" maxlength="1000" name="comment" placeholder="Add a comment..."></textarea>
+                                        </p>
+                                    </div>
+                                    <div class="field">
+                                        <p class="control">
+                                            <button class="button">Comment</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        </form>
                     </div>
-                    <hr>
-                    <div class="content-viewer">
-                        @Model.Content
-                    </div>
-                            <!-----COMMENT LIST---->
-                            <hr />
+                }
+                <div class="comment-content cmt-pagination" id="1">
                 </div>
             </div>
-            @*end container*@
-        </main>
-    </div>
-    <script src="~/js/jquery-3.2.1.min.js"></script>
-    <script>
-    $(document).ready(function (){
+        </div>
+        @*end container*@
+    </main>
+</div>
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<script>
+         var callajax = function ( pagination) {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetComments", "Episode")",
+            data: {
+                'Id':@Model.Id ,
+                'pagination': pagination
+            },
+            dataType: "json",
+            success: function (data) {
+                var result = JSON.parse(data);
+                $(result['listcmt']).each(function (idx, cmt) {
+                    var data_mss =
+                        '<article class="media" style="margin :15px;">' +
+                        '   <figure class="media-left">' +
+                        '   <p class="image is-48x48">' +
+                        ' <a href="' + '/Profile/Getprofile/' + cmt.Account.Profile.Id + '">' +
+                        '<img src="' + cmt.Account.Profile.Avartar + '" style = "height:100%; width:100%; border-radius:50%">' +
+                        ' </a > ' +
+                        '  </p>' +
+                        '  </figure>' +
+                        ' <div class="media-content">' +
+                        '  <div class="content">' +
+                        '   <p>' +
+                        ' <a href=/Profile/Getprofile/' + cmt.Account.Profile.Id + '> <strong>' + cmt.Account.Profile.DisplayName + '</strong> </a>';
+                    data_mss += ' <br>' +
+                        cmt.Content +
+                        '   <br>' +
+                        '<small>' + cmt.CommentDate + '<a class="button profile-button-edit" id=' + cmt.Id + ' onclick="btnloadformreply(' + cmt.Id + ')" style="width: 60px; height:26px; margin-left:5px; text-decoration:none; font-size:13px; color:white;">Reply</a></small>' +
+                        ' </p>' +
+                        ' </div>' +
+                        '<form class="reply-form" method="post" action=/Episode/ReplyComment/' + cmt.Id + '?ReturnUrl=' + window.location.href + ' id=replyform-' + cmt.Id + ' >' +
+                        ' </form>';
+                    if (cmt.ChildComments.length != 0) {
+                        $(cmt.ChildComments).each(function (index, childcmt) {
+                            data_mss += ' <article class="media" style="margin :10px;">' +
+                                '<figure class="media-left">'+
+                                '     <p class="image is-48x48">' +
+                                ' <a href="' + '/Profile/Getprofile/' + childcmt.Account.Profile.Id + '">' +
+                                    '<img src="' + childcmt.Account.Profile.Avartar + '" style = "height:100%; width:100%; border-radius:50%">' +
+                                ' </p>' +
+                                ' </figure>' +
+                                '  <div class="media-content">' +
+                                '   <div class="content">' +
+                                '<p>' +
+                                ' <a href=/profile/Getprofile/' + childcmt.Account.Profile.Id + '> <strong>' + childcmt.Account.Profile.DisplayName + '</strong> </a>';
+                           
+                            data_mss += '<br>' +
+                                childcmt.Content +
+                                '  <br>' +
+                                '   <small>' + childcmt.CommentDate + '</small>' +
+                                '</p>' +
+                                '</div>' +
+                                '</div>' +
+                                ' </article>';
+                        });
+                    }
+                    data_mss = data_mss + ' </div>' +
+                        '</article>';
+                    $('.comment-content').append(data_mss);
+                });
+            }
+        });
+        };
+            function btnloadformreply(id) {
+        @* rm cai form partical view *@
+        $('.replyform-particalview').remove();
+        var id = id;
+        $.get( '@Url.Action("reply","profile" )', function(data) {
+            $('#' +'replyform-' + id).html(data);
+            });
+        }
+        $(document).ready(function () {
+        var pagination = $('.cmt-pagination').attr('id');
         $.ajax({
             type: "POST",
             url: "/Episode/GetEpisodes/@novel.Id",
@@ -131,11 +229,21 @@
                         ' </li>'
                     );
                 });
-
             }
         });
+            callajax(pagination);
+            $(window).on("scroll", function () { // EVENT lang xuong bot
+                var docHeight = $(document).height();
+                var winScrolled = $(window).height() + $(window).scrollTop();
+                if ((docHeight - winScrolled) < 1 && (docHeight - winScrolled)!=0) {
+                    $('.cmt-pagination').attr("id", Number(pagination) + 1);           
+                    pagination = $('.cmt-pagination').attr("id");
+                    callajax( pagination);
+                }
+            });
+
             }
 
         );
 
-    </script>
+</script>
