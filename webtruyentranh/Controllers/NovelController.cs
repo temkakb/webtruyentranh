@@ -207,7 +207,6 @@ namespace webtruyentranh.Controllers
 
                 var account = await userManager.GetUserAsync(User);
                 var nv = new Novel();
-                //nv.Id = createnovel.Id;
                 nv.Title = createnovel.Title;
                 nv.Description = createnovel.Description;
                 nv.LikeCount = 0;
@@ -245,6 +244,105 @@ namespace webtruyentranh.Controllers
             return RedirectToAction("Sumary", "Dashboard");
             }
             return View(createnovel);
+        }
+
+        [Authorize]
+        [HttpGet]
+
+        public async Task<IActionResult> UpdateNovel(long id)
+        {
+            try
+            {
+                var novel = _db.Novels.Include(p => p.Account).Include(h=>h.Genres).Where(novel=>novel.Id==id).First();
+                //lay tat ca the loai duoi db len
+                var item = _db.Genres.Select(x =>new SelectListItem()
+                    {
+                        Text = x.GenreName,
+                        Value = x.Id.ToString(),
+
+                    }
+                ).ToList();
+
+                foreach (var genredb in item) //xet tat ca the laoi duoi db
+                {
+                    foreach (var genre in novel.Genres) //xet tat ca the loai cua novel dc chon
+                    {
+                        if (genredb.Value.Equals(genre.Id.ToString())) //neu id the loai duoi db=id the loai cua novel thi tick
+                        {
+                            genredb.Selected = true; //hien thi da chon
+                        }
+                    }                  
+                }
+                var updateNovelView = new UploadImage_Viewmodel()
+                {
+                    Id = novel.Id,
+                    Title = novel.Title,
+                    Description = novel.Description,
+                    genres =item,                    
+                };
+                ViewBag.recentThumbnail = novel.Thumbnail;
+                ViewBag.recentBookcover = novel.BookCover;
+                ViewBag.recentBanner = novel.Banner;
+                return View(updateNovelView);
+            }
+            catch (Exception ex)
+            {
+                return PartialView("~/Views/Shared/_notfound.cshtml");
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateNovel(UploadImage_Viewmodel updatenovel,long Id)
+        {
+          
+            //try
+            //{
+                var novel = _db.Novels.SingleOrDefault(p => p.Id == Id);
+                if (ModelState.IsValid)
+                {
+                    novel.Title = updatenovel.Title;
+                    novel.Description = updatenovel.Description;
+
+                    if (updatenovel.Thumbnail != null)
+                    {
+                        novel.Thumbnail = await Cloudinary_Utility.uploadavartar(updatenovel.Thumbnail);
+                    }else if(updatenovel.Bookcover != null)
+                    {
+                        novel.BookCover = await Cloudinary_Utility.uploadavartar(updatenovel.Bookcover);
+                    }else if(updatenovel.Banner != null)
+                    {
+                        novel.Banner = await Cloudinary_Utility.uploadavartar(updatenovel.Banner);
+                    }
+                    novel.Slugify = Slugify.GenerateSlug(novel.Title);
+                //var genresIds = updatenovel.genres.Where(x => x.Selected)
+                //                           .Select(y => y.Value);
+
+                //var genres = _db.Genres.Where(g => genresIds.Contains(g.Id.ToString())).ToList();
+
+                //foreach (var genrenovel in novel.Genres)
+                //{
+                //    novel.Genres.Remove(genrenovel);
+                //}
+                //novel.Genres = (List<Genre>)genres;
+                _db.Update(novel);
+                    _db.SaveChanges();
+                    ViewBag.recentThumbnail = novel.Thumbnail;
+                    ViewBag.recentBookcover = novel.BookCover;
+                    ViewBag.recentBanner = novel.Banner;
+
+                    return View(updatenovel);
+                }
+                ModelState.AddModelError("", "Can't change content , try fcking again");
+                return RedirectToAction("UpdateNovel");
+            //}
+            //catch (Exception ex)
+            //{
+                
+            //    return PartialView("~/Views/Shared/_notfound.cshtml");
+            //}
+            return RedirectToAction("Sumary", "Dashboard");
         }
 
     }

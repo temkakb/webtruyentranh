@@ -1,8 +1,7 @@
 ﻿@model UploadImage_Viewmodel
 @{
-    ViewData["Title"] = "CreateNovels";
+    ViewData["Title"] = "UpdateNovel";
     Layout = "~/Views/Shared/_Layoutpage.cshtml";
-
 }
 
 <link href="/css/styleCreateNovels.css" rel="stylesheet" />
@@ -10,8 +9,8 @@
 
 <main>
     <section>
-       
-        <form asp-action="CreateNovels" enctype="multipart/form-data">
+
+        <form method="post" asp-action="UpdateNovel" asp-controller="Novel" enctype="multipart/form-data">
             <div class="form-group">
                 <div class="form_item">
                     <div class="form_item_header">
@@ -20,7 +19,7 @@
                         </div>
                     </div>
                     <div class="item_info">
-                        <input class="input is-rounded" type="text" asp-for="Title" maxlength="100" placeholder="Enter your title" style="height:62px;padding:12px">
+                        <input class="input is-rounded" type="text" asp-for="Title" maxlength="100" placeholder="@Model.Title" style="height:62px;padding:12px">
 
                     </div>
                 </div>
@@ -34,7 +33,7 @@
                     </div>
                     <div class="item_info">
 
-                        <textarea rows="10" type="text" maxlength="1000" asp-for="Description" placeholder="Enter your descripton" style="width:100%;border-radius:12px;padding:12px"></textarea>
+                        <textarea rows="10" type="text" maxlength="1000" asp-for="Description" placeholder="@Model.Description" style="width:100%;border-radius:12px;padding:12px"></textarea>
 
                     </div>
                 </div>
@@ -46,17 +45,17 @@
                         <b> Thumbnail</b>
                     </div>
                 </div>
-                
+
                 <div class="item_info_thumbnail">
-                   
+
                     <div class="form_thumbnail">
-                        <input id="img_load" asp-for="Thumbnail"class="input_thumbnail" type="file" multiple onchange="loadFileThumbnail(event)">
-                        <img id="img-recent" src="https://cdn.discordapp.com/attachments/751417489262641226/866892583992688670/clouduploadfilestorageuploadicon-1320190558968694328.png" alt="" />
+                        <input id="img_load" asp-for="Thumbnail" class="input_thumbnail" type="file" multiple onchange="loadFileThumbnail(event)">
+                        <img id="img-recent" src="@ViewBag.recentThumbnail" alt="" />
                         <label class="btn_upload" for="img_load">
                             Upload
                         </label>
                     </div>
-                   
+
                 </div>
             </div>
 
@@ -71,10 +70,10 @@
                 </div>
 
                 <div class="item_info_bookcover">
-                   
+
                     <div class="form_bookcover">
-                        <input id="img_loadbookcover" asp-for="Bookcover"class="input_bookcover" type="file" multiple onchange="loadFilebookCover(event)">
-                        <img id="img-bookcover-recent" src="https://cdn.discordapp.com/attachments/751417489262641226/866892583992688670/clouduploadfilestorageuploadicon-1320190558968694328.png" alt="" />
+                        <input id="img_loadbookcover" asp-for="Bookcover" class="input_bookcover" type="file" multiple onchange="loadFilebookCover(event)">
+                        <img id="img-bookcover-recent" src="@ViewBag.recentBookcover" alt="" />
                         <label class="btn_upload_bookcover" for="img_loadbookcover">
                             Upload
                         </label>
@@ -91,10 +90,10 @@
                     </div>
                 </div>
                 <div class="item_info_banner">
-                 
+
                     <div class="form_banner">
-                        <input id="img_loadbanner" asp-for="Banner"class="input_banner" type="file" multiple onchange="loadFilebookBanner(event)">
-                        <img id="img-banner-recent" src="https://cdn.discordapp.com/attachments/751417489262641226/866892583992688670/clouduploadfilestorageuploadicon-1320190558968694328.png" style="width: 150px; height: 122px; margin-left: 138px; margin-top: 31px; margin-bottom: 54px; " alt="" />
+                        <input id="img_loadbanner" asp-for="Banner" class="input_banner" type="file" multiple onchange="loadFilebookBanner(event)">
+                        <img id="img-banner-recent" src="@ViewBag.recentBanner" style="width: 100%; height: 100%; margin-bottom: 10px; " alt="" />
                         <label class="btn_upload_banner" for="img_loadbanner">
                             Upload
                         </label>
@@ -107,23 +106,29 @@
                     <b> Genres </b>
                 </div>
                 <div class="checkbox" style="margin-top: 23px; margin-left: 85px ">
-                    @for (int i = 0; i < Model.genres.Count; i++)
+                    @*@foreach (var item in Model.genres)
                     {
+                        <input type="hidden" asp-for="@item.Value" />
+                        <input asp-for="@item.Selected" /> @item.Text  
+                       }*@
+                     @for (int i = 0; i < Model.genres.Count; i++)
+                    {   
+                         
                         <input type="hidden" asp-for="@Model.genres[i].Value" />
                         <input asp-for="genres[i].Selected" /> @Model.genres[i].Text
                        
                     }
                 </div>
-                <div class="btn_submit" style="margin-left: 179px; margin-top: 35px; ">
+                <div class="btn_submit" style="margin-left: 179px; margin-top: 24px; ">
                     <input type="submit" value="Save" class="btn btn-primary" style="width: 244px; " />
                 </div>
             </div>
-            
+
         </form>
     </section>
 </main>
 <script>
- 
+
     var loadFileThumbnail = function (event) {
         var output = document.getElementById('img-recent');
         output.src = URL.createObjectURL(event.target.files[0]);
