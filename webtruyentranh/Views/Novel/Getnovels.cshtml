@@ -91,14 +91,18 @@
 </main>
 <script src="~/js/jquery-3.2.1.min.js"></script>
 <script>
-        var Floaddata = function (elm, q, pagination, firstloaddata ) {
+    var Floaddata = function (elm, q, pagination, firstloaddata) {
+ 
+        const search_data_string = new URLSearchParams(window.location.search);
+        const searchdata = search_data_string.get('search'); 
              $.ajax({
                  type: "GET",
              url: "@Url.Action("RequestItems", "Novel")",
              data: {
                'ge': elm,
                  'q': q,
-                 'pagination': pagination
+                 'pagination': pagination,
+                 'search': searchdata
                 },
                 dataType: "json",
              success: function (data) {
@@ -187,25 +191,15 @@
         Floaddata(elm, q, pagination, firstloaddata =true);
           $(window).on("scroll", function() { // EVENT lang xuong bot
                 var docHeight = $(document).height();
-                var winScrolled = $(window).height() + $(window).scrollTop();
-              if ((docHeight - winScrolled) < 1) {
-                  $('.now-pagination').attr("id", Number(pagination) + 1);
-                  pagination = $('.now-pagination').attr("id");
+              var winScrolled = $(window).height() + $(window).scrollTop();
+              var abc = docHeight - winScrolled; 
+              if ((docHeight - winScrolled) < 1 && (docHeight - winScrolled) != 0) {               
+               $('.now-pagination').attr("id", Number(pagination) + 1);
+                  pagination = $('.now-pagination').attr("id");    
                   Floaddata(elm, q, pagination, firstloaddata = false);
-                       }
+              }            
        });
-
-
-
     }
-
-
-
-
-      
-
-
-
 
     $(document).ready(loadcontent);
 </script>
