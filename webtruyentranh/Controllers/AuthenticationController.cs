@@ -48,18 +48,21 @@ public class AuthenticationController : Controller
     {
         if (ModelState.IsValid)
         {
-            var result = await signInManager.PasswordSignInAsync(userName: login.UserName, password: login.Password, isPersistent: false, false);
+            var result = await signInManager.PasswordSignInAsync(userName: login.UserName, password: login.Password, isPersistent: false,true);
+            if (result.IsLockedOut)
+            {
+                ViewData["Title"] = "Error";
+                ViewData["message"] = "Account has been blocked";
+                return View("Authentication_msg");
+            }
             if (result.Succeeded)
             {
                 return RedirectToAction("index", "Home");
-        
             }
             ModelState.AddModelError("", "invalid login infomation");
         }
         ViewData["Islogin"] = true;
         return View("Index");
-
-
     }
 
     // google handle login
@@ -124,27 +127,25 @@ public class AuthenticationController : Controller
                         Description = "Tell your story !",
                         Account = account,
                         Avartar = "/images/avartar.jpg"
-
-                    }); ;
-                  
-                       
+                    });            
                     await userManager.CreateAsync(account);
                     await userManager.AddToRoleAsync(account, "Member");
                     db.SaveChanges();
-                }    
+                }
+                if (await userManager.IsLockedOutAsync(account))
+                {
+                    ViewData["Title"] = "Error";
+                    ViewData["message"] = "Account has been blocked";
+                    return View("Authentication_msg");
+                }
                 await userManager.AddLoginAsync(account, infomation);
                 await signInManager.SignInAsync(account, false);
                 return Redirect(returnUrl);
-
             }
             ViewData["Title"] = "Failed (｡╯︵╰｡)	";
             ViewData["message"] = "Please contact support on khonglogindckememay@hecomic.com";
             return View("Authentication_msg");
         }
-        
-         
-
-
     }
 
 
@@ -201,43 +202,36 @@ public class AuthenticationController : Controller
             }
             var result = await userManager.ConfirmEmailAsync(account, token);
 
-        if (result.Succeeded)
-        {
-            try {
-                await userManager.AddToRoleAsync(account, "Member");
-                db.Profiles.Add(new Profile
-                {
-
-                    //  Account = account,
-                    DateJoined = DateTime.Now,
-                    DisplayName = account.UserName,
-                    Description = "Tell your story !",
-                    Account = account,
-                    Avartar = "/images/avartar.jpg"
-                }); 
-
-
-                db.SaveChanges();
-
-                ViewData["Title"] = "Succeeded ٩(◕‿◕｡)۶";
-                ViewData["message"] = "email has been verified. Login now!";
-                return View("Authentication_msg");
-
-            }
-      
-            catch (Exception ex)
+            if (result.Succeeded)
             {
-                ViewData["Title"] = "Error";
-                ViewData["message"] = "Account confirmed";
-                return View();
-            }
+                try {
+                    await userManager.AddToRoleAsync(account, "Member");
+                    db.Profiles.Add(new Profile
+                    {
+
+                        //  Account = account,
+                        DateJoined = DateTime.Now,
+                        DisplayName = account.UserName,
+                        Description = "Tell your story !",
+                        Account = account,
+                        Avartar = "/images/avartar.jpg"
+                    }); 
+                    db.SaveChanges();
+                    ViewData["Title"] = "Succeeded ٩(◕‿◕｡)۶";
+                    ViewData["message"] = "email has been verified. Login now!";
+                    return View("Authentication_msg");
+                }     
+                catch (Exception ex)
+                {
+                    ViewData["Title"] = "Error";
+                    ViewData["message"] = "Account confirmed";
+                    return View();
+                }
         }
         ViewData["Title"] = "Error (ಥ﹏ಥ)";
         ViewData["message"] = "Token expired";
         return View("Authentication_msg");
-
-
-    }
+        }
 
         public async Task<IActionResult> Logout()
         {
