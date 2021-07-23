@@ -4334,10 +4334,9 @@ input[type="button"].btn-block {
 }
 .side-inner.episode-list {
     overflow-y: scroll;
-    /* left: 34px; */
     margin: 3px 8px;
     width: 96%;
-    height: 34vh;
+    height: 30vh;
 }
 
     .side-inner.episode-list ul li:hover {
@@ -4412,7 +4411,7 @@ input[type="button"].btn-block {
     text-align: center;
     font-size: 18px;
     font-weight: 700;
-    margin: 20px;
+    margin: 50px;
 }
 .number-views, .number-labe, .number-subcribers{
     font-size: 15px;
@@ -4441,7 +4440,7 @@ input[type="button"].btn-block {
 }
     #sidebar .sidebar-header img.book-cover {
         background-size: cover;
-        height: auto;
+        height: 190px;
         width: 100%;
         background-repeat: no-repeat;
         background-position: center center;
@@ -4525,11 +4524,15 @@ a.article:hover {
     background: #6d7fcc !important;
     color: #fff !important;
 }
+/* --------------------create episode--------------------------*/
+.form-control.new-episode {
+    border-radius: 10px;
+    margin: 0 180px;
+}
 
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
-
 #content {
     width: 100%;
     padding: 20px;
@@ -11368,11 +11371,14 @@ h1, h2, h3, h4, h5,
     background: #fff;
     color: #212529 !important;
     font-size: 16px;
-    border-radius: 50px;
+    border-radius: 3px;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
-    width:50%;
+    width:100%;
 }
+    .form-control.mr-sm-2 {
+        border-radius: 50px;
+    }
 
     .form-control:focus, .form-control:active {
         border-color: #dc35453b;

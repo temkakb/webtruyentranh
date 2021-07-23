@@ -36,7 +36,7 @@
                 <span class="icon">
                     <i class="fas fa-plus" aria-hidden="true"></i>
                 </span>
-                <span>Add Episode</span>
+                <span href="@Url.Action("Create","Episode")" >Add Episode</span>
             </a>
         </div>
     </div>
@@ -57,7 +57,10 @@
     $(document).ready(function () {
           $('select').trigger("change");
     });
-         $('select').change(function () {
+    $('select').change(function () {
+        var novelId = $(this).val();
+        var link = "/novel/" + novelId + "/Episode/Create";
+        $(".addEpisodebtn").attr("href", link);
             $.ajax({
                 url: '@Url.Action("GetEpisodes", "Episode")',
                 data: { 'id': $(this).val() },
@@ -65,6 +68,7 @@
                 method: 'post',
                 success: function (response) {
                     var result = JSON.parse(response);
+                    console.log(result);
                     var items = [];
                     for (var i in result) {
                         items.push(result[i])
@@ -73,7 +77,7 @@
                     table.empty();
                     $(items[1]).each(function (idx, ep) {
 
-                        table.append('<tr>' +
+                        table.append('<tr class="episode-info">' +
                             '<th style="width:50px"><p>' + ep.EpisodeNumber+ '</p></th>' +
                             '<td>'
                             + '<div class= "columns is-mobile .is-variable  is-4-tablet is-4-mobile ">' +
@@ -94,11 +98,28 @@
                             + '<td>' +'</td>' // status here
                                  + '<td>'
                                   + '<div class="buttons are-small">'
-                                             + '<a class="button is-primary actionBtn">Edit</a>'
-                                            + '<a class="button is-danger actionBtn"><i class="far fa-trash-alt fa-2x"></i></a>'
+                            + '<a class="button is-primary actionBtn-update">Edit</a>'
+                            + '<a class="button is-danger actionBtn-delete" data-id="' + ep.Id+ '"><i class="far fa-trash-alt fa-2x"></i></a>'
                                      + '</div>'
                                 + '</td >'
                             +'</tr>');
+                    });
+                    //delete
+                    $('.actionBtn-delete').click(function () {
+                        var button = $(this); //lay doi tuong la nut dang bam
+                        var id = button.attr('data-id');
+                        var tr = button.closest('.episode-info') //tim cai gan nhat voi no: closest
+                        if (confirm("Episode will be deleted immediately and you can't undo this action. Are you sure you want to delete this?"))
+                        {
+                            $.ajax({
+                                url: '@Url.Action("Delete", "Episode")',
+                                data: { 'id': id },
+                                type: "post",
+                                success: function (reponse) {
+                                    tr.remove();
+                                }
+                            });
+                        }
                     });
                 },
                 error: function (err) {

@@ -7,9 +7,7 @@
 
 }
 
-
-
-<!-- Sidebar  -->
+    <!-- Sidebar  -->
 <nav id="sidebar">
     <div id="dismiss">
         <i class="icon-times"></i>
@@ -22,25 +20,27 @@
             <div class="col-sm">
                 <img src="@novel.Thumbnail" class="thumb-image" alt="thumbnail" />
             </div>
-            <div class="col-sm">
-                <strong class="number-views" style="top:10px">@Model.Views</strong>
-                <span class="number-label">Views <i class="icon-eye"></i> </span>
+            <div class="col-sm" style="top:20px;">
+                <strong class="number-views">@Model.Views</strong>
+                <span class="number-label">Views <i class="icon-eye" style="color: #e91e63c7;cursor: pointer;background: #e91e6300;"></i></span>
             </div>
-            <div class="col-sm">
-                <strong class="number-subcribers" style="top:10px">@novel.LikeCount</strong>
-                <span class="number-label">Likes <i class="icon-heart" style="color: #e91e63c7;"></i></span>
+            <div class="col-sm" style="top:20px;">
+                <strong class="number-subcribers">@novel.LikeCount</strong>
+                <span class="number-label">
+                    Likes
+                    <button type="submit" style="border: none; cursor: pointer;background: #e91e6300;">
+                        <i class="icon-heart" style="color: #e91e63c7;"></i>
+                    </button>
+                </span>
             </div>
         </div>
         <div class=""><h3 class="name mb-4">@novel.Title</h3></div>
     </div>
     <!--------DESCRIPTION-SUBCRIBERS------->
     <div class="bio">
-        <p>
             @novel.Description
-            @*<a href="#">Read more</a>*@
-        </p>
-        <a href="#" class="btn btn-primary subcribers">Subscribers</a>
     </div>
+    <a href="#" style="margin: 0 93px 0; padding: 7px 60px;" class="btn btn-primary subcribers">Subscribers</a>
     <!--------DESCRIPTION - SUBCRIBERS------->
     <!--------GENRES------->
     <div class="sidebar-box ftco-animate">
@@ -67,49 +67,43 @@
         <div class="side-inner episode-list">
             <ul class="list-unstyled">
                 @*<li class="episode-list-number">
-                    <a href="#" class="episode-number">
-                        <img class="mr-3" style=" height:17%; width: 17%; float: left;" src="@novel.Thumbnail" alt="thumb image">
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">@novel.Title , Part @Model.EpisodeNumber</h5>
-                            <p>Episode: @Model.EpisodeNumber</p>
-                        </div>
-                    </a>
-                </li>*@
+                        <a href="#" class="episode-number">
+                            <img class="mr-3" style=" height:17%; width: 17%; float: left;" src="@novel.Thumbnail" alt="thumb image">
+                            <div class="media-body">
+                                <h5 class="mt-0 mb-1">@novel.Title , Part @Model.EpisodeNumber</h5>
+                                <p>Episode: @Model.EpisodeNumber</p>
+                            </div>
+                        </a>
+                    </li>*@
 
             </ul>
         </div>
         <!------------------->
     </div>
 </nav>
-
-<!-- Page Content  -->
-<div id="content">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <button type="button" id="sidebarCollapse" class="btn btn-info">
-                <i class="icon-align-left"></i>
-                <span>Episode List</span>
-            </button>
-        </div>
-    </nav>
-    <main>
-        <div class="site-section">
-            <div class="container">
-                <div class="title-header">
-                    <p class="title-episode">@novel.Title, Part @Model.EpisodeNumber <a href="#" style="color:#e91e63;"><i class="icon-heart" style="color: #e91e63c7;font-size: 40px;"></i></a> </p>
-                    <p class="date">@novel.LastestUpdate</p>
+    <div class="col-lg-12">
+        <!-- Page Content  -->
+        @*<div id="content" style="background: #ff85ae21;">*@
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" style=" width: 15%;">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="icon-align-left"></i>
+                        <span>Episode List</span>
+                    </button>
                 </div>
-                <hr>
-                <div class="content-viewer">
-                    @Model.Content
-                </div>
-                <!-----COMMENT LIST---->
-                <hr />
+            </nav>
+            <div class="title-header" >
+                <p class="title-episode" style="text-align: center; margin: 30px 170px 13px;">@Model.Title, Part @Model.EpisodeNumber</p>
+                <p class="date">@novel.LastestUpdate</p>
+            </div>  
+            <hr>
+            <div class="content-viewer">
+                @Html.Raw(Model.Content)
             </div>
-        </div>
-            @*end container*@
-        </main>
+            <hr />
+        @*</div>*@
     </div>
+
     <script src="~/js/jquery-3.2.1.min.js"></script>
     <script>
     $(document).ready(function (){
