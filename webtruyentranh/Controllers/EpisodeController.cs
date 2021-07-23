@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -89,5 +90,63 @@ namespace webtruyentranh.Controllers
                 Formatting = Formatting.Indented
             }));
         }
+
+        /**-----------------------------------------------------comment-------------------------------------------------------------**/
+        public JsonResult GetComments (long Id,int pagination)
+        {
+            var staticnum = pagination * 5;
+            var listcmt = _context.Comments.Include(c => c.ChildComments).ThenInclude(child => child.Account.Profile).Include(c => c.Account.Profile).Where(c => c.EpisodeId == Id)
+                .OrderByDescending(d => d.CommentDate).Skip(staticnum-5).Take(5).ToList();
+            return Json(JsonConvert.SerializeObject(new { listcmt = listcmt }, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                Formatting = Formatting.Indented
+            }));
+        }
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task< IActionResult> Postcomment (long Id,string comment,string ReturnUrl)
+        {
+            try
+            {
+                var account = await userManager.GetUserAsync(User);    
+                _context.Comments.Attach(new Comment()
+                {
+                    Account=account,
+                    CommentDate=DateTime.Now,
+                    Content=comment,
+                    EpisodeId=Id
+                   
+                });
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Sorry, can't add comment");
+            }
+            return Redirect(ReturnUrl);
+        }
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReplyComment(long Id, String Content, String ReturnUrl) //post reply and return
+
+        { //get form reply for the mss
+           
+            Comment cmt = _context.Comments.Where(cmt => cmt.Id == Id).FirstOrDefault();
+            if (cmt == null)
+            {
+                return PartialView("~/Views/Shared/_notfound.cshtml");
+
+            }
+            var account = await userManager.GetUserAsync(User);
+            _context.ChildComments.Attach(new ChildComment { Account = account, Content = Content, CommentDate = DateTime.Now, Comment = cmt });
+            _context.SaveChanges();
+            return Redirect(ReturnUrl);
+        }
+
+
     }
 }
