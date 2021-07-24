@@ -195,15 +195,15 @@ namespace webtruyentranh.Controllers
         [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult updateGenre(long Id , String name)
+        public JsonResult updateGenre(long Id , String GenreName)
         {
             try
             {
                 var genre = _db.Genres.Find(Id);
-                genre.GenreName = name;
+                genre.GenreName = GenreName;
                 _db.Update(genre);
                 _db.SaveChanges();
-                return Json(new { success = true, msg = $"genre has been change to {name}" });
+                return Json(new { success = true, msg = $"genre has been change to {GenreName}" });
             }
             catch(Exception ex)
             {
@@ -222,10 +222,10 @@ namespace webtruyentranh.Controllers
         [ValidateAntiForgeryToken]
         [HttpPost]
 
-        public JsonResult CreateGenre(String name)
+        public JsonResult CreateGenre(String GenreName)
         {
             
-            _db.Genres.Add(new Genre { GenreName = name });
+            _db.Genres.Add(new Genre { GenreName = GenreName });
             _db.SaveChanges();
 
             return Json(new { success = true, msg = "Successed" });

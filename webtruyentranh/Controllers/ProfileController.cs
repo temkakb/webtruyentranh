@@ -72,6 +72,7 @@ namespace webtruyentranh.Controllers
         {
             try
             {
+
                 var profile = _db.Profiles.Include(p => p.Account).FirstOrDefault(p => p.Account.UserName == User.Identity.Name);
                 var EditProfileView = new EditProfile_Viewmodel()
                 {
@@ -102,6 +103,7 @@ namespace webtruyentranh.Controllers
             try
             {
                 var profile = _db.Profiles.SingleOrDefault(p => p.Id == Id);
+                ViewBag.recentavt = profile.Avartar;
                 if (ModelState.IsValid)
                 {
                     profile.DisplayName = editprofile.DisplayName;
@@ -113,12 +115,10 @@ namespace webtruyentranh.Controllers
                         profile.Avartar = await Cloudinary_Utility.uploadavartar(editprofile.Avartar);
                     }
                     _db.Update(profile);
-                    _db.SaveChanges();
-                    ViewBag.recentavt = profile.Avartar;
+                    _db.SaveChanges();                   
                     return View(editprofile);
                 }
-                ModelState.AddModelError("", "can't change infomation, try again");
-                return RedirectToAction("EditProfile");
+                return View(editprofile);
             }
             catch (Exception ex)
             {
