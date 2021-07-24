@@ -70,7 +70,15 @@ namespace webtruyentranh.Controllers
                 var lastEpisode = _context.Episodes.Where(m => m.NovelId == model.NovelId).OrderBy(p => p.EpisodeNumber).LastOrDefault();
                 ep.Id = model.Id;
                 ep.NovelId = model.NovelId;
-                ep.EpisodeNumber = lastEpisode.EpisodeNumber + 1;
+                if(lastEpisode == null)
+                {
+                    ep.EpisodeNumber = 1;
+                }
+                else
+                {
+                    ep.EpisodeNumber = lastEpisode.EpisodeNumber + 1;
+                }
+                
                 ep.Title= model.Title;
                 ep.Content = model.Content;
                 ep.Views = model.Views;
