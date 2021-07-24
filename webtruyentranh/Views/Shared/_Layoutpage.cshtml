@@ -33,8 +33,10 @@
     <link rel="stylesheet" href="~/css/icomoon.css">
     <link rel="stylesheet" href="~/css/style_layout_page.css">
     <!-- Bootstrap CSS CDN -->
-    <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Scrollbar Custom CSS -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.css">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -57,7 +59,7 @@
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" asp-area="" asp-controller="Novel" asp-action="Getnovels" >NOVELS</a>
+                        <a class="nav-link" asp-area="" asp-controller="Novel" asp-action="Getnovels">NOVELS</a>
                     </li>
                     <li class="nav-item">
                         @*<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Creators">CREATORS</a>*@
@@ -69,7 +71,8 @@
                             <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Contact">CONTACT</a>
                         </div>
                     </li>
-                    @if (!signinManager.IsSignedIn(User)) { 
+                    @if (!signinManager.IsSignedIn(User))
+                    {
                         <li class="nav-item">
                             <a  asp-controller="authentication" asp-action="Index" class="nav-link">LOGIN <i class="icon icon-angle-double-down"></i></a>
                         </li>
@@ -186,9 +189,8 @@
     <!-- END nav -->
 
     <div class="container">
-
-
         @RenderBody()
+        <div style="clear:both"></div>
     </div>
 
     <!-- javascript -->
@@ -212,8 +214,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-
+    <script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+    @*@await RenderSectionAsync("Scripts", required: false)*@
+    @RenderSection("Scripts", false)
     <!-- end javascript -->
     <!----------NOTIFICATION---------->
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
@@ -264,7 +267,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
+    <script src="~/js/scrollax.min.js"></script>
+    <script src="~/js/jquery-migrate-3.0.1.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#sidebar").mCustomScrollbar({

@@ -27,6 +27,8 @@ namespace WebTruyenTranhDataAccess.Models
         public int Views { get; set; }
 
         public Novel Novel { get; set; }
+        [ForeignKey("Novel")]
+        public long NovelId { get; set; }
 
         public List<Comment> Comments { get; set; }
 

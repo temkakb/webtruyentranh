@@ -11472,7 +11472,7 @@ h1, h2, h3, h4, h5,
     background: linear-gradient(340deg, rgb(102 16 242 / 36%) 0%, rgb(253 29 29 / 43%) 50%, rgb(207 188 163) 100%);
     color: #ffffff !important;
     font-size: 16px;
-    border-radius: 50px;
+    border-radius: 3px;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
 }
