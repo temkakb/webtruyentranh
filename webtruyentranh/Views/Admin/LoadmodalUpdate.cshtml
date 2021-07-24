@@ -1,38 +1,44 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Genre;
 @{
     Layout = null;
 }
 <div class="modal is-active">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <form id="GenreForm" method="post" asp-controller="Admin" , asp-action="@ViewBag.Acctionfor" asp-route-Id="@ViewBag.Id">
-                @Html.AntiForgeryToken()
-                <p>@ViewBag.Titlemodal</p>
-                <input class="input is-primary" type="text" name="name" placeholder="Enter up" required>
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <form id="GenreForm" method="post" asp-controller="Admin" , asp-action="@ViewBag.Acctionfor" asp-route-Id="@ViewBag.Id">
+            @Html.AntiForgeryToken()
+            <p>@ViewBag.Titlemodal</p>
+            <input class="input is-primary" type="text" asp-for="GenreName" id="inputgenre" placeholder="Enter up" required>
 
+            <span asp-validation-for="GenreName" class="text-danger"></span>
+        </form>
+        <button onclick="SubForm()" class="button is-success">SAVE</buttononsubmit="SubForm(e)">
+    </div>
+    <button class="modal-close is-large" onclick="closemodel()" aria-label="close"></button>
 
-            </form>
-            <button onclick="SubForm()" class="button is-success">SAVE</buttononsubmit="SubForm(e)">
-        </div>
-        <button class="modal-close is-large" onclick="closemodel()" aria-label="close"></button>
- 
 </div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validate/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 <script>
     var closemodel = function () {
         $('.modal').removeClass('is-active');
     }
     function SubForm() {
-       
-       $.ajax({
-           url: '@Url.Action("updateGenre", "Admin",new { Id= @ViewBag.Id })',
-        type: 'post',
-           data: $('#GenreForm').serialize(),
-        success: function(data){
-            alert(data.msg);
+        var input = document.getElementById("inputgenre");
+        if (input && input.value) {
+
+            $.ajax({
+                url: '@Url.Action("updateGenre", "Admin",new { Id= @ViewBag.Id })',
+                type: 'post',
+                data: $('#GenreForm').serialize(),
+                success: function (data) {
+                    alert(data.msg);
+                }
+            });
+        } else {
+            alert("No genre name input");
         }
-    });
 }
     //$("#GenreForm").submit(function (e) {
 
