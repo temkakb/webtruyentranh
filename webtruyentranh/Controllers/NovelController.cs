@@ -14,7 +14,7 @@ using webtruyentranh.Viewmodels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
 using webtruyentranh.Utility;
-
+using Microsoft.AspNetCore.Identity;
 namespace webtruyentranh.Controllers
 {
 
@@ -178,7 +178,7 @@ namespace webtruyentranh.Controllers
             return Ok();
 
         }
-        
+        [Authorize]
         [HttpGet]
         public IActionResult CreateNovels()
         {
@@ -195,7 +195,7 @@ namespace webtruyentranh.Controllers
 
         }
         
-        [Authorize]
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         
@@ -291,15 +291,20 @@ namespace webtruyentranh.Controllers
             }
         }
 
-        [Authorize]
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateNovel(UploadImage_Viewmodel updatenovel,long Id)
         {
-          
-            //try
-            //{
-                var novel = _db.Novels.SingleOrDefault(p => p.Id == Id);
+           
+
+            try
+            {
+                var account = await userManager.GetUserAsync(User);
+                var novel = _db.Novels.Include(q=>q.Account).Include(u=>u.Genres).SingleOrDefault(p => p.Id == Id && p.Account == account);
+                ViewBag.recentThumbnail = novel.Thumbnail;
+                ViewBag.recentBookcover = novel.BookCover;
+                ViewBag.recentBanner = novel.Banner;
                 if (ModelState.IsValid)
                 {
                     novel.Title = updatenovel.Title;
@@ -308,46 +313,60 @@ namespace webtruyentranh.Controllers
                     if (updatenovel.Thumbnail != null)
                     {
                         novel.Thumbnail = await Cloudinary_Utility.uploadavartar(updatenovel.Thumbnail);
-                    }else if(updatenovel.Bookcover != null)
+                    }
+                    else if (updatenovel.Bookcover != null)
                     {
                         novel.BookCover = await Cloudinary_Utility.uploadavartar(updatenovel.Bookcover);
-                    }else if(updatenovel.Banner != null)
+                    }
+                    else if (updatenovel.Banner != null)
                     {
                         novel.Banner = await Cloudinary_Utility.uploadavartar(updatenovel.Banner);
                     }
                     novel.Slugify = Slugify.GenerateSlug(novel.Title);
-                //var genresIds = updatenovel.genres.Where(x => x.Selected)
-                //                           .Select(y => y.Value);
 
-                //var genres = _db.Genres.Where(g => genresIds.Contains(g.Id.ToString())).ToList();
+                    var genresIds = updatenovel.genres.Where(x => x.Selected)
+                                                      .Select(y => y.Value);
+                    _db.Attach(novel);
+                    novel.Genres.Clear();
+                    foreach (var item in genresIds)
+                    {
+                        novel.Genres.Add(_db.Genres.Find(long.Parse(item)));
 
-                //foreach (var genrenovel in novel.Genres)
-                //{
-                //    novel.Genres.Remove(genrenovel);
-                //}
-                //novel.Genres = (List<Genre>)genres;
-                _db.Update(novel);
+                    }
+                    _db.Novels.Update(novel);
                     _db.SaveChanges();
-                    ViewBag.recentThumbnail = novel.Thumbnail;
-                    ViewBag.recentBookcover = novel.BookCover;
-                    ViewBag.recentBanner = novel.Banner;
-
+                    
+                }
+                else
+                {
                     return View(updatenovel);
                 }
-                ModelState.AddModelError("", "Can't change content , try fcking again");
-                return RedirectToAction("UpdateNovel");
-            //}
-            //catch (Exception ex)
-            //{
-                
-            //    return PartialView("~/Views/Shared/_notfound.cshtml");
-            //}
+            }
+            catch (Exception ex)
+            {
+                 return PartialView("~/Views/Shared/_notfound.cshtml");
+            }
             return RedirectToAction("Sumary", "Dashboard");
         }
+        [Authorize]
+        [HttpGet]
+        
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var account = await userManager.GetUserAsync(User);
+            var novel = _db.Novels.Include(k=>k.Account).Include(h=>h.Episodes).FirstOrDefault( m => m.Id == id && m.Account== account);
+           
+            if (novel == null)
+            {
+                return PartialView("~/Views/Shared/_notfound.cshtml");
+            }
+            _db.Entry(novel.Account).State = EntityState.Detached;
+            _db.Remove(novel);
+            _db.SaveChanges();
 
+            return RedirectToAction("Sumary", "Dashboard");
+        }
     }
-
-
 }
 
         
