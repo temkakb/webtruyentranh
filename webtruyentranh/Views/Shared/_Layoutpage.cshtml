@@ -47,8 +47,8 @@
         <div class="container">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HE.</a>
             <nav class="navbar navbar-light bg-light">
-                <form class="form-inline">
-                    <input class="form-control mr-sm-2" type="search" placeholder="type to search" aria-label="Search">
+                <form class="form-inline" asp-controller="novel" asp-action="getnovels" method="get">
+                    <input class="form-control mr-sm-2" type="search" placeholder="type to search" aria-label="Search" name="search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="icon icon-search"></i></button>
                 </form>
             </nav>
@@ -74,7 +74,7 @@
                     @if (!signinManager.IsSignedIn(User))
                     {
                         <li class="nav-item">
-                            <a asp-controller="authentication" class="nav-link">LOGIN <i class="icon icon-angle-double-down"></i></a>
+                            <a  asp-controller="authentication" asp-action="Index" class="nav-link">LOGIN <i class="icon icon-angle-double-down"></i></a>
                         </li>
                     }
                     <li class="nav-item cta">

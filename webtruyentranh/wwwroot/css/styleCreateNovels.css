@@ -1,0 +1,216 @@
+﻿
+main{
+    margin-left:350px;
+    margin-top:50px;
+    margin-bottom:10%;
+}
+.form-group {
+    margin-top: 20px;
+    max-width: 700px;
+}
+
+.desc_counter {
+    margin-left: 600px;
+}
+/*-----------thumbnail--------------*/
+.form_group_thumbnail .imgThumbnail {
+    margin-left: 400px;
+    margin-top: 0px;
+}
+ .form_group_thumbnail .imgThumbnail img {
+        margin-top: 71px;
+        margin-left: 0px;
+    }
+
+.item_info_thumbnail {
+    margin-top: -139px;
+}
+.form_thumbnail {
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    margin-top: -262px;
+    margin-left: -104px;
+    width: 165px;
+    height: 165px;
+    border: 2px dashed #3534346b;
+}
+    .form_thumbnail img {
+        height:100%;
+        width:100%;
+      
+    }
+    .form_thumbnail p {
+        width: 100%;
+        height: 17%;
+        text-align: center;
+        line-height: 0px;
+        /*   color: #070707;*/
+        font-family: Arial;
+    }
+
+    .form_thumbnail .input_thumbnail {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+        
+    }
+    .form_thumbnail .btn_upload {
+     /*   border-radius: 4px;*/
+        background-color: #00ced152;
+        /*font-weight: bold;*/
+        /*font-size:50px;*/
+        width: 85px;
+        height: auto;
+        margin-left: 41px;
+        text-align: center;
+        border: 1px solid black;
+        margin-top: 24px;
+    }
+
+
+        /*--------------form bookcover---------------*/
+.form_group_bookcover .imgBookcover {
+    margin-left: 400px;
+    margin-top: 0px;
+}
+    .form_group_bookcover .imgBookcover img {
+        margin-top: 183px;
+        margin-left: 0px;
+    }
+
+.form_group_bookcover {
+    /*margin-top: 250px;*/
+    margin-top: 397px;
+}
+ .form_group_bookcover .item_info_bookcover {
+        position: absolute;
+        margin-top: 400px;
+    }
+.form_bookcover img {
+    height: 100%;
+    width: 100%;
+}
+.form_bookcover {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -751px;
+    margin-left: 168px;
+    width: 221px;
+    height: 341px;
+    border: 2px dashed #3534346b;
+}
+
+    .form_bookcover p {
+        width: 100%;
+        height: 33%;
+        text-align: center;
+        line-height: 75px;
+        color: #070707;
+        font-family: Arial;
+    }
+
+    .form_bookcover .input_bookcover {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+    }
+
+    .form_bookcover .btn_upload_bookcover {
+        /*border-radius: 7px;
+        background-color: #00ced152;*/
+        /*font-weight: bold;*/
+        /*font-size:50px;*/
+        /*width: 85px;
+        height: auto;
+        margin-left: 68px;*/
+        background-color: #00ced152;
+        width: 85px;
+        height: auto;
+        margin-left: 41px;
+        text-align: center;
+        border: 1px solid black;
+        margin-top: 24px;
+        margin-left: 50px;
+    }
+.form_item_header {
+    margin-top:0px;
+}
+/*--------------form banner---------------*/
+/*.form_group_banner .imgBanner {
+    margin-left: 600px;
+    margin-top: 0px;
+}
+
+    .form_group_banner .imgBanner img {
+        margin-top: 160px;
+        margin-left: 0px;
+        width: 0px;
+        height: auto;
+    }*/
+.form_group_banner {
+    margin-top: 47px;
+}
+
+    .form_group_banner .item_info_banner {
+        position: absolute;
+        margin-top: 400px;
+    }
+
+.form_banner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -390px;
+    margin-left: 75px;
+    width: 418px;
+    height: 133px;
+    border: 2px dashed #3534346b;
+}
+
+    .form_banner p {
+        width: 100%;
+        height: 25%;
+        text-align: center;
+        line-height: 0px;
+        color: #070707;
+        font-family: Arial;
+    }
+
+    .form_banner .input_banner {
+        position:  absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+    }
+
+    .form_banner .btn_upload_banner {
+        background-color: #00ced152;
+        width: 85px;
+        height: auto;
+        margin-left: 142px;
+        text-align: center;
+        border: 1px solid black;
+    }
+
+.form_item_header {
+    margin-top: 0px;
+}
+.form_banner img {
+    height: 100%;
+    width: 100%;
+  
+}
+/*-------------------------------------checkbox-----------------*/

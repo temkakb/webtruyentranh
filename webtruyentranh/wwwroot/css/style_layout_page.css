@@ -4308,24 +4308,16 @@ input[type="button"].btn-block {
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
-.comment-body-episode{
 
-}
 .icon-sort-amount-asc:before {
     color: black;
 }
 .title-header .title-episode {
-    color: #363636;
-    font-size: 35px;
+    color: black;
+    font-size: 34px;
     font-weight: 600;
     line-height: 1.125;
     margin: 13px;
-}
-
-
-.title-header .date{
-    float:right;
-    margin: -12px;
 }
 
 .content-viewer p{
@@ -5188,7 +5180,6 @@ a.article:hover {
         }
 
         .navbar.navbar-light.bg-light{
-            width:30%;
             float:left;
         }
 }

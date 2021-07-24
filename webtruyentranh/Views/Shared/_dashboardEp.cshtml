@@ -82,14 +82,14 @@
                             '<td>'
                             + '<div class= "columns is-mobile .is-variable  is-4-tablet is-4-mobile ">' +
                             '<div class="column is-one-fifth">'
-                            + '<div style = "width:50px;height:50px;margin-left: 30px">'
+                            + '<div style = "width:50px;height:50px;margin-left: 30px;">'
                             + '<img src=' + ep.Novel.Thumbnail  + ' alt="testNovel">'
                             + '</div>' +
                                             '</div>'
 
                                              +'<div class="column">'
-                                                + '<div >'
-                                                     + '<p>'+ep.Title+'</p>'
+                            + '<div >'
+                            + '<a href="/novel/' + ep.Novel.Slugify + '/episode/' + ep.EpisodeNumber + '" style="    color: #000000; cursor: pointer;text - decoration: none;font - weight: 700;">' + ep.Title + '</a>'
                                                 + '</div>'
                                             + '</div>'
                                             + '<div class="column"></div>' +
@@ -98,7 +98,7 @@
                             + '<td>' +'</td>' // status here
                                  + '<td>'
                                   + '<div class="buttons are-small">'
-                            + '<a class="button is-primary actionBtn-update">Edit</a>'
+                            + '<a class="button is-primary actionBtn-update" href="/Episode/Update/?id=' + ep.Id + '">Edit</a>'
                             + '<a class="button is-danger actionBtn-delete" data-id="' + ep.Id+ '"><i class="far fa-trash-alt fa-2x"></i></a>'
                                      + '</div>'
                                 + '</td >'
@@ -121,6 +121,7 @@
                             });
                         }
                     });
+                    //update
                 },
                 error: function (err) {
                     alert(err);

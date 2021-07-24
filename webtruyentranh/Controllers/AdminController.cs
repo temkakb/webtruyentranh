@@ -131,7 +131,9 @@ namespace webtruyentranh.Controllers
             {
                 return Json(new { success = false, msg = $"Account {account.UserName} account has been blocked for 200 years!! " });
             }
+          
             await userManager.SetLockoutEndDateAsync(account, DateTime.Today.AddYears(200)); // set 200 nam mo khoa nhe cu
+           await userManager.UpdateSecurityStampAsync(account);
             return Json(new { success = true, msg = $"Account {account.UserName} has been blocked" });
         }
         [Authorize(Roles = "Admin,SuperAdmin")]
