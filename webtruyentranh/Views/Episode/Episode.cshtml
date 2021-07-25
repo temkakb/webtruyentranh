@@ -40,9 +40,10 @@
     </div>
     <!--------DESCRIPTION-SUBCRIBERS------->
     <div class="bio">
-        @novel.Description
+        <p style="line-height: 20px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; ">@novel.Description</p>
+        <span style="color:#000000; font-weight: 600;"><a>Read more</a></span>
     </div>
-
+  
     <!--------DESCRIPTION - SUBCRIBERS------->
     <!--------GENRES------->
     <div class="sidebar-box ftco-animate">
@@ -50,7 +51,7 @@
         <div class="tagcloud">
             @foreach (var item in novel.Genres)
                         {
-            <a href="/novel/getnovels?search=@item.GenreName" class="tag-cloud-link">@item.GenreName</a>
+             <a href="/novel/getnovels?search=@item.GenreName" class="tag-cloud-link">@item.GenreName</a>
                         }
         </div>
     </div>
@@ -60,9 +61,6 @@
         <div class="counter d-flex">
             <div class="col">
                 <strong class="number-episodes">@ViewBag.epcount</strong> Episodes
-            </div>
-            <div class="col">
-                <a href="#"><i class="icon-sort-amount-asc"></i></a><!--------sort------->
             </div>
         </div>
         <!---episode number-list-->
@@ -231,7 +229,7 @@
                         '  <p>Episode:' + ep.EpisodeNumber + '</p>' +
                         '</div>' +
                         '</a>' +
-                        ' </li>'    
+                        ' </li>'
                     );
                 });
             }

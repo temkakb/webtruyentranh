@@ -120,18 +120,15 @@ namespace webtruyentranh.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-      
-        public async Task< IActionResult> Update(Episode model)
+       
+        public async Task<IActionResult> UpdateAsync(Episode model)
         {
+
             if(ModelState.IsValid)
             {
-                var ep = _context.Episodes.Include(ep=>ep.Novel.Account).FirstOrDefault(m => m.Id == model.Id);
-                if(!ep.Novel.Account.UserName.Equals(User.Identity.Name))
-                {
-                    return PartialView("~/Views/Shared/_notfound.cshtml");
+                var account = await userManager.GetUserAsync(User);
+                var ep = _context.Episodes.Include(n => n.Novel.Account).FirstOrDefault(m => m.Id == model.Id && m.Novel.Account == account);
 
-                }
                 if(ep != null)
                 {
                     //ep.Id = model.Id;
