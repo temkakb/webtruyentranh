@@ -11,7 +11,9 @@ using System.Threading.Tasks;
 using WebTruyenTranhDataAccess.Context;
 
 using WebTruyenTranhDataAccess.Models;
+
 using Microsoft.AspNetCore.Identity;
+
 namespace webtruyentranh.Controllers
 {
     public class EpisodeController : Controller
@@ -27,29 +29,25 @@ namespace webtruyentranh.Controllers
             _context = context;
         }
 
-        
         [HttpGet]
         public IActionResult getlistepisode()
         {
-
             return View();
         }
 
-        
         [HttpGet]
-        [Route("novel/{novelSlugify}/episode/{episodenumber}")]       
+        [Route("novel/{novelSlugify}/episode/{episodenumber}")]
         public IActionResult Episode(string novelSlugify, int episodenumber)
         {
-                var episode = _context.Episodes.Where(ep => ep.Novel.Slugify.Equals(novelSlugify)).Where(ep => ep.EpisodeNumber == episodenumber).FirstOrDefault();
-                if(episode==null)
+            var episode = _context.Episodes.Where(ep => ep.Novel.Slugify.Equals(novelSlugify)).Where(ep => ep.EpisodeNumber == episodenumber).FirstOrDefault();
+            if (episode == null)
                 return PartialView("~/Views/Shared/_notfound.cshtml");
-                ViewBag.epcount = _context.Episodes.Where(ep => ep.Novel.Slugify == novelSlugify).Count();
-                var novel = _context.Novels.Include(m => m.Likes).Include(m => m.Genres).FirstOrDefault(p => p.Slugify == novelSlugify);
-                ViewBag.novel = novel;
-                return View(episode);
+            ViewBag.epcount = _context.Episodes.Where(ep => ep.Novel.Slugify == novelSlugify).Count();
+            var novel = _context.Novels.Include(m => m.Likes).Include(m => m.Genres).FirstOrDefault(p => p.Slugify == novelSlugify);
+            ViewBag.novel = novel;
+            return View(episode);
         }
 
-        
         [Route("novel/{novelId}/episode/Create")]
         [HttpGet]
         [Authorize]
@@ -63,17 +61,15 @@ namespace webtruyentranh.Controllers
         [Route("novel/{novelId}/episode/Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-    
         public IActionResult Create(Episode model)
         {
-            
             if (ModelState.IsValid)
-            { 
+            {
                 var ep = new Episode();
                 var lastEpisode = _context.Episodes.Where(m => m.NovelId == model.NovelId).OrderBy(p => p.EpisodeNumber).LastOrDefault();
                 ep.Id = model.Id;
                 ep.NovelId = model.NovelId;
-                if(lastEpisode == null)
+                if (lastEpisode == null)
                 {
                     ep.EpisodeNumber = 1;
                 }
@@ -81,8 +77,8 @@ namespace webtruyentranh.Controllers
                 {
                     ep.EpisodeNumber = lastEpisode.EpisodeNumber + 1;
                 }
-                
-                ep.Title= model.Title;
+
+                ep.Title = model.Title;
                 ep.Content = model.Content;
                 ep.Views = model.Views;
 
@@ -101,14 +97,12 @@ namespace webtruyentranh.Controllers
             return View(model);
         }
 
-
         [HttpGet]
         [Authorize]
-
         public IActionResult Update(int id)
         {
             var ep = _context.Episodes.FirstOrDefault(m => m.Id == id);
-            if(ep == null)
+            if (ep == null)
             {
                 return RedirectToAction("Sumary", "Dashboard");
             }
@@ -120,22 +114,20 @@ namespace webtruyentranh.Controllers
         }
 
         [HttpPost]
-       
         public async Task<IActionResult> UpdateAsync(Episode model)
         {
-
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var account = await userManager.GetUserAsync(User);
                 var ep = _context.Episodes.Include(n => n.Novel.Account).FirstOrDefault(m => m.Id == model.Id && m.Novel.Account == account);
 
-                if(ep != null)
+                if (ep != null)
                 {
                     //ep.Id = model.Id;
                     ep.Title = model.Title;
                     ep.Content = model.Content;
 
-                    // dua episode vao db 
+                    // dua episode vao db
                     _context.Episodes.Attach(ep);
                     _context.Entry(ep).State = EntityState.Modified;
 
@@ -159,7 +151,6 @@ namespace webtruyentranh.Controllers
             _context.SaveChanges();
             return Json(new { success = true, msg = "" });
         }
-
 
         [HttpPost]
         public JsonResult GetEpisodes(int id)
@@ -186,11 +177,12 @@ namespace webtruyentranh.Controllers
         }
 
         /**-----------------------------------------------------comment-------------------------------------------------------------**/
-        public JsonResult GetComments (long Id,int pagination)
+
+        public JsonResult GetComments(long Id, int pagination)
         {
             var staticnum = pagination * 5;
             var listcmt = _context.Comments.Include(c => c.ChildComments).ThenInclude(child => child.Account.Profile).Include(c => c.Account.Profile).Where(c => c.EpisodeId == Id)
-                .OrderByDescending(d => d.CommentDate).Skip(staticnum-5).Take(5).ToList();
+                .OrderByDescending(d => d.CommentDate).Skip(staticnum - 5).Take(5).ToList();
             return Json(JsonConvert.SerializeObject(new { listcmt = listcmt }, new JsonSerializerSettings()
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
@@ -198,21 +190,21 @@ namespace webtruyentranh.Controllers
                 Formatting = Formatting.Indented
             }));
         }
+
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task< IActionResult> Postcomment (long Id,string comment,string ReturnUrl)
+        public async Task<IActionResult> Postcomment(long Id, string comment, string ReturnUrl)
         {
             try
             {
-                var account = await userManager.GetUserAsync(User);    
+                var account = await userManager.GetUserAsync(User);
                 _context.Comments.Attach(new Comment()
                 {
-                    Account=account,
-                    CommentDate=DateTime.Now,
-                    Content=comment,
-                    EpisodeId=Id
-                   
+                    Account = account,
+                    CommentDate = DateTime.Now,
+                    Content = comment,
+                    EpisodeId = Id
                 });
                 _context.SaveChanges();
             }
@@ -222,18 +214,17 @@ namespace webtruyentranh.Controllers
             }
             return Redirect(ReturnUrl);
         }
+
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ReplyComment(long Id, String Content, String ReturnUrl) //post reply and return
 
         { //get form reply for the mss
-           
             Comment cmt = _context.Comments.Where(cmt => cmt.Id == Id).FirstOrDefault();
             if (cmt == null)
             {
                 return PartialView("~/Views/Shared/_notfound.cshtml");
-
             }
             var account = await userManager.GetUserAsync(User);
             _context.ChildComments.Attach(new ChildComment { Account = account, Content = Content, CommentDate = DateTime.Now, Comment = cmt });
@@ -241,6 +232,28 @@ namespace webtruyentranh.Controllers
             return Redirect(ReturnUrl);
         }
 
-
+        [HttpGet]
+        public JsonResult GetEpisodes(int id, int pagination)
+        {
+            var novel = _context.Novels.Include(n => n.Episodes).FirstOrDefault(n => n.Id == id);
+            var SerialList = new List<Episode>();
+            novel.Episodes.Skip(pagination * 5 - 5).Take(5).ToList().ForEach(e => SerialList.Add(new Episode()
+            {
+                Id = e.Id,
+                EpisodeNumber = e.EpisodeNumber,
+                Comments = e.Comments,
+                Content = e.Content,
+                Notifications = e.Notifications,
+                Novel = e.Novel,
+                Views = e.Views,
+                Title = e.Title
+            }));
+            return Json(JsonConvert.SerializeObject(new { episodes = SerialList, thumbnail = novel.Thumbnail }, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                Formatting = Formatting.Indented
+            }));
+        }
     }
 }
