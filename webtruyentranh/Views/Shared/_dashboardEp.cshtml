@@ -20,18 +20,22 @@
     <div class="level-right is-flex-direction-row">
 
         <div class="level-item ">
-            <a hef="/novel/createnovels" class="button is-primary newSeriesbtn">
+
+            <a href="/novel/createnovels" class="button is-primary newSeriesbtn">
+
                 <span class="icon">
                     <i class="fa fa-book" aria-hidden="true"></i>
                 </span>
                 <span>New series</span>
             </a>
 
-            <a class="button is-primary addEpisodebtn">
+
+
+            <a  class="button is-primary addEpisodebtn">
                 <span class="icon">
                     <i class="fas fa-plus" aria-hidden="true"></i>
                 </span>
-                <span href="@Url.Action("Create","Episode")">Add Episode</span>
+                <span href="@Url.Action("Create","Episode",new { })">Add Episode</span>
             </a>
         </div>
     </div>
@@ -58,6 +62,8 @@
             success: function (response) {
                 var result = JSON.parse(response);
                 var thumbnail = result["thumbnail"];
+                var slug = result["episodes"][0]["Novel"]["Slugify"];
+                console.log(result);
                 var table = $("table tbody");
                 if (result["episodes"].length != 0) {
                     reachEnd = false;
@@ -70,19 +76,21 @@
 
                 $(result["episodes"]).each(function (idx, value) {
 
-                    table.append('<tr>' +
+
+
+                    table.append('<tr class="episode-info">' +
                         '<th style="width:50px"><p>' + value["EpisodeNumber"] + '</p></th>' +
                         '<td>'
                         + '<div class= "columns is-mobile .is-variable  is-4-tablet is-4-mobile ">' +
                         '<div class="column is-one-fifth">'
-                        + '<div style = "width:50px;height:50px;margin-left: 30px">'
+                        + '<div style = "width:50px;height:50px;margin-left: 30px;">'
                         + '<img src=' + thumbnail + ' alt="testNovel">'
                         + '</div>' +
                         '</div>'
 
                         + '<div class="column">'
                         + '<div >'
-                        + '<p>' + value["Title"] + '</p>'
+                        + '<a href="/novel/' + slug + '/episode/' + value["EpisodeNumber"] + '" style="    color: #000000; cursor: pointer;text - decoration: none;font - weight: 700;">' + value["Title"] + '</a>'
                         + '</div>'
                         + '</div>'
                         + '<div class="column"></div>' +
@@ -91,12 +99,29 @@
                         + '<td>' + '</td>' // status here
                         + '<td>'
                         + '<div class="buttons are-small">'
-                        + '<a class="button is-primary actionBtn">Edit</a>'
-                        + '<a class="button is-danger actionBtn"><i class="far fa-trash-alt fa-2x"></i></a>'
+                        + '<a class="button is-primary actionBtn-update" href="/Episode/Update/?id=' + value["Id"] + '">Edit</a>'
+                        + '<a class="button is-danger actionBtn-delete" data-id="' + value["Id"] + '"><i class="far fa-trash-alt fa-2x"></i></a>'
                         + '</div>'
                         + '</td >'
                         + '</tr>');
                 });
+                 $('.actionBtn-delete').click(function () {
+                        var button = $(this); //lay doi tuong la nut dang bam
+                        var id = button.attr('data-id');
+                        var tr = button.closest('.episode-info') //tim cai gan nhat voi no: closest
+                        if (confirm("Episode will be deleted immediately and you can't undo this action. Are you sure you want to delete this?"))
+                        {
+                            $.ajax({
+                                url: '@Url.Action("Delete", "Episode")',
+                                data: { 'id': id },
+                                type: "post",
+                                success: function (reponse) {
+                                    tr.remove();
+                                }
+                            });
+         }
+
+                    });
 
             }
         });
@@ -111,6 +136,9 @@
         var reachEnd = false;
     isdash = false;
     $('select').change(function () {
+        var novelId = $(this).val();
+        var link = "/novel/" + novelId + "/Episode/Create";
+        $(".addEpisodebtn").attr("href", link);
         isFirstLoadData = true;
         pagination = 1;
         if (isFirstLoadData && pagination == 1) {
@@ -132,4 +160,5 @@
                 loadData($('select option:checked').val(),pagination++)
             }
         });
+
 </script>

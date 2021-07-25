@@ -66,8 +66,11 @@ namespace webtruyentranh.Controllers
             {
                 novels = novels.OrderBy(n => n.LastestUpdate);
             }
-            novels = novels.Skip(staticnum - 5).Take(5).ToList();
-            var Featurednovel = _db.Novels.Include(n => n.Genres).ToList().OrderBy(n => n.LastestUpdate).Skip(0).Take(2).ToList();
+
+            novels = novels.Skip(staticnum - 5).Take(5).ToList();  
+            var Featurednovel = _db.Novels.Include(n => n.Genres).ToList().OrderByDescending(n => n.LastestUpdate).Skip(0).Take(2).ToList();
+
+
             //ViewBag.pagination = pagination+1;
             return Json(JsonConvert.SerializeObject(new { Novels = novels, countresult = count, Featurednovel = Featurednovel }, new JsonSerializerSettings()
             {
@@ -343,7 +346,9 @@ namespace webtruyentranh.Controllers
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var account = await userManager.GetUserAsync(User);
+
             var novel = _db.Novels.Include(k => k.Account).Include(h => h.Episodes).ThenInclude(ep => ep.Comments).ThenInclude(cmt => cmt.ChildComments).FirstOrDefault(m => m.Id == id && m.Account == account);
+
 
             if (novel == null)
             {

@@ -110,7 +110,7 @@
     </div>
     <div class="sidebar-header">
         <!---book cover-->
-        <img src="@novel.BookCover" class="book-cover" alt="book cover" />
+        <img src="@novel.Banner" class="book-cover" alt="book cover" />
         <!----thumb image-->
         <div class="row">
             <div class="col-sm">
@@ -134,7 +134,7 @@
     </div>
     <!--------DESCRIPTION-SUBCRIBERS------->
     <div class="bio">
-        <p style="line-height: 20px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; ">@novel.Description</p>
+        <p style="line-height: 20px; margin-top: 40px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; ">@novel.Description</p>
         <span style="color:#000000; font-weight: 600;">
             <a onclick="loadPopUp('@novel.Slugify')" href="#modal-container" uk-toggle>Read more</a>
         </span>
@@ -231,7 +231,7 @@
 </div>
 <script src="~/js/jquery-3.2.1.min.js"></script>
 <script>
-         var callajax = function ( pagination) {
+         var callajaxloadcomment = function ( pagination) {
         $.ajax({
             type: "GET",
             url: "@Url.Action("GetComments", "Episode")",
@@ -328,14 +328,14 @@
                 });
             }
         });
-            callajax(pagination);
+            callajaxloadcomment(pagination);
             $(window).on("scroll", function () { // EVENT lang xuong bot
                 var docHeight = $(document).height();
-                var winScrolled = $(winnoSlugifyugifygifyifylugifylugifyelow).height() + $(window).scrollTop();
+                var winScrolled = $(window).height() + $(window).scrollTop();
                 if ((docHeight - winScrolled) < 1 && (docHeight - winScrolled)!=0) {
                     $('.cmt-pagination').attr("id", Number(pagination) + 1);
                     pagination = $('.cmt-pagination').attr("id");
-                    callajax( pagination);
+                    callajaxloadcomment( pagination);
                 }
             });
 
@@ -475,7 +475,7 @@
                                 '</div>' +
                                 '<div class="EpInfo">' +
                                      '<p class="scene">' +'Episode'+ value["EpisodeNumber"]  + ' </p>' +
-                                            '<p class="title"><span class="title__body">' + value["Content"]  +'</span></p>' +
+                                            '<p class="title"><span class="title__body">' + value["Title"]  +'</span></p>' +
                                             '<p class="additional"><span>' + newFormat(value["Views"])+' views</span></p>' +
                                         '</div>' +
                                   '</li>');
