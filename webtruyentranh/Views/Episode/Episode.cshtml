@@ -8,15 +8,109 @@
 
 }
 <link href="~/css/profile.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.7.1/dist/css/uikit.min.css" />
+<link href="~/css/StyleSheet.css" rel="stylesheet" />
 <!-- Sidebar  -->
+<div id="modal-container" onscroll="scrollHandle()" class="uk-modal-container" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title"></h2>
+        <div class="columns is-mobile">
+            <div class="column is-two-thirds">
+                <div class="columns banner" style="height: 248px;  background-repeat: no-repeat; background-size: cover; background-position: center center; ">
+                    <div class="column"></div>
+                    <div class="column"></div>
+                </div>
+                <div class="columns  is-mobile">
+                    <div class="column is-one-third">
+                        <figure class="popUp">
+                            <img class="bookCover" style="width:100%;height:100%">
+                        </figure>
+                    </div>
+                    <div class="column">
+                        <div class="is-flex is-flex-direction-column">
+                            <div class="is-flex is-flex-wrap-wrap">
+                                <a href="#" class="is-size-3 has-text-left has-text-weight-bold bookTitle"></a>
+                            </div>
+                            <div class="is-flex">
+                                <p style=" flex-shrink: 0;">Comic</p>
+                                <span style=" flex-shrink: 0; padding: 0px 3px 0px"> - </span>
+                                <p class="totalViews" style=" flex-shrink: 0;"></p>
+                                <span style=" flex-shrink: 0; padding: 0px 3px 0px"> - </span>
+                                <p class="totalSubcribers" style=" flex-shrink: 0;"></p>
+                                <span style=" flex-shrink: 0; padding: 0px 3px 0px"> - </span>
+                                <p class="totalLikes"></p>
+                            </div>
+                            <div class="is-flex buttons are-medium">
+                                <button id="subcribeButton" class="button subcribe" onclick="handleSubcribe(@novel.Id)" style="flex-basis:30%">Subcribe</button>
+                                <button id="likeButton" class="button like " onclick="handleLike(@novel.Id)" style="flex-basis:30%">Like</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*Episode List*@
+                <div class="columns" style="margin-top:40px">
+                    <div class="column">
+                        <article class="message is-dark">
+                            <div class="message-header">
+                                <p>Dark</p>
+                            </div>
+                            <div class="message-body" style="padding:0px">
+                                <ul class="EpList" style=" list-style: none outside none; margin: 0; padding: 0;">
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
 
+            <div class="column">
+                <div class="columns">
+                    <div class="column">
+                        <article class="message">
+                            <div class="message-header">
+                                <p>Creator</p>
+                            </div>
+                            <div class="message-body">
+
+                                <div class="is-flex">
+                                    <div class="is-flex creInfo-top">
+                                        <a href="#" class="creThumb" style="text-">
+                                            <img alt="Alternate Text" style="border-radius: 50% !important" />
+                                        </a>
+                                        <a href="#" class="creName-top"></a>
+                                    </div>
+                                </div>
+                                <p class="creDe-body">
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <article class="message">
+                            <div class="message-header">
+                                <p>Details</p>
+                            </div>
+                            <div class="message-body">
+                                <p class="novDe-body">
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <nav id="sidebar">
     <div id="dismiss">
         <i class="icon-times"></i>
     </div>
     <div class="sidebar-header">
         <!---book cover-->
-        <img src="@novel.BookCover" class="book-cover" alt="book cover" />
+        <img src="@novel.Banner" class="book-cover" alt="book cover" />
         <!----thumb image-->
         <div class="row">
             <div class="col-sm">
@@ -40,7 +134,10 @@
     </div>
     <!--------DESCRIPTION-SUBCRIBERS------->
     <div class="bio">
-        @novel.Description
+        <p style="line-height: 20px; margin-top: 40px; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; ">@novel.Description</p>
+        <span style="color:#000000; font-weight: 600;">
+            <a onclick="loadPopUp('@novel.Slugify')" href="#modal-container" uk-toggle>Read more</a>
+        </span>
     </div>
 
     <!--------DESCRIPTION - SUBCRIBERS------->
@@ -49,9 +146,9 @@
         <h3>#Genres</h3>
         <div class="tagcloud">
             @foreach (var item in novel.Genres)
-                        {
-            <a href="/novel/getnovels?search=@item.GenreName" class="tag-cloud-link">@item.GenreName</a>
-                        }
+            {
+                <a href="/novel/getnovels?search=@item.GenreName" class="tag-cloud-link">@item.GenreName</a>
+            }
         </div>
     </div>
 
@@ -60,9 +157,6 @@
         <div class="counter d-flex">
             <div class="col">
                 <strong class="number-episodes">@ViewBag.epcount</strong> Episodes
-            </div>
-            <div class="col">
-                <a href="#"><i class="icon-sort-amount-asc"></i></a><!--------sort------->
             </div>
         </div>
         <!---episode number-list-->
@@ -77,14 +171,13 @@
                             </div>
                         </a>
                     </li>*@
-
             </ul>
         </div>
         <!------------------->
     </div>
 </nav>
 <!--end nav-->
-            <!-- Page Content  -->
+<!-- Page Content  -->
 <div class="page-content">
     <div class="col-lg-12">
         <div class="title-header">
@@ -104,7 +197,6 @@
                     <p class="date" style="float: right; margin: 60px 20px;">@novel.LastestUpdate</p>
                 </div>
             </div>
-
         </div>
         <hr>
         <div class="content-viewer">
@@ -134,12 +226,12 @@
                 </form>
             </div>
         }
-        <div class="comment-content cmt-pagination" id="1"style="padding-bottom:25%"></div>
+        <div class="comment-content cmt-pagination" id="1" style="padding-bottom:25%"></div>
     </div>
 </div>
-    <script src="~/js/jquery-3.2.1.min.js"></script>
-    <script>
-         var callajax = function ( pagination) {
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<script>
+         var callajaxloadcomment = function ( pagination) {
         $.ajax({
             type: "GET",
             url: "@Url.Action("GetComments", "Episode")",
@@ -231,26 +323,248 @@
                         '  <p>Episode:' + ep.EpisodeNumber + '</p>' +
                         '</div>' +
                         '</a>' +
-                        ' </li>'    
+                        ' </li>'
                     );
                 });
             }
         });
-            callajax(pagination);
+            callajaxloadcomment(pagination);
             $(window).on("scroll", function () { // EVENT lang xuong bot
                 var docHeight = $(document).height();
                 var winScrolled = $(window).height() + $(window).scrollTop();
                 if ((docHeight - winScrolled) < 1 && (docHeight - winScrolled)!=0) {
                     $('.cmt-pagination').attr("id", Number(pagination) + 1);
                     pagination = $('.cmt-pagination').attr("id");
-                    callajax( pagination);
+                    callajaxloadcomment( pagination);
                 }
             });
 
             }
 
         );
+</script>
+<script>
+    var isLike = false;
+    var isSubcribe = false;
+    var totalLikes = 0;
+    var totalSubcribers =0;
+    var handleLike = function (id) {
+        console.log(isLike);
+        if (isLike) {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("UnLike", "Novel")",
+                data: {
+                    'id': id
+                },
+                success: function (data) {
+                    isLike = false;
+                    $("#likeButton").removeClass("is-info").addClass("like").html("Like");
+                    $(".totalLikes").html(newFormat(--totalLikes) + " likes");
 
+                }
+            });
 
-    </script>
+        } else {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("Dolike", "Novel")",
+                data: {
+                    'id': id
+                },
+                success: function (data) {
+                    isLike = true;
+                    $("#likeButton").removeClass("like").addClass("is-info").html("Like");
+                    $(".totalLikes").html(newFormat(++totalLikes) + " likes");
 
+                }
+            });
+        }
+    }
+    var handleSubcribe = function (id) {
+        console.log(isSubcribe);
+        if (isSubcribe) {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("UnSubscription", "Novel")",
+                data: {
+                    'id': id
+                },
+                success: function (data) {
+                    isSubcribe = false;
+                    $("#subcribeButton").removeClass("is-black").addClass("subcribe").html("Subcribe");
+                    $(".totalSubcribers").html(newFormat(--totalSubcribers) + " Subcribers");
+                }
+            });
+
+        } else {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("DoSubscription", "Novel")",
+                data: {
+                    'id': id
+                },
+                success: function (data) {
+                    isSubcribe = true;
+                    $("#subcribeButton").removeClass("subcribe").addClass("is-black").html("Subcribed");
+                    $(".totalSubcribers").html(newFormat(++totalSubcribers) + " Subcribers");
+                }
+            });
+        }
+    }
+    var pagination = 1;
+    var NovelId;
+    var thumbnail;
+    var slug;
+    var modal_scrollTop;
+    var modal_scrollHeight;
+    var modal_innerHeight;
+    var reachEnd = false;
+    var loadPopUp = function(slug) {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("getBySlug", "Novel")",
+            data: {
+                'slug': slug
+            },
+            dataType: "json",
+            success: function (data) {
+                var result = JSON.parse(data);
+                console.log(result);
+                var profile = result["novel"]["Account"]["Profile"];
+                var episodes = result["novel"]["Episodes"];
+                thumbnail = result["novel"]["Thumbnail"];
+                slug = result["novel"]["Slugify"];
+                console.log(slug);
+                totalLikes = result["totalLikes"];
+                totalSubcribers = result["totalSubcribers"];
+                isLike = result["isLike"];
+                isSubcribe = result["isSubcribe"];
+                if (isLike) {
+                    $("#likeButton").removeClass("like").addClass("is-info").html("Like");
+                } else
+                    $("#likeButton").removeClass("is-info").addClass("like").html("Like");
+                if (isSubcribe) {
+                    $("#subcribeButton").removeClass("subcribe").addClass("is-black").html("Subcribed");
+                } else
+                    $("#subcribeButton").removeClass("is-black").addClass("subcribe").html("Subcribe");
+
+                $(".bookTitle").attr("href", '/novel/' + slug + '/episode/' + episodes[0]["EpisodeNumber"]).addClass("is-black");
+                $('.banner').css('background-image', 'url(' + result["novel"]["Banner"] + ')');
+                $(".bookCover").attr("src", result["novel"]["BookCover"]);
+                $(".bookTitle").html(result["novel"]["Title"] );
+                $(".totalViews").html(newFormat(result["totalViews"]) + " views");
+                $(".totalSubcribers").html(newFormat(totalSubcribers) + " subcribers");
+
+                $(".totalLikes").html(newFormat(totalLikes) + " likes");
+
+                $(".creName-top").attr("href", "/Profile/Getprofile/" + profile["Id"]);
+                $(".creThumb").attr("href", "/Profile/Getprofile/" + profile["Id"]);
+
+                $(".creThumb img").attr("src", profile["Avartar"]);
+                $(".creName-top").html(profile["DisplayName"]);
+                $(".creDe-body").html(profile["Description"]);
+                $(".novDe-body").html(result["novel"]["Description"]);
+                $(".EpList").empty();
+                $(episodes).each(function (idx, value) {
+                    $(".EpList")
+                        .append('<li>' +
+                        '<a href="/novel/' + slug + '/episode/' + value["EpisodeNumber"]+'" class="popUpEpiInfo">' +
+                                '<div class="EpThumb">' +
+                                    '<img src = "' + thumbnail + '" style = "width:100%; height:100%" alt = "Alternate Text" />' +
+                                '</div>' +
+                                '<div class="EpInfo">' +
+                                     '<p class="scene">' +'Episode'+ value["EpisodeNumber"]  + ' </p>' +
+                                            '<p class="title"><span class="title__body">' + value["Title"]  +'</span></p>' +
+                                            '<p class="additional"><span>' + newFormat(value["Views"])+' views</span></p>' +
+                                        '</div>' +
+                                  '</li>');
+                });
+                reachEnd = false;
+                pagination = 1;
+            }
+        });
+    };
+
+    var scrollHandle = function () {
+        $("#modal-container").on("scroll", function () {
+            modal_scrollTop = Math.floor($('#modal-container').scrollTop());
+            modal_scrollHeight = Math.floor($('#modal-container').prop('scrollHeight'));
+            modal_innerHeight = Math.floor($('#modal-container').innerHeight());
+            console.log(modal_scrollTop);
+            console.log(modal_scrollHeight);
+            console.log(modal_innerHeight);
+            console.log("---------------");
+
+            // Bottom reached:
+            if ((modal_scrollTop + modal_innerHeight) >= (modal_scrollHeight-1) && !reachEnd) {
+                console.log("reach end");
+                reachEnd = true;
+
+                callajax(++pagination);
+            }
+
+        });
+
+    }
+
+    var newFormat = function(labelValue) {
+
+        // Nine Zeroes for Billions
+        return Math.abs(Number(labelValue)) >= 1.0e+9
+
+        ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + "B"
+            // Six Zeroes for Millions
+        : Math.abs(Number(labelValue)) >= 1.0e+6
+
+        ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + "M"
+                // Three Zeroes for Thousands
+        : Math.abs(Number(labelValue)) >= 1.0e+3
+
+        ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + "K"
+
+        : Math.abs(Number(labelValue));
+
+    };
+
+    var callajax = function (pagination) {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetEpisodes", "Episode")",
+            data: {
+                'Id': @novel.Id,
+                'pagination': pagination
+            },
+            dataType: "json",
+            success: function (response) {
+                var result = JSON.parse(response);
+                console.log(result);
+
+                var s = result["episodes"][0]["Novel"]["Slugify"];
+                $(result["episodes"]).each(function (idx, value) {
+                    $(".EpList")
+                        .append('<li>' +
+                        '<a href="/novel/' + s + '/episode/' + value["EpisodeNumber"] + '" class="popUpEpiInfo">' +
+                            '<div class="EpThumb">' +
+                            '<img src = "' + thumbnail + '" style = "width:100%; height:100%" alt = "Alternate Text" />' +
+                            '</div>' +
+                            '<div class="EpInfo">' +
+                            '<p class="scene">' + 'Episode' + value["EpisodeNumber"] + ' </p>' +
+                            '<p class="title"><span class="title__body">' + value["Content"] + '</span></p>' +
+                            '<p class="additional"><span>' + newFormat(value["Views"]) + ' views</span></p>' +
+                            '</div>' +
+                            '</li>');
+
+                });
+                if (result["episodes"].length == 0) reachEnd = true;
+                else reachEnd = false;
+            }
+
+        });
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.7.1/dist/js/uikit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.7.1/dist/js/uikit-icons.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

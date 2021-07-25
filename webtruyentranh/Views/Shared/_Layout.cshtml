@@ -1,16 +1,17 @@
 ﻿@using WebTruyenTranhDataAccess.Context;
-
+@using Microsoft.EntityFrameworkCore; 
 @inject SignInManager<Account> signinManager;
 @inject UserManager<Account> userManager;
 @inject ComicContext _db;
 @inject IEnumerable<Notification> nofications;
-@{
 
+@{
+  
     var profile = _db.Profiles.FirstOrDefault(p => p.Account.UserName == User.Identity.Name);
     var user = await userManager.GetUserAsync(User);
 
     if (user != null)
-        nofications = _db.Notifications.Where(n => n.Account.Id == user.Id).Where(n => n.IsRead == false).Skip(0).Take(5).ToList();
+        nofications = _db.Notifications.Include(n=>n.Episode).ThenInclude(ep=>ep.Novel).Where(n => n.Account.Id == user.Id).Where(n => n.IsRead == false).Skip(0).Take(5).OrderByDescending(e=>e.CreateDate).ToList();
     else
         nofications = null;
 }
@@ -98,21 +99,24 @@
                                     {
                                         foreach (var nofi in nofications)
                                         {
-                                            <li class="notify-read">
-                                                <div class="notify_icon">
-                                                    <span class="icon">
-                                                        <img src="" alt="creators_pic" />
-                                                    </span>
+                                    <li class="notify-read">
+
+                                        <div class="notify_icon">
+                                            <span class="icon">
+                                                <img src="@nofi.Episode.Novel.Thumbnail" alt="creators_pic" />
+                                            </span>
+                                        </div>
+                                        <a href="/novel/@nofi.Episode.Novel.Slugify/episode/@nofi.Episode.EpisodeNumber">
+                                            <div class="notify_data">
+                                                <div class="title">
+                                                    @nofi.Content
                                                 </div>
-                                                <div class="notify_data">
-                                                    <div class="title">
-                                                        @nofi.Content
-                                                    </div>
-                                                    <div class="sub_title">
-                                                        @profile.DisplayName
-                                                    </div>
+                                                <div class="sub_title">
+                                                    @profile.DisplayName
                                                 </div>
-                                            </li>
+                                            </div>
+                                        </a>
+                                    </li>
 
                                         }
 

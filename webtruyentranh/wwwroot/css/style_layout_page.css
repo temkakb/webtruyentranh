@@ -4358,7 +4358,7 @@ input[type="button"].btn-block {
 }
 
 .sidebar-box.ftco-animate.fadeInUp.ftco-animated {
-    margin: 10px 15px 20px;
+    margin: 0 10px 15px;
 }
 
 .sidebar-box.ftco-animate.fadeInUp.ftco-animated h3 {
@@ -4387,14 +4387,11 @@ input[type="button"].btn-block {
     }
 
 .bio {
-    margin: 10px 10px 10px 10px;
+    margin: 0px 5px 10px 5px;
     font-size: 15px;
     padding: -4px;
 }
-    .bio p {
-        text-align:match-parent;
-        overflow:hidden;
-    }
+
     .bio .btn.btn-primary.subcribers {
         margin: 10px 17px;
         font-weight: 600;
@@ -4436,7 +4433,7 @@ input[type="button"].btn-block {
 }
     #sidebar .sidebar-header img.book-cover {
         background-size: cover;
-        height: 190px;
+        height: 160px;
         width: 100%;
         background-repeat: no-repeat;
         background-position: center center;
