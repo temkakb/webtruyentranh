@@ -25,20 +25,17 @@
 
             <div>
                 <div class="buttons are-medium ">
-                    <a class="button" id="toEpisodeButtonSideBar" >
+                    <a class="button" id="toEpisodeButtonSideBar">
                         <i class="fas fa-bars is-white"></i>
                     </a>
                 </div>
                 <p class="sidebar-title" id="toEpisodeTitleSideBar">Episodes</p>
-
             </div>
         </div>
     </nav>
 </div>
 
-
 <div class="container dashboard" style="margin-bottom:200px; margin-left:60px">
-
 </div>
 
 <script src="~/js/jquery-3.2.1.min.js"></script>
@@ -75,6 +72,7 @@
                 success: function (data) {
                     $(".dashboard").html('');
                     $(".dashboard").html(data);
+                    $('select').trigger("change");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert('Failed to retrieve Episodes.');
@@ -82,4 +80,3 @@
             })
         });
 </script>
-

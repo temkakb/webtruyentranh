@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace WebTruyenTranhDataAccess.Models
 {
     public class Novel
-    {    
+    {
         public long Id { get; set; }
 
         [Required(ErrorMessage = "Please enter novel title")]
@@ -30,7 +30,6 @@ namespace WebTruyenTranhDataAccess.Models
 
         public int LikeCount
         {
-
             get { return Likes == null ? 0 : Likes.Count(); }
 
             set { likeCount = value; }
@@ -41,7 +40,7 @@ namespace WebTruyenTranhDataAccess.Models
         public string Slugify { get; set; }
 
         public Account Account { get; set; }
-        public long  AccountId { get; set; }
+        public long AccountId { get; set; }
 
         public List<Genre> Genres { get; set; }
 
@@ -81,6 +80,11 @@ namespace WebTruyenTranhDataAccess.Models
                 Episodes.ForEach(e => total += e.Content.Split(" ").Length);
             }
             return total;
+        }
+
+        public long totalViews()
+        {
+            return Math.Max(0, this.Episodes.Sum(e => e.Views));
         }
     }
 }

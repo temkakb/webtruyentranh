@@ -20,23 +20,18 @@
     <div class="level-right is-flex-direction-row">
 
         <div class="level-item ">
-            <a hef="/novel/createnovels"class="button is-primary newSeriesbtn">
+            <a hef="/novel/createnovels" class="button is-primary newSeriesbtn">
                 <span class="icon">
                     <i class="fa fa-book" aria-hidden="true"></i>
                 </span>
                 <span>New series</span>
             </a>
-            <a class="button is-primary  editSeriesbtn">
-                <span class="icon">
-                    <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-                </span>
-                <span>Edit Series</span>
-            </a>
+
             <a class="button is-primary addEpisodebtn">
                 <span class="icon">
                     <i class="fas fa-plus" aria-hidden="true"></i>
                 </span>
-                <span href="@Url.Action("Create","Episode")" >Add Episode</span>
+                <span href="@Url.Action("Create","Episode")">Add Episode</span>
             </a>
         </div>
     </div>
@@ -54,78 +49,87 @@
     </tbody>
 </table>
 <script type="text/javascript">
-    $(document).ready(function () {
-          $('select').trigger("change");
-    });
-    $('select').change(function () {
-        var novelId = $(this).val();
-        var link = "/novel/" + novelId + "/Episode/Create";
-        $(".addEpisodebtn").attr("href", link);
-            $.ajax({
-                url: '@Url.Action("GetEpisodes", "Episode")',
-                data: { 'id': $(this).val() },
-                dataType: "json",
-                method: 'post',
-                success: function (response) {
-                    var result = JSON.parse(response);
-                    console.log(result);
-                    var items = [];
-                    for (var i in result) {
-                        items.push(result[i])
-                    }
-                    var table = $("table tbody");
-                    table.empty();
-                    $(items[1]).each(function (idx, ep) {
-
-                        table.append('<tr class="episode-info">' +
-                            '<th style="width:50px"><p>' + ep.EpisodeNumber+ '</p></th>' +
-                            '<td>'
-                            + '<div class= "columns is-mobile .is-variable  is-4-tablet is-4-mobile ">' +
-                            '<div class="column is-one-fifth">'
-                            + '<div style = "width:50px;height:50px;margin-left: 30px;">'
-                            + '<img src=' + ep.Novel.Thumbnail  + ' alt="testNovel">'
-                            + '</div>' +
-                                            '</div>'
-
-                                             +'<div class="column">'
-                            + '<div >'
-                            + '<a href="/novel/' + ep.Novel.Slugify + '/episode/' + ep.EpisodeNumber + '" style="    color: #000000; cursor: pointer;text - decoration: none;font - weight: 700;">' + ep.Title + '</a>'
-                                                + '</div>'
-                                            + '</div>'
-                                            + '<div class="column"></div>' +
-                                        '</div>' +
-                                   '</td>'
-                            + '<td>' +'</td>' // status here
-                                 + '<td>'
-                                  + '<div class="buttons are-small">'
-                            + '<a class="button is-primary actionBtn-update" href="/Episode/Update/?id=' + ep.Id + '">Edit</a>'
-                            + '<a class="button is-danger actionBtn-delete" data-id="' + ep.Id+ '"><i class="far fa-trash-alt fa-2x"></i></a>'
-                                     + '</div>'
-                                + '</td >'
-                            +'</tr>');
-                    });
-                    //delete
-                    $('.actionBtn-delete').click(function () {
-                        var button = $(this); //lay doi tuong la nut dang bam
-                        var id = button.attr('data-id');
-                        var tr = button.closest('.episode-info') //tim cai gan nhat voi no: closest
-                        if (confirm("Episode will be deleted immediately and you can't undo this action. Are you sure you want to delete this?"))
-                        {
-                            $.ajax({
-                                url: '@Url.Action("Delete", "Episode")',
-                                data: { 'id': id },
-                                type: "post",
-                                success: function (reponse) {
-                                    tr.remove();
-                                }
-                            });
-                        }
-                    });
-                    //update
-                },
-                error: function (err) {
-                    alert(err);
+    var loadData = function (id, pagination) {
+        $.ajax({
+            url: '@Url.Action("GetEpisodes", "Episode")',
+            data: { 'id': id, 'pagination': pagination },
+            dataType: "json",
+            method: 'get',
+            success: function (response) {
+                var result = JSON.parse(response);
+                var thumbnail = result["thumbnail"];
+                var table = $("table tbody");
+                if (result["episodes"].length != 0) {
+                    reachEnd = false;
+                    isdash = true;
                 }
-            });
-         });
+                else {
+                    reachEnd = true;
+                    isdash = false;
+                }
+
+                $(result["episodes"]).each(function (idx, value) {
+
+                    table.append('<tr>' +
+                        '<th style="width:50px"><p>' + value["EpisodeNumber"] + '</p></th>' +
+                        '<td>'
+                        + '<div class= "columns is-mobile .is-variable  is-4-tablet is-4-mobile ">' +
+                        '<div class="column is-one-fifth">'
+                        + '<div style = "width:50px;height:50px;margin-left: 30px">'
+                        + '<img src=' + thumbnail + ' alt="testNovel">'
+                        + '</div>' +
+                        '</div>'
+
+                        + '<div class="column">'
+                        + '<div >'
+                        + '<p>' + value["Title"] + '</p>'
+                        + '</div>'
+                        + '</div>'
+                        + '<div class="column"></div>' +
+                        '</div>' +
+                        '</td>'
+                        + '<td>' + '</td>' // status here
+                        + '<td>'
+                        + '<div class="buttons are-small">'
+                        + '<a class="button is-primary actionBtn">Edit</a>'
+                        + '<a class="button is-danger actionBtn"><i class="far fa-trash-alt fa-2x"></i></a>'
+                        + '</div>'
+                        + '</td >'
+                        + '</tr>');
+                });
+
+            }
+        });
+
+    }
+
+    //$(document).ready(function () {
+    //    $('select').trigger("change");
+    //});
+    var pagination;
+    var isFirstLoadData;
+        var reachEnd = false;
+    isdash = false;
+    $('select').change(function () {
+        isFirstLoadData = true;
+        pagination = 1;
+        if (isFirstLoadData && pagination == 1) {
+            $("table tbody").empty();
+            loadData($(this).val(), pagination++);
+            isFirstLoadData = false;
+            isdash = true;
+        }
+
+    });
+
+        $(window).on("scroll", function () { // EVENT lang xuong bot
+            var docHeight = $(document).height();
+                console.log("aa");
+            var winScrolled = $(window).height() + $(window).scrollTop();
+            if ((docHeight - winScrolled) < 1 && (docHeight - winScrolled) != 0 && !reachEnd && isdash) {
+                reachEnd = true;
+                isdash = false;
+                loadData($('select option:checked').val(),pagination++)
+            }
+        });
 </script>
