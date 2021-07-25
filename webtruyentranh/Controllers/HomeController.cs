@@ -25,26 +25,26 @@ namespace webtruyentranh.Controllers
 
         public IActionResult Index()
         {
-            //var novels = _db.Novels.Include(a => a.Likes).Include(b => b.Account).ThenInclude(d => d.Profile).ToList();
-            // ViewBag.countCreator = _db.Accounts.Include(b => b.Novels).ToList().Count;
-            // ViewBag.countNovels = novels.ToList().Count;
-            // ViewBag.Novel1= novels.OrderByDescending(c => c.LikeCount).Skip(0).Take(1).First();
-            // ViewBag.Novel2 = novels.OrderByDescending(c => c.LikeCount).Skip(1).Take(1).First();
-            // ViewBag.Novel3 = novels.OrderByDescending(c => c.LikeCount).Skip(2).Take(1).First();
-            // ViewBag.Novel4 = novels.OrderByDescending(c => c.LikeCount).Skip(3).Take(1).First();
-            // ViewBag.Novel5 = novels.OrderByDescending(c => c.LikeCount).Skip(4).Take(1).First();
-            // ViewBag.Novel6 = novels.OrderByDescending(c => c.LikeCount).Skip(5).Take(1).First();
-            // ViewBag.Novel7 = novels.OrderByDescending(c => c.LikeCount).Skip(6).Take(1).First();
-            // ViewBag.Novel8 = novels.OrderByDescending(c => c.LikeCount).Skip(7).Take(1).First();
-            // ViewBag.Novel9 = novels.OrderByDescending(c => c.LikeCount).Skip(8).Take(1).First();
+            var novels = _db.Novels.Include(a => a.Likes).Include(b => b.Account).ThenInclude(d => d.Profile).ToList();
+            ViewBag.countCreator = _db.Accounts.Include(b => b.Novels).ToList().Count;
+            ViewBag.countNovels = novels.ToList().Count;
+            ViewBag.Novel1 = novels.OrderByDescending(c => c.LikeCount).Skip(0).Take(1).First();
+            ViewBag.Novel2 = novels.OrderByDescending(c => c.LikeCount).Skip(1).Take(1).First();
+            ViewBag.Novel3 = novels.OrderByDescending(c => c.LikeCount).Skip(2).Take(1).First();
+            ViewBag.Novel4 = novels.OrderByDescending(c => c.LikeCount).Skip(3).Take(1).First();
+            ViewBag.Novel5 = novels.OrderByDescending(c => c.LikeCount).Skip(4).Take(1).First();
+            ViewBag.Novel6 = novels.OrderByDescending(c => c.LikeCount).Skip(5).Take(1).First();
+            ViewBag.Novel7 = novels.OrderByDescending(c => c.LikeCount).Skip(6).Take(1).First();
+            ViewBag.Novel8 = novels.OrderByDescending(c => c.LikeCount).Skip(7).Take(1).First();
+            ViewBag.Novel9 = novels.OrderByDescending(c => c.LikeCount).Skip(8).Take(1).First();
 
-            // //ViewBag.Featurednovel1 = novels.OrderBy(n => n.LastestUpdate).Skip(0).Take(1);
-            // //ViewBag.Featurednovel2 = novels.OrderBy(n => n.LastestUpdate).Skip(1).Take(1);
-            // //ViewBag.Featurednovel3 = novels.OrderBy(n => n.LastestUpdate).Skip(2).Take(1);
+            //ViewBag.Featurednovel1 = novels.OrderBy(n => n.LastestUpdate).Skip(0).Take(1);
+            //ViewBag.Featurednovel2 = novels.OrderBy(n => n.LastestUpdate).Skip(1).Take(1);
+            //ViewBag.Featurednovel3 = novels.OrderBy(n => n.LastestUpdate).Skip(2).Take(1);
 
-            // var novelFeature = novels.OrderByDescending(n => n.LastestUpdate).Skip(0).Take(3).ToList();
-            // return View(novelFeature);
-            return View("about");
+            var novelFeature = novels.OrderByDescending(n => n.LastestUpdate).Skip(0).Take(3).ToList();
+            return View(novelFeature);
+            return View(novels);
         }
 
         [Route("About")]

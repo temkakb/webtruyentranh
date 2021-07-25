@@ -81,17 +81,36 @@ namespace webtruyentranh.Controllers
                 ep.Title = model.Title;
                 ep.Content = model.Content;
                 ep.Views = model.Views;
+                
 
                 try
                 {
                     _context.Episodes.Add(ep);
+                    //_context.SaveChanges();
+                 
                     _context.SaveChanges();
+
                 }
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("save_error", "Save Error" + ex.Message);
                     return View(model);
                 }
+                var listuser = _context.Accounts.Where(a => a.Subscriptions.Any(s => s.Novel.Id == model.NovelId)).ToList();
+       
+                foreach (var user in listuser)
+                {
+                    _context.Notifications.Add(new Notification()
+                    {
+                       TargetAccountId=user.Id,
+                        NewEpisodeId=ep.Id,
+                        IsRead = false,
+                        Content = "Hello, " + user.UserName + " New episode \n" + ep.Title,
+                        CreateDate = DateTime.Now
+
+                    });
+                }
+                _context.SaveChanges();
                 return RedirectToAction("Sumary", "Dashboard");
             }
             return View(model);
