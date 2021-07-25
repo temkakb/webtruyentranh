@@ -109,11 +109,11 @@
                 <div class="form_item_checkbox">
                     <b> Genres </b>
                 </div>
-                <div class="checkbox" style="margin-top: 23px; margin-left: 85px ">
+                <div class="checkbox" style="margin-top: 23px; margin-left: 145px; max-width: 330px ">
 
                     @for (int i = 0; i < Model.genres.Count; i++)
                     {
-
+                        
                         <input type="hidden" asp-for="@Model.genres[i].Value" />
                         <input type="hidden" asp-for="@Model.genres[i].Text" />
                         <input asp-for="genres[i].Selected" /> @Model.genres[i].Text
