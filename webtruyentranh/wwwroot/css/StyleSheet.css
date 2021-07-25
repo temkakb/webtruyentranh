@@ -3,23 +3,24 @@
     cursor: default;
 }
 
+a:link {
+    text-decoration: none;
+}
+
 .page-wrap {
     width: 100%;
     height: 100%;
     margin: 0;
 }
 
-
 .container {
     width: 100%;
     height: auto;
 }
 
-
 section {
     position: relative;
 }
-
 
 .center {
     line-height: 200px;
@@ -33,7 +34,6 @@ section {
         display: inline-block;
         vertical-align: middle;
     }
-
 
 .fixed {
     position: fixed;
@@ -54,21 +54,17 @@ section {
         margin-bottom: 0px;
     }
 
-
 #todashboardButtonSideBar {
-
     background: #f6b606;
     color: white;
     border: 0px;
 }
-
 
 #toEpisodeTitleSideBar {
     color: white;
 }
 
 #toEpisodeButtonSideBar {
-
     background: #5e5e72;
     border: 0px;
     color: white;
@@ -79,7 +75,6 @@ section {
 }
 
 .toEpisode:hover #toEpisodeTitleSideBar {
-
     color: #f6b606
 }
 
@@ -202,7 +197,6 @@ index__body {
     border-radius: 5px;
 }
 
-
 .editSeriesbtn {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
@@ -258,5 +252,150 @@ table p {
 
 .newSeriesbtn, .editSeriesbtn, .addEpisodebtn > .button {
     margin: 10px;
+}
 
+.popUp {
+    width: 140px;
+    height: 220px;
+    position: absolute;
+    top: 230px;
+    left: 125px;
+    border: solid 5px white;
+    border-radius: 4px;
+}
+
+    .popUp img {
+        -webkit-filter: grayscale(0) blur(0);
+        filter: grayscale(0) blur(0);
+        -webkit-transition: .3s ease-in-out;
+        transition: .3s ease-in-out;
+    }
+
+    .popUp:hover img {
+        -webkit-filter: grayscale(60%) blur(3px);
+        filter: grayscale(60%) blur(3px);
+    }
+
+.subcribe {
+    border: 3px solid black;
+    color: black;
+}
+
+.like {
+    border: 3px solid blue;
+    color: blue;
+}
+
+.popUpEpiInfo {
+    position: relative;
+    display: flex;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+    .popUpEpiInfo .EpThumb {
+        position: relative;
+        flex-shrink: 0;
+        width: 100px;
+        height: 100px;
+        margin: -1px 30px -1px -1px;
+        text-decoration: none;
+    }
+
+    .popUpEpiInfo .EpInfo {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        width: 100%;
+        margin: auto 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        text-decoration: none;
+    }
+
+        .popUpEpiInfo .EpInfo .scene {
+            display: flex;
+            margin-bottom: 4px;
+            line-height: 16px;
+            font-size: 12px;
+            color: #a6a6a6;
+            font-weight: 600 !important;
+            text-decoration: none;
+        }
+
+        .popUpEpiInfo .EpInfo .title {
+            display: flex;
+            margin-bottom: 4px;
+            line-height: 22px;
+            font-size: 16px;
+            color: #060616;
+            font-weight: 600 !important;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+            .popUpEpiInfo .EpInfo .title .title__body {
+                max-width: 90%;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                text-decoration: none;
+            }
+
+        .popUpEpiInfo .EpInfo .additional {
+            display: flex;
+            margin: 0;
+            line-height: 18px;
+            font-size: 14px;
+            color: #262636;
+            text-decoration: none;
+        }
+
+.creInfo-top {
+    display: flex;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.creThumb {
+    position: relative;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.creName-top {
+    margin: auto 0;
+    line-height: 20px;
+    font-size: 16px;
+    color: #060616;
+    font-weight: 600 !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.creDe-body {
+    position: relative;
+    margin-top: 12px;
+    line-height: 19px;
+    font-size: 14px;
+    color: #464656;
+    word-break: break-word;
+}
+
+.novDe-body {
+    position: relative;
+    margin-top: 12px;
+    line-height: 19px;
+    font-size: 14px;
+    color: #464656;
+    word-break: break-word;
 }
