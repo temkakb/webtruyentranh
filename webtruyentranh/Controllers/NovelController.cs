@@ -349,12 +349,23 @@ namespace webtruyentranh.Controllers
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var account = await userManager.GetUserAsync(User);
-            var novel = _db.Novels.Include(k=>k.Account).Include(h=>h.Episodes).FirstOrDefault( m => m.Id == id && m.Account== account);
-           
+            var novel = _db.Novels.Include(k=>k.Account).Include(h=>h.Episodes).ThenInclude(ep=>ep.Comments).ThenInclude(cmt =>cmt.ChildComments).FirstOrDefault( m => m.Id == id && m.Account== account);
+          
             if (novel == null)
             {
                 return PartialView("~/Views/Shared/_notfound.cshtml");
             }
+            foreach (var ep in novel.Episodes)
+            {
+                foreach (var cmt in ep.Comments)
+                {
+                    foreach(var childcmt in cmt.ChildComments)
+                    {
+                        _db.Remove(childcmt);
+                    }
+                    _db.Remove(cmt);
+                }    
+            }    
             _db.Entry(novel.Account).State = EntityState.Detached;
             _db.Remove(novel);
             _db.SaveChanges();
