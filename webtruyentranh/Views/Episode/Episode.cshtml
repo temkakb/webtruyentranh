@@ -42,7 +42,7 @@
     <div class="bio">
         @novel.Description
     </div>
-    <a href="#" style="margin: 0 93px 0; padding: 7px 60px;" class="btn btn-primary subcribers">Subscribers</a>
+
     <!--------DESCRIPTION - SUBCRIBERS------->
     <!--------GENRES------->
     <div class="sidebar-box ftco-animate">
@@ -50,7 +50,7 @@
         <div class="tagcloud">
             @foreach (var item in novel.Genres)
                         {
-            <a href="#" class="tag-cloud-link">@item.GenreName</a>
+            <a href="/novel/getnovels?search=@item.GenreName" class="tag-cloud-link">@item.GenreName</a>
                         }
         </div>
     </div>
@@ -225,13 +225,13 @@
                     $('.list-unstyled').append(
                         '   <li class="episode-list-number">' +
                         '  <a href="' + '/novel/' + ep.Novel.Slugify + '/episode/' + ep.EpisodeNumber+'" class="episode-number">' +
-                        ' <img class="mr-3" style=" height:17%; width: 17%; float: left;" src="' + ep.Novel.Thumbnail + '" alt="thumb image">' +
+                        ' <img class="mr-3" style=" height:55px; width: 50px; float: left;" src="' + ep.Novel.Thumbnail + '" alt="thumb image">' +
                         ' <div class="media-body">' +
                         ' <h5 class="mt-0 mb-1">' + ep.Title + ', Part' + ep.EpisodeNumber + '</h5>' +
                         '  <p>Episode:' + ep.EpisodeNumber + '</p>' +
                         '</div>' +
                         '</a>' +
-                        ' </li>'
+                        ' </li>'    
                     );
                 });
             }
