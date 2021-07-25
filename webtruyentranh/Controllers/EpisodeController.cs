@@ -115,11 +115,15 @@ namespace webtruyentranh.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(Episode model)
+       
+        public async Task<IActionResult> UpdateAsync(Episode model)
         {
+
             if(ModelState.IsValid)
             {
-                var ep = _context.Episodes.FirstOrDefault(m => m.Id == model.Id);
+                var account = await userManager.GetUserAsync(User);
+                var ep = _context.Episodes.Include(n => n.Novel.Account).FirstOrDefault(m => m.Id == model.Id && m.Novel.Account == account);
+
                 if(ep != null)
                 {
                     //ep.Id = model.Id;
