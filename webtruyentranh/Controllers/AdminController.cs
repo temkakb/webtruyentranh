@@ -162,8 +162,20 @@ namespace webtruyentranh.Controllers
 
             var novel = _db.Novels.Include(n => n.Episodes).ThenInclude(e => e.Comments).ThenInclude(cm => cm.ChildComments).Where(n => n.Id == Id)
                    .FirstOrDefault();
+        
             if (novel != null)
             {
+                foreach(var ep in novel.Episodes)
+                {
+                    foreach(var cmt in ep.Comments)
+                    {
+                        foreach(var child in cmt.ChildComments)
+                        {
+                            _db.Remove(child);
+                        }
+                        _db.Remove(cmt);
+                    }    
+                }
                 _db.Remove(novel);
                 _db.SaveChanges();
                 return Json(new { success = true, msg = $"Novel {novel.Title} has been removed" });
