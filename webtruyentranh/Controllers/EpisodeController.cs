@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using WebTruyenTranhDataAccess.Context;
 
 using WebTruyenTranhDataAccess.Models;
-
+using Microsoft.AspNetCore.Identity;
 namespace webtruyentranh.Controllers
 {
     public class EpisodeController : Controller
@@ -52,6 +52,7 @@ namespace webtruyentranh.Controllers
         
         [Route("novel/{novelId}/episode/Create")]
         [HttpGet]
+        [Authorize]
         public IActionResult Create(long novelId)
         {
             var model = new Episode();
@@ -61,6 +62,8 @@ namespace webtruyentranh.Controllers
 
         [Route("novel/{novelId}/episode/Create")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
+    
         public IActionResult Create(Episode model)
         {
             
@@ -100,6 +103,8 @@ namespace webtruyentranh.Controllers
 
 
         [HttpGet]
+        [Authorize]
+
         public IActionResult Update(int id)
         {
             var ep = _context.Episodes.FirstOrDefault(m => m.Id == id);
@@ -142,6 +147,7 @@ namespace webtruyentranh.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             var ep = _context.Episodes.FirstOrDefault(m => m.Id == id);

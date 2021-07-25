@@ -13,14 +13,17 @@
             </div>
             <div class="column"></div>
             <div class="column is-two-fifths-widescreen is-half-tablet">
-                <a class="button  btn-label">Edit series</a>
+                <a href="/novel/updatenovel/@Model.Id"class="button  btn-label">Edit series</a>
 
                 <a data-novel-id="@Model.Id" class="button is-primary toEpisode">
 
                     <i class="fas fa-bars is-white"></i>
                 </a>
-                <a class="button is-primary">
+                <a href="/novel/@Model.Id/Episode/Create" class="button is-primary">
                     <i class="fas fa-plus is-white"></i>
+                </a>
+                <a href="/Novel/Delete/@Model.Id" class="button is-primary">
+                    <i class="far fa-trash-alt is-white"></i>
                 </a>
             </div>
         </div>

@@ -80,7 +80,7 @@ main{
 }
     .form_group_bookcover .imgBookcover img {
         margin-top: 183px;
-        margin-left: 0px;
+        margin-left: 21px;
     }
 
 .form_group_bookcover {
@@ -101,7 +101,7 @@ main{
     left: 50%;
     margin-top: -751px;
     margin-left: 168px;
-    width: 221px;
+    width: 281px;
     height: 341px;
     border: 2px dashed #3534346b;
 }
@@ -140,7 +140,7 @@ main{
         text-align: center;
         border: 1px solid black;
         margin-top: 24px;
-        margin-left: 50px;
+        margin-left: 89px;
     }
 .form_item_header {
     margin-top:0px;
@@ -173,7 +173,7 @@ main{
     margin-top: -390px;
     margin-left: 75px;
     width: 418px;
-    height: 133px;
+    height: 200px;
     border: 2px dashed #3534346b;
 }
 
@@ -200,7 +200,7 @@ main{
         background-color: #00ced152;
         width: 85px;
         height: auto;
-        margin-left: 142px;
+        margin-left: 176px;
         text-align: center;
         border: 1px solid black;
     }

@@ -20,12 +20,20 @@
                 {
                     List<String> a = new List<String>();
                     item.Account.Novels.ForEach(n => a.Add(n.BookCover));
+                    List<String> b = new List<String>();
+                    item.Account.Novels.ForEach(n => b.Add(n.Slugify));
 
                     @for (int i = 0; i < @a.Count; i++)
 
                     {
-                        <div class="brand-item" style="height: 180px; width: 40px;"><img src="@a[i].ToString()" alt="" style="width: 100%; height: 100%;"></div>
-              
+               
+                <div class="brand-item" style="height: 180px; width: 40px;">
+                    <a href="/novel/@b[i].ToString()/episode/1">
+                        <img src="@a[i].ToString()" alt="" style="width: 100%; height: 100%;">
+                    </a>
+                </div>
+                    
+            
                     }
 
                 }
