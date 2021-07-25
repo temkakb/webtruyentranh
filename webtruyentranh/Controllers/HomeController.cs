@@ -44,7 +44,7 @@ namespace webtruyentranh.Controllers
             //ViewBag.Featurednovel2 = novels.OrderBy(n => n.LastestUpdate).Skip(1).Take(1);
             //ViewBag.Featurednovel3 = novels.OrderBy(n => n.LastestUpdate).Skip(2).Take(1);
             
-            var novelFeature = novels.OrderByDescending(n => n.LastestUpdate).Skip(0).Take(3).ToList();
+            var novelFeature = novels.OrderBy(n => n.LastestUpdate).Skip(0).Take(3).ToList();
             return View(novelFeature);
         }
 
