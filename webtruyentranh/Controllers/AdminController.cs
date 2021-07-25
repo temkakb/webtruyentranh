@@ -131,7 +131,9 @@ namespace webtruyentranh.Controllers
             {
                 return Json(new { success = false, msg = $"Account {account.UserName} account has been blocked for 200 years!! " });
             }
+          
             await userManager.SetLockoutEndDateAsync(account, DateTime.Today.AddYears(200)); // set 200 nam mo khoa nhe cu
+           await userManager.UpdateSecurityStampAsync(account);
             return Json(new { success = true, msg = $"Account {account.UserName} has been blocked" });
         }
         [Authorize(Roles = "Admin,SuperAdmin")]
@@ -193,15 +195,15 @@ namespace webtruyentranh.Controllers
         [Authorize(Roles = "SuperAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult updateGenre(long Id , String name)
+        public JsonResult updateGenre(long Id , String GenreName)
         {
             try
             {
                 var genre = _db.Genres.Find(Id);
-                genre.GenreName = name;
+                genre.GenreName = GenreName;
                 _db.Update(genre);
                 _db.SaveChanges();
-                return Json(new { success = true, msg = $"genre has been change to {name}" });
+                return Json(new { success = true, msg = $"genre has been change to {GenreName}" });
             }
             catch(Exception ex)
             {
@@ -220,10 +222,10 @@ namespace webtruyentranh.Controllers
         [ValidateAntiForgeryToken]
         [HttpPost]
 
-        public JsonResult CreateGenre(String name)
+        public JsonResult CreateGenre(String GenreName)
         {
             
-            _db.Genres.Add(new Genre { GenreName = name });
+            _db.Genres.Add(new Genre { GenreName = GenreName });
             _db.SaveChanges();
 
             return Json(new { success = true, msg = "Successed" });
